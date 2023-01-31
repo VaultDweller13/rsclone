@@ -1,3 +1,21 @@
-# Wizardry: Proving Grounds of the Mad Overlord DX
+# Webpack-config
 
-## RS School JavaScript/Front-end 2022Q3 final task
+Webpack 5 configured to work with:
+
+- TypeScript
+- SASS/SCSS
+- ESLint
+  - airbnb-base,
+  - airbnb-typescript/base,
+  - eslint:recommended
+  - @typescript-eslint/recommended
+  - @typescript-eslint/recommended-requiring-type-checking"
+- Prettier
+
+# Usage
+
+Start dev-server:  
+`npm run start`
+
+Build:  
+`npm run build`
