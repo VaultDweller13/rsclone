@@ -33,7 +33,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
-    new ESLintPlugin(),
+    new ESLintPlugin({extensions: 'ts'}),
   ],
   output: {
     filename: "index.js",
