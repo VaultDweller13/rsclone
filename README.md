@@ -4,6 +4,7 @@ Webpack 5 configured to work with:
 
 - TypeScript
 - SASS/SCSS
+- Jest
 - ESLint
   - airbnb-base,
   - airbnb-typescript/base,
@@ -19,3 +20,6 @@ Start dev-server:
 
 Build:  
 `npm run build`
+
+Test:  
+`npm run test`
