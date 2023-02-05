@@ -38,6 +38,8 @@ type Item = {
   // type: ItemTypes;
   effect: string;
   class: ClassName[];
+  alignment: Alignment[];
+  cursed: boolean;
 };
 
 type Weapon = Item & {
