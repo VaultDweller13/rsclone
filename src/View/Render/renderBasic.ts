@@ -1,11 +1,8 @@
 // function removeParent(child: HTMLElement) {
 //   child.parentElement?.remove();
 // }
-function createElement(tag: string, id: string): HTMLElement{
-  const newEl = document.createElement(tag);
-  newEl.setAttribute('id', id);
-  return newEl
-}
+import { createElement } from "./common";
+import enterCastle from "./castle";
 
 function startGame() {
   const gameBlock = createElement('div', 'game');
@@ -39,6 +36,7 @@ function startGame() {
       </table>
     </div>
   `
+  enterCastle();
 }
 
 function renderBasic(){
@@ -74,10 +72,9 @@ function renderBasic(){
   const startButton = document.getElementById('start-game');
   startButton?.addEventListener('click', startGame);
 }
-
 // function renderCastle(){
 //   const gameBlock = document.getElementById('game');
 //   const backBlock = createElement('div','a');
 // }
 
-export { renderBasic, startGame };
+export default renderBasic;

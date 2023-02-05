@@ -1,6 +1,5 @@
 import './styles.css';
-import { renderBasic, startGame } from "./View/Render/renderCommon"
+import renderBasic from "./View/Render/renderBasic"
 
 console.log('huhh');
 renderBasic();
-startGame();
