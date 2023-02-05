@@ -18,14 +18,8 @@ export default class Character {
   constructor(
     name: string,
     race: Race,
-    strength: number,
-    intelligence: number,
-    piety: number,
-    vitality: number,
-    agility: number,
-    luck: number,
+    stats: Record<Stat, number>,
     charClass: ClassName,
-    hp: number,
     alignment: Alignment,
     level = 1
   ) {
@@ -33,18 +27,18 @@ export default class Character {
     this.age = 14 + Math.floor(Math.random() * 3);
     this.race = race;
 
-    this.strength = strength;
-    this.intelligence = intelligence;
-    this.piety = piety;
-    this.vitality = vitality;
-    this.agility = agility;
-    this.luck = luck;
+    this.strength = stats.strength;
+    this.intelligence = stats.intelligence;
+    this.piety = stats.piety;
+    this.vitality = stats.vitality;
+    this.agility = stats.agility;
+    this.luck = stats.luck;
 
     this.class = charClass;
     this.level = level;
     this.exp = 0;
 
-    this.hp = hp;
+    this.hp = 10;
     this.status = 'OK';
     this.alignment = alignment;
   }

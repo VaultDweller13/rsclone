@@ -1,5 +1,6 @@
 import CharacterCreator from '../Model/Characters/characterCreator';
 import classes from '../Model/Characters/classes';
+import races from '../Model/Characters/races';
 
 describe('getBonus()', () => {
   it('should return 5 - 9 || 15 - 19 || 25 - 29', () => {
@@ -42,17 +43,17 @@ describe('getClasses()', () => {
 
   const maxStats = Object.fromEntries(
     stats.map((stat) => [stat, 18])
-  ) as Record<Stats, number>;
+  ) as Record<Stat, number>;
   const minStats = Object.fromEntries(stats.map((stat) => [stat, 8])) as Record<
-    Stats,
+    Stat,
     number
   >;
-  const oneStat = (stat: Stats, value: number) => {
+  const oneStat = (stat: Stat, value: number) => {
     const obj = Object.fromEntries(stats.map((stat) => [stat, 8])) as Record<
-      Stats,
+      Stat,
       number
     >;
-    obj[stat as Stats] = value;
+    obj[stat as Stat] = value;
 
     return obj;
   };
@@ -91,6 +92,30 @@ describe('getClasses()', () => {
     });
     test('thief, if agility is 11', () => {
       expect(getClasses('neutral', oneStat('agility', 11))).toEqual(['thief']);
+    });
+  });
+});
+
+describe('getRaces()', () => {
+  const getRaces = CharacterCreator.getRaces;
+  const raceNames = races.map((race) => race.name).sort();
+
+  it('should return all races', () => {
+    expect(getRaces().sort()).toEqual(raceNames);
+  });
+});
+
+describe('getStats()', () => {
+  const getStats = CharacterCreator.getStats;
+
+  it('should return stats for given race', () => {
+    expect(getStats('elf')).toEqual({
+      strength: 7,
+      intelligence: 10,
+      piety: 10,
+      vitality: 6,
+      agility: 9,
+      luck: 6,
     });
   });
 });

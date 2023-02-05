@@ -1,4 +1,4 @@
-type Stats =
+type Stat =
   | 'strength'
   | 'intelligence'
   | 'piety'
