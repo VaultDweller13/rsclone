@@ -1,3 +1,11 @@
+type Stats =
+  | 'strength'
+  | 'intelligence'
+  | 'piety'
+  | 'vitality'
+  | 'agility'
+  | 'luck';
+
 type Status =
   | 'OK'
   | 'AFRAID'
@@ -12,7 +20,7 @@ type Alignment = 'good' | 'neutral' | 'evil';
 
 type Race = 'human' | 'dwarf' | 'elf' | 'gnome' | 'hobbit';
 
-type Class =
+type ClassName =
   | 'fighter'
   | 'priest'
   | 'mage'
@@ -29,7 +37,7 @@ type Item = {
   cost: number;
   // type: ItemTypes;
   effect: string;
-  class: Class[];
+  class: ClassName[];
 };
 
 type Weapon = Item & {

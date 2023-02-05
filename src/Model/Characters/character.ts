@@ -8,7 +8,7 @@ export default class Character {
   vitality: number;
   agility: number;
   luck: number;
-  class: Class;
+  class: ClassName;
   level: number;
   exp: number;
   hp: number;
@@ -24,7 +24,7 @@ export default class Character {
     vitality: number,
     agility: number,
     luck: number,
-    className: Class,
+    charClass: ClassName,
     hp: number,
     alignment: Alignment,
     level = 1
@@ -40,7 +40,7 @@ export default class Character {
     this.agility = agility;
     this.luck = luck;
 
-    this.class = className;
+    this.class = charClass;
     this.level = level;
     this.exp = 0;
 
