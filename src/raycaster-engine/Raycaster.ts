@@ -32,7 +32,7 @@ export default class Raycaster {
     };
   }
 
-  private drawColumn(column: number, ray: Step[], angle: number, textures: Texture[]) {
+  private drawWallSlice(column: number, ray: Step[], angle: number, textures: Texture[]) {
     const left = Math.floor(column * this.spacing);
     const width = Math.ceil(this.spacing);
     let hit = 0;
@@ -60,19 +60,19 @@ export default class Raycaster {
     }
   }
 
-  private drawColumns(player: Player, map: GameMap) {
+  private drawWall(player: Player, map: GameMap) {
     this.ctx.save();
     this.ctx.imageSmoothingEnabled = this.textureSmoothing;
 
     for (let col = 0; col < this.resolution; col += 1) {
       const angle = this.fov * (col / this.resolution - 0.5);
       const ray = map.cast(player.position, player.direction + angle, this.range);
-      this.drawColumn(col, ray, angle, map.wallTextures);
+      this.drawWallSlice(col, ray, angle, map.wallTextures);
     }
     this.ctx.restore();
   }
 
   render(player: Player, map: GameMap) {
-    this.drawColumns(player, map);
+    this.drawWall(player, map);
   }
 }

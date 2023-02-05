@@ -46,8 +46,7 @@ export default class GameMap {
   }
 
   private step(rise: number, run: number, x: number, y: number, inverted?: boolean): Step {
-    if (run === 0)
-      return { depth: Infinity };
+    if (run === 0) return { depth: Infinity };
     const dx = run > 0 ? Math.floor(x + 1) - x : Math.ceil(x - 1) - x;
     const dy = dx * rise / run;
 

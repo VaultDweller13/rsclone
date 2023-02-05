@@ -1,13 +1,15 @@
 export default class GameLoop {
   lastTime = 0;
   callback: ((seconds: number) => void) | null;
+  loopId = 0;
+  
   constructor() {
     this.callback = null;
   }
   
   start(callback: (seconds: number) => void) {
     this.callback = callback;
-    requestAnimationFrame(this.frame);
+    this.loopId = requestAnimationFrame(this.frame);
   }
 
   frame = (time: number) => {
@@ -16,4 +18,8 @@ export default class GameLoop {
     if (seconds < 0.2 && this.callback) this.callback(seconds);
     requestAnimationFrame(this.frame);
   };
+
+  stop = () => {
+    cancelAnimationFrame(this.loopId);
+  }
 }

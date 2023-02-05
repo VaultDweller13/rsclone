@@ -4,10 +4,6 @@ type Position = {
   direction?: number;
 }
 
-type KeyboardKeys = {
-  [key: string]: string;
-}
-
 type States = {
   [key: string]: boolean
 }
@@ -20,3 +16,7 @@ type Step = {
   distance?: number;
   offset?: number;
 }
+
+type KeyboardKey = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown'; 
+
+type KeyboardKeyAlias = 'left' | 'right' | 'forward' | 'backward';
