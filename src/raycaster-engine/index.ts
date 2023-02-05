@@ -5,4 +5,3 @@ export { default as MiniMap } from './MiniMap';
 export { default as Raycaster } from './Raycaster';
 export { default as Texture } from './Texture';
 export { default as GameLoop } from './GameLoop';
-

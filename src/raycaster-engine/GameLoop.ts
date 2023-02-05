@@ -2,11 +2,11 @@ export default class GameLoop {
   lastTime = 0;
   callback: ((seconds: number) => void) | null;
   loopId = 0;
-  
+
   constructor() {
     this.callback = null;
   }
-  
+
   start(callback: (seconds: number) => void) {
     this.callback = callback;
     this.loopId = requestAnimationFrame(this.frame);
@@ -21,5 +21,5 @@ export default class GameLoop {
 
   stop = () => {
     cancelAnimationFrame(this.loopId);
-  }
+  };
 }

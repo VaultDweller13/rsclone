@@ -2,11 +2,11 @@ type Position = {
   x: number;
   y: number;
   direction?: number;
-}
+};
 
 type States = {
-  [key: string]: boolean
-}
+  [key: string]: boolean;
+};
 
 type Step = {
   x?: number;
@@ -15,8 +15,8 @@ type Step = {
   cell?: number;
   distance?: number;
   offset?: number;
-}
+};
 
-type KeyboardKey = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown'; 
+type KeyboardKey = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown';
 
 type KeyboardKeyAlias = 'left' | 'right' | 'forward' | 'backward';

@@ -13,7 +13,12 @@ export default class Raycaster {
   range = 14;
   fov = Math.PI / 3;
 
-  constructor(width: number, height: number, ctx: CanvasRenderingContext2D, lightRange: number) {
+  constructor(
+    width: number,
+    height: number,
+    ctx: CanvasRenderingContext2D,
+    lightRange: number
+  ) {
     this.width = width;
     this.height = height;
     this.resolution = width;
@@ -24,15 +29,20 @@ export default class Raycaster {
 
   private project(height: number, angle: number, distance: number) {
     const z = distance * Math.cos(angle);
-    const wallHeight = this.height * height / z;
-    const bottom = this.height / 2 * (1 + 1 / z);
+    const wallHeight = (this.height * height) / z;
+    const bottom = (this.height / 2) * (1 + 1 / z);
     return {
       top: bottom - wallHeight,
-      height: wallHeight
+      height: wallHeight,
     };
   }
 
-  private drawWallSlice(column: number, ray: Step[], angle: number, textures: Texture[]) {
+  private drawWallSlice(
+    column: number,
+    ray: Step[],
+    angle: number,
+    textures: Texture[]
+  ) {
     const left = Math.floor(column * this.spacing);
     const width = Math.ceil(this.spacing);
     let hit = 0;
@@ -44,18 +54,37 @@ export default class Raycaster {
 
     if (hit < ray.length) {
       const step = ray[hit];
-      
-      texture = textures[step.cell as number > textures.length ? 0 : (step.cell as number) - 1];
+
+      texture =
+        textures[
+          (step.cell as number) > textures.length
+            ? 0
+            : (step.cell as number) - 1
+        ];
       textureX = Math.floor(texture.width * (step.offset as number));
       const wall = this.project(1, angle, step.distance as number);
 
       this.ctx.globalAlpha = 1;
-      this.ctx.drawImage(texture.img, textureX, 0, 1, texture.height, left, wall.top, width, wall.height);
+      this.ctx.drawImage(
+        texture.img,
+        textureX,
+        0,
+        1,
+        texture.height,
+        left,
+        wall.top,
+        width,
+        wall.height
+      );
 
       this.ctx.fillStyle = '#000000';
-      this.ctx.globalAlpha = Math.max((step.distance as number) / this.lightRange, 0);
+      this.ctx.globalAlpha = Math.max(
+        (step.distance as number) / this.lightRange,
+        0
+      );
 
-      if (this.textureSmoothing) this.ctx.fillRect(left, wall.top, width, wall.height)
+      if (this.textureSmoothing)
+        this.ctx.fillRect(left, wall.top, width, wall.height);
       else this.ctx.fillRect(left || 0, wall.top || 0, width, wall.height + 1);
     }
   }
@@ -66,7 +95,11 @@ export default class Raycaster {
 
     for (let col = 0; col < this.resolution; col += 1) {
       const angle = this.fov * (col / this.resolution - 0.5);
-      const ray = map.cast(player.position, player.direction + angle, this.range);
+      const ray = map.cast(
+        player.position,
+        player.direction + angle,
+        this.range
+      );
       this.drawWallSlice(col, ray, angle, map.wallTextures);
     }
     this.ctx.restore();
