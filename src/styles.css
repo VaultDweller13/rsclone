@@ -3,6 +3,7 @@ html{
 }
 *{
   color: #ffffff;
+  box-sizing: border-box;
 }
 body {
   height: 100%;
@@ -16,12 +17,6 @@ body {
   margin-top: 100px;
   display: flex;
   justify-content: center;
-}
-#game-block{
-  width: 80%;
-  min-width: 350px;
-  aspect-ratio: 2;
-  background-color: #000000;
 }
 #footer{
   display: flex;
@@ -42,13 +37,73 @@ a:hover{
   width: 10vw;
   max-width: 120px;
 }
-button{
+#game{
+  max-height: 90vh;
+  border-radius: 5px;
+  padding: 5px;
+  width: 80%;
+  min-width: 350px;
+  aspect-ratio: 1.5;
+  background-color: #000000;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+#view{
+  flex-grow: 2;
+}
+#prty{
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+#prty-header{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  top: -21px;
+}
+.prty-chr {
+  display: flex;
+  justify-content: space-between;
+}
+#prty-header :nth-child(1), .prty-chr :nth-child(1){
+  flex-basis: 30%;
+}
+#prty-header :nth-child(2), .prty-chr :nth-child(2){
+  flex-basis: 30%;
+}
+#prty-header :nth-child(3), .prty-chr :nth-child(3){
+  flex-basis: 30%;
+  text-align: center;
+}
+#prty-header :nth-child(4), #prty-header :nth-child(5), .prty-chr :nth-child(4), .prty-chr :nth-child(5){
+  flex-basis: 10%;
+  text-align: center;
+}
+
+.param-wrap{
+  padding: 0 2px;
+  background-color: #000000;
+}
+.block{
   background-color: #000000;
   color: #ffffff;
   border-radius: 4px;
   border: 3px solid #ffffff;
   padding: 10px;
+  margin: 5px;
 }
-button:hover{
+#location-name{
+  width: 130px;
+  position: absolute;
+}
+button{
+  background-color: #000000;
+  font-weight: 800;
+}
+button:hover, .prty-chr:hover{
   cursor: pointer;
+  background-color: #0044ff89;
 }

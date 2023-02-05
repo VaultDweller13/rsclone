@@ -1,9 +1,54 @@
+// function removeParent(child: HTMLElement) {
+//   child.parentElement?.remove();
+// }
+function createElement(tag: string, id: string): HTMLElement{
+  const newEl = document.createElement(tag);
+  newEl.setAttribute('id', id);
+  return newEl
+}
+
+function startGame() {
+  const gameBlock = createElement('div', 'game');
+  
+  document.getElementById('main')?.append(gameBlock);
+  const main = document.getElementById('main') as HTMLElement;
+  main.innerHTML = 
+  `
+    <div id="game">
+      <div id="view" class="block">
+        <div id="location-name" class="block">
+        </div>
+      </div>
+      <div id="prty" class="block">
+        <div id="prty-header">
+          <div class="prty-param" id="prty-names"><span class="param-wrap">Name</span></div>
+          <div class="prty-param" id="prty-classes"><span class="param-wrap">Class</span></div>
+          <div class="prty-param" id="prty-ac"><span class="param-wrap">AC?</span></div>
+          <div class="prty-param" id="prty-hp"><span class="param-wrap">HP /</span></div>
+          <div class="prty-param" id="prty-status"><span class="param-wrap">Status</span></div>
+        </div>
+        <div class="prty-body">
+          <div class="prty-chr" id="dummy-name">
+            <div class="chr-name chr-param">Naminous</div>
+            <div class="chr-class chr-param">NamIni</div>
+            <div class="chr-ac chr-param">15s</div>
+            <div class="chr-hp chr-param">8</div>
+            <div class="chr-status chr-param">8</div>
+          </div>
+        </div>
+      </table>
+    </div>
+  `
+}
+
 function renderBasic(){
   const { body } = document;
   body.innerHTML =
   `
   <main id ="main">
-    <button id="start-game">Start Game</button>
+    <div class="block">
+      <button id="start-game">Start Game</button>
+    </div>
   </main>
   <footer id="footer">
     <a id="rs-link" href="https://rs.school/js/">
@@ -26,15 +71,13 @@ function renderBasic(){
   const year = createElWId('div', 'year');
   const githubList = createElWId('ul', 'github-list');
   */
-}
-function startGame() {
   const startButton = document.getElementById('start-game');
-  startButton?.addEventListener('click', () => {
-    const gameBlock = document.createElement('div');
-    gameBlock.setAttribute('id','game-block');
-    startButton.remove();
-    document.getElementById('main')?.append(gameBlock);
-  });
+  startButton?.addEventListener('click', startGame);
 }
+
+// function renderCastle(){
+//   const gameBlock = document.getElementById('game');
+//   const backBlock = createElement('div','a');
+// }
 
 export { renderBasic, startGame };
