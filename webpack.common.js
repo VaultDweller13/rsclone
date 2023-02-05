@@ -1,5 +1,4 @@
 const path = require("path");
-const { inflate } = require("zlib");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 
@@ -33,7 +32,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
-    new ESLintPlugin(),
+    new ESLintPlugin({ extensions: "ts" }),
   ],
   output: {
     filename: "index.js",
