@@ -1,7 +1,5 @@
-interface ChoiceButton {
-  id: string;
-  name: string;
-}
+import ChoiceButton from './choice';
+
 function createElement(tag: string, id: string, elClass?: string): HTMLElement {
   const newEl = document.createElement(tag);
   if (elClass) {
