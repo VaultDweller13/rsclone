@@ -1,6 +1,13 @@
-import CharacterCreator from '../Model/Characters/characterCreator';
-import classes from '../Model/Characters/classes';
-import races from '../Model/Characters/races';
+import {
+  getBonus,
+  getAlignment,
+  getCharacter,
+  getClasses,
+  getRaces,
+  getStats,
+} from '../model/characters/characterCreator';
+import classes from '../model/data/classes';
+import races from '../model/data/races';
 
 describe('getBonus()', () => {
   it('should return 5 - 9 || 15 - 19 || 25 - 29', () => {
@@ -8,7 +15,7 @@ describe('getBonus()', () => {
     const bonusArr = [];
 
     for (let i = 0; i < 100000; i++) {
-      bonusArr.push(CharacterCreator.getBonus());
+      bonusArr.push(getBonus());
     }
 
     // calculateProbability(bonusArr);
@@ -17,7 +24,6 @@ describe('getBonus()', () => {
 });
 
 describe('getClasses()', () => {
-  const getClasses = CharacterCreator.getClasses;
   const stats = [
     'strength',
     'intelligence',
@@ -97,7 +103,6 @@ describe('getClasses()', () => {
 });
 
 describe('getRaces()', () => {
-  const getRaces = CharacterCreator.getRaces;
   const raceNames = races.map((race) => race.name).sort();
 
   it('should return all races', () => {
@@ -106,8 +111,6 @@ describe('getRaces()', () => {
 });
 
 describe('getStats()', () => {
-  const getStats = CharacterCreator.getStats;
-
   it('should return stats for given race', () => {
     expect(getStats('elf')).toEqual({
       strength: 7,
