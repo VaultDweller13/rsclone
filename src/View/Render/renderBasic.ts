@@ -1,16 +1,15 @@
 // function removeParent(child: HTMLElement) {
 //   child.parentElement?.remove();
 // }
-import { createElement } from "./common";
-import enterCastle from "./castle";
+import { createElement } from './common';
+import enterCastle from './castle';
 
 function startGame() {
   const gameBlock = createElement('div', 'game');
-  
+
   document.getElementById('main')?.append(gameBlock);
   const main = document.getElementById('main') as HTMLElement;
-  main.innerHTML = 
-  `
+  main.innerHTML = `
     <div id="game">
       <div id="view" class="block">
         <div id="location-name" class="block">
@@ -35,14 +34,13 @@ function startGame() {
         </div>
       </table>
     </div>
-  `
+  `;
   enterCastle();
 }
 
-function renderBasic(){
+function renderBasic() {
   const { body } = document;
-  body.innerHTML =
-  `
+  body.innerHTML = `
   <main id ="main">
     <div class="block">
       <button id="start-game">Start Game</button>

@@ -2,28 +2,34 @@ interface ChoiceButton {
   id: string;
   name: string;
 }
-function createElement(tag: string, id: string, elClass?: string): HTMLElement{
+function createElement(tag: string, id: string, elClass?: string): HTMLElement {
   const newEl = document.createElement(tag);
   if (elClass) {
-    newEl.setAttribute('class', elClass); 
+    newEl.setAttribute('class', elClass);
   }
   if (id) {
     newEl.setAttribute('id', id);
   }
-  return newEl
+  return newEl;
 }
-function createChoice(choiceId: string, buttonsDesc : ChoiceButton[]) : HTMLElement{
+function createChoice(
+  choiceId: string,
+  buttonsDesc: ChoiceButton[]
+): HTMLElement {
   const choice = createElement('div', choiceId, 'block pop-up');
   buttonsDesc.forEach((el) => {
-    const newButt = createElement('button',el.id);
+    const newButt = createElement('button', el.id);
     newButt.innerHTML = el.name;
     choice.append(newButt);
   });
-  return  choice;
+  return choice;
 }
-function createLayer(layerNum : number, layerContent: HTMLElement): HTMLElement{
-  const newLayer = createElement('div','',`layer layer${layerNum}`);
-  layerContent.setAttribute('style', `top: ${layerNum * 20}px; left:  ${layerNum * 15}px`)
+function createLayer(layerNum: number, layerContent: HTMLElement): HTMLElement {
+  const newLayer = createElement('div', '', `layer layer${layerNum}`);
+  layerContent.setAttribute(
+    'style',
+    `top: ${layerNum * 20}px; left:  ${layerNum * 15}px`
+  );
   newLayer.append(layerContent);
   newLayer.addEventListener('click', (event) => {
     const target = event.target as HTMLElement;
@@ -34,4 +40,4 @@ function createLayer(layerNum : number, layerContent: HTMLElement): HTMLElement{
   return newLayer;
 }
 
-export { createChoice, createElement, createLayer }
+export { createChoice, createElement, createLayer };
