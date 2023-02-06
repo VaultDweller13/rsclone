@@ -1,15 +1,13 @@
 import GameMap from './GameMap';
 import Player from './Player';
 import Texture from './Texture';
+import { SHADING_COLOR } from './utils/constants';
 
 export default class Raycaster {
   width: number;
   height: number;
-  resolution: number;
   ctx: CanvasRenderingContext2D;
   lightRange: number;
-  spacing: number;
-  textureSmoothing = false;
   range = 14;
   fov = Math.PI / 3;
 
@@ -21,39 +19,39 @@ export default class Raycaster {
   ) {
     this.width = width;
     this.height = height;
-    this.resolution = width;
     this.ctx = ctx;
     this.lightRange = lightRange;
-    this.spacing = this.width / this.resolution;
   }
 
-  private project(height: number, angle: number, distance: number) {
+  private project = (
+    angle: number,
+    distance: number
+  ): { top: number; height: number } => {
     const z = distance * Math.cos(angle);
-    const wallHeight = (this.height * height) / z;
-    const bottom = (this.height / 2) * (1 + 1 / z);
+    const wallHeight = this.height / z;
+    const top = (this.height / 2) * (1 + 1 / z) - wallHeight;
     return {
-      top: bottom - wallHeight,
+      top,
       height: wallHeight,
     };
-  }
+  };
 
   private drawWallSlice(
     column: number,
-    ray: Step[],
+    rays: Step[],
     angle: number,
     textures: Texture[]
-  ) {
-    const left = Math.floor(column * this.spacing);
-    const width = Math.ceil(this.spacing);
+  ): void {
+    const left = column;
     let hit = 0;
 
-    while (hit < ray.length && (ray[hit].cell as number) <= 0) hit += 1;
+    while (hit < rays.length && (rays[hit].cell as number) <= 0) hit += 1;
 
     let texture;
-    let textureX = 0;
+    let textureX;
 
-    if (hit < ray.length) {
-      const step = ray[hit];
+    if (hit < rays.length) {
+      const step = rays[hit];
 
       texture =
         textures[
@@ -62,7 +60,7 @@ export default class Raycaster {
             : (step.cell as number) - 1
         ];
       textureX = Math.floor(texture.width * (step.offset as number));
-      const wall = this.project(1, angle, step.distance as number);
+      const wall = this.project(angle, step.distance as number);
 
       this.ctx.globalAlpha = 1;
       this.ctx.drawImage(
@@ -73,39 +71,37 @@ export default class Raycaster {
         texture.height,
         left,
         wall.top,
-        width,
+        1,
         wall.height
       );
 
-      this.ctx.fillStyle = '#000000';
+      this.ctx.fillStyle = SHADING_COLOR;
       this.ctx.globalAlpha = Math.max(
         (step.distance as number) / this.lightRange,
         0
       );
 
-      if (this.textureSmoothing)
-        this.ctx.fillRect(left, wall.top, width, wall.height);
-      else this.ctx.fillRect(left || 0, wall.top || 0, width, wall.height + 1);
+      this.ctx.fillRect(left, wall.top, 1, wall.height);
     }
   }
 
-  private drawWall(player: Player, map: GameMap) {
+  private drawWall = (player: Player, map: GameMap): void => {
     this.ctx.save();
-    this.ctx.imageSmoothingEnabled = this.textureSmoothing;
+    this.ctx.imageSmoothingEnabled = true;
 
-    for (let col = 0; col < this.resolution; col += 1) {
-      const angle = this.fov * (col / this.resolution - 0.5);
-      const ray = map.cast(
+    for (let col = 0; col < this.width; col += 1) {
+      const angle = this.fov * (col / this.width - 0.5);
+      const rays = map.cast(
         player.position,
         player.direction + angle,
         this.range
       );
-      this.drawWallSlice(col, ray, angle, map.wallTextures);
+      this.drawWallSlice(col, rays, angle, map.wallTextures);
     }
     this.ctx.restore();
-  }
+  };
 
-  render(player: Player, map: GameMap) {
+  render = (player: Player, map: GameMap): void => {
     this.drawWall(player, map);
-  }
+  };
 }

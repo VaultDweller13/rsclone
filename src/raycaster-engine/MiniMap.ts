@@ -2,7 +2,7 @@ import GameMap from './GameMap';
 import {
   MINI_MAP_EMPTY_BLOCK_COLOR,
   MINI_MAP_NOT_EMPTY_BLOCK_COLOR,
-  MINI_MAP_NOT_PLAYER_COLOR,
+  MINI_MAP_PLAYER_COLOR,
 } from './utils/constants';
 
 export default class MiniMap {
@@ -16,7 +16,7 @@ export default class MiniMap {
     this.load(map);
   }
 
-  load(map: GameMap) {
+  load = (map: GameMap): void => {
     this.width = map.width;
     this.height = map.height;
 
@@ -48,9 +48,13 @@ export default class MiniMap {
         }
       }
     }
-  }
+  };
 
-  render(ctx: CanvasRenderingContext2D, pos: Position, playerPos: Position) {
+  render = (
+    ctx: CanvasRenderingContext2D,
+    pos: Position,
+    playerPos: Position
+  ): void => {
     const pX = (this.width - Math.floor(playerPos.x) - 1) * this.cellSize;
     const pY = (this.height - Math.floor(playerPos.y) - 1) * this.cellSize;
     ctx.drawImage(
@@ -60,7 +64,7 @@ export default class MiniMap {
       this.target.width,
       this.target.height
     );
-    ctx.fillStyle = MINI_MAP_NOT_PLAYER_COLOR;
+    ctx.fillStyle = MINI_MAP_PLAYER_COLOR;
     ctx.fillRect(pos.x + pX, pos.y + pY, this.cellSize, this.cellSize);
-  }
+  };
 }

@@ -13,15 +13,20 @@ export default class GameMap {
     this.wallTextures = wallTextures;
   }
 
-  get(x: number, y: number) {
+  get = (x: number, y: number): number => {
     const column = Math.floor(x);
     const row = Math.floor(y);
     if (column < 0 || column >= this.width || row < 0 || row >= this.height)
       return -1;
     return this.walls[row * this.width + column];
-  }
+  };
 
-  cast(point: Position, angle: number, range: number, fullRange = false) {
+  cast = (
+    point: Position,
+    angle: number,
+    range: number,
+    fullRange = false
+  ): Step[] => {
     const cells: Step[] = [];
     const sin = Math.sin(angle);
     const cos = Math.cos(angle);
@@ -67,27 +72,27 @@ export default class GameMap {
     } while (nextStep.distance && nextStep.distance <= range);
 
     return cells;
-  }
+  };
 
-  private step(
-    rise: number,
-    run: number,
+  private step = (
+    start: number,
+    end: number,
     x: number,
     y: number,
     inverted?: boolean
-  ): Step {
-    if (run === 0) return { depth: Infinity };
-    const dx = run > 0 ? Math.floor(x + 1) - x : Math.ceil(x - 1) - x;
-    const dy = (dx * rise) / run;
+  ): Step => {
+    if (end === 0) return { depth: Infinity };
+    const dx = end > 0 ? Math.floor(x + 1) - x : Math.ceil(x - 1) - x;
+    const dy = dx * (start / end);
 
     return {
       x: inverted ? y + dy : x + dx,
       y: inverted ? x + dx : y + dy,
       depth: dx * dx + dy * dy,
     };
-  }
+  };
 
-  private inspect(
+  private inspect = (
     step: Step,
     shiftX: number,
     shiftY: number,
@@ -95,7 +100,7 @@ export default class GameMap {
     stepOffset: number,
     cos: number,
     sin: number
-  ) {
+  ): Step => {
     const dx = cos < 0 ? shiftX : 0;
     const dy = sin < 0 ? shiftY : 0;
     const index =
@@ -107,5 +112,5 @@ export default class GameMap {
 
     const offset = stepOffset - Math.floor(stepOffset);
     return { ...step, cell, distance, offset };
-  }
+  };
 }

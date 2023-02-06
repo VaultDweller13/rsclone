@@ -7,4 +7,5 @@ export const MINI_MAP_SIZE = 22;
 
 export const MINI_MAP_EMPTY_BLOCK_COLOR = 'white';
 export const MINI_MAP_NOT_EMPTY_BLOCK_COLOR = 'black';
-export const MINI_MAP_NOT_PLAYER_COLOR = 'black';
+export const MINI_MAP_PLAYER_COLOR = 'red';
+export const SHADING_COLOR = 'black';

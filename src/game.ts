@@ -55,14 +55,14 @@ export default function initGame() {
   ];
 
   const initialPosition: Position = {
-    x: 5,
-    y: 5,
+    x: 3,
+    y: 3,
     direction: Math.PI / 3,
   };
 
   const miniMapPosition: Position = { x: 5, y: 5 };
 
-  const raycaster = new Raycaster(CANVAS_WIDTH, CANVAS_HEIGHT, ctx, 5);
+  const raycaster = new Raycaster(CANVAS_WIDTH, CANVAS_HEIGHT, ctx, 6);
   const map = new GameMap(MINI_MAP_SIZE, walls, wallTextures);
   const player = new Player(initialPosition);
   const miniMap = new MiniMap(map);
