@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#canvas {
+  background: linear-gradient(
+    to bottom,
+    rgb(99, 99, 99) 0%,
+    black 40%,
+    black 60%,
+    #333 100%
+  );
+}
