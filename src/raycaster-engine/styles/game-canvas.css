@@ -1,16 +1,6 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 #canvas {
+  width: 640px;
+  height: 360px;
   background: linear-gradient(
     to bottom,
     rgb(99, 99, 99) 0%,

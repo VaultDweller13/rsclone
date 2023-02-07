@@ -1,3 +1,4 @@
+import './raycaster-engine/styles/game-canvas.css';
 import {
   Raycaster,
   GameMap,
