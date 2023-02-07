@@ -1,41 +1,46 @@
-export default [
-  {
-    name: 'fighter',
+export default {
+  fighter: {
+    name: 'fighter' as ClassName,
     stats: {
       strength: 11,
     },
-    alignment: ['good', 'neutral', 'evil'],
+    alignment: ['good', 'neutral', 'evil'] as Alignment[],
+    hitDice: 10,
   },
-  {
+  mage: {
     name: 'mage',
     stats: {
       intelligence: 11,
     },
     alignment: ['good', 'neutral', 'evil'],
+    hitDice: 4,
   },
-  {
+  priest: {
     name: 'priest',
     stats: {
       piety: 11,
     },
     alignment: ['good', 'evil'],
+    hitDice: 8,
   },
-  {
+  thief: {
     name: 'thief',
     stats: {
       agility: 11,
     },
     alignment: ['neutral', 'evil'],
+    hitDice: 6,
   },
-  {
+  bishop: {
     name: 'bishop',
     stats: {
       intelligence: 12,
       piety: 12,
     },
     alignment: ['good', 'evil'],
+    hitDice: 6,
   },
-  {
+  samurai: {
     name: 'samurai',
     stats: {
       strength: 15,
@@ -45,8 +50,9 @@ export default [
       agility: 10,
     },
     alignment: ['good', 'neutral'],
+    hitDice: 8,
   },
-  {
+  lord: {
     name: 'lord',
     stats: {
       strength: 15,
@@ -57,8 +63,9 @@ export default [
       luck: 15,
     },
     alignment: ['good'],
+    hitDice: 10,
   },
-  {
+  ninja: {
     name: 'ninja',
     stats: {
       strength: 17,
@@ -69,5 +76,6 @@ export default [
       luck: 17,
     },
     alignment: ['evil'],
+    hitDice: 6,
   },
-];
+};

@@ -35,7 +35,7 @@ export function getClasses(alignment: Alignment, stats: Record<Stat, number>) {
       return stats[key as Stat] >= value;
     });
 
-  return classes
+  return Object.values(classes)
     .filter(
       (charClass) =>
         isQualified(charClass.stats) && charClass.alignment.includes(alignment)
@@ -47,7 +47,7 @@ export function getCharacter(
   name: string,
   race: Race,
   stats: Record<Stat, number>,
-  className: ClassName,
+  className: Class,
   alignment: Alignment
 ) {
   return new Character(name, race, stats, className, alignment);
