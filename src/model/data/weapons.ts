@@ -2,6 +2,7 @@ const weapons: Weapon[] = [
   {
     name: 'dagger',
     cost: 5,
+    type: 'weapon',
     damageMin: 1,
     damageMax: 4,
     effect: '',
@@ -11,6 +12,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Staff',
+    type: 'weapon',
     cost: 10,
     damageMin: 1,
     damageMax: 5,
@@ -30,6 +32,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Short Sword',
+    type: 'weapon',
     cost: 15,
     damageMin: 1,
     damageMax: 6,
@@ -40,6 +43,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Long Sword',
+    type: 'weapon',
     cost: 25,
     damageMin: 1,
     damageMax: 8,
@@ -50,6 +54,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Anointed Mace',
+    type: 'weapon',
     cost: 30,
     damageMin: 2,
     damageMax: 6,
@@ -60,6 +65,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Anointed Flail',
+    type: 'weapon',
     cost: 150,
     damageMin: 1,
     damageMax: 7,
@@ -70,6 +76,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Staff +2 / Studly Staff',
+    type: 'weapon',
     cost: 2500,
     damageMin: 3,
     damageMax: 6,
@@ -89,6 +96,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Staff of Mogref / Rod of Iron',
+    type: 'weapon',
     cost: 3000,
     damageMin: 1,
     damageMax: 6,
@@ -99,6 +107,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Short Sword +2 / Epee of Exelence',
+    type: 'weapon',
     cost: 4000,
     damageMin: 3,
     damageMax: 8,
@@ -109,6 +118,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Mace +2 / Mace of Power',
+    type: 'weapon',
     cost: 4000,
     damageMin: 3,
     damageMax: 10,
@@ -119,6 +129,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Long Sword +2 / Sword of Slashing',
+    type: 'weapon',
     cost: 4000,
     damageMin: 3,
     damageMax: 12,
@@ -129,6 +140,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Short Sword -2 / Epee of Disaster',
+    type: 'weapon',
     cost: 8000,
     damageMin: 1,
     damageMax: 6,
@@ -139,6 +151,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Dagger +2 / Dagger of Slicing',
+    type: 'weapon',
     cost: 8000,
     damageMin: 3,
     damageMax: 6,
@@ -149,6 +162,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Mace Pro Poison / Mace of Snakes',
+    type: 'weapon',
     cost: 10000,
     damageMin: 1,
     damageMax: 8,
@@ -159,6 +173,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Mage Masher',
+    type: 'weapon',
     cost: 10000,
     damageMin: 2,
     damageMax: 7,
@@ -169,6 +184,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Long Sword +1 / Sword of Slicing',
+    type: 'weapon',
     cost: 10000,
     damageMin: 2,
     damageMax: 9,
@@ -179,6 +195,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Were Slayer',
+    type: 'weapon',
     cost: 10000,
     damageMin: 2,
     damageMax: 11,
@@ -189,6 +206,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Dragon Slayer',
+    type: 'weapon',
     cost: 10000,
     damageMin: 2,
     damageMax: 11,
@@ -199,6 +217,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Mace +1 / Mace of Pounding',
+    type: 'weapon',
     cost: 12500,
     damageMin: 3,
     damageMax: 9,
@@ -209,6 +228,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Staff of Montino / Rod of Silence',
+    type: 'weapon',
     cost: 15000,
     damageMin: 2,
     damageMax: 6,
@@ -228,6 +248,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Short Sword +1 / Blade of Bitting',
+    type: 'weapon',
     cost: 15000,
     damageMin: 2,
     damageMax: 7,
@@ -238,6 +259,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Blade Cusinart',
+    type: 'weapon',
     cost: 15000,
     damageMin: 10,
     damageMax: 12,
@@ -248,6 +270,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Dagger of Speed',
+    type: 'weapon',
     cost: 30000,
     damageMin: 1,
     damageMax: 4,
@@ -258,6 +281,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Evil Sword +3 / Saber of Evil',
+    type: 'weapon',
     cost: 50000,
     damageMin: 4,
     damageMax: 13,
@@ -268,6 +292,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Evil S-Sword +3 / Soul Slayer',
+    type: 'weapon',
     cost: 50000,
     damageMin: 1,
     damageMax: 6,
@@ -278,6 +303,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Thieves Dagger',
+    type: 'weapon',
     cost: 50000,
     damageMin: 1,
     damageMax: 6,
@@ -288,6 +314,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Shuriken',
+    type: 'weapon',
     cost: 50000,
     damageMin: 11,
     damageMax: 16,
@@ -298,6 +325,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'Muramasa Blade',
+    type: 'weapon',
     cost: 1000000,
     damageMin: 10,
     damageMax: 50,

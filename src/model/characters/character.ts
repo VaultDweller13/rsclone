@@ -47,13 +47,7 @@ export default class Character {
     this.alignment = alignment;
 
     this.#inventory = [];
-    this.equipment = {
-      head: null,
-      body: null,
-      hands: null,
-      weapon: null,
-      shield: null,
-    };
+    this.equipment = this.#initEquipment();
   }
 
   public setHp(value = this.#maxHp) {
@@ -97,6 +91,29 @@ export default class Character {
 
   removeFromInventory(index: number) {
     return this.#inventory[index];
+  }
+
+  equip(item: Item) {
+    if (!this.equipment.has(item.type)) return;
+    if (!item.alignment.includes(this.alignment)) return;
+    if (!item.class.includes(this.class.name)) return;
+
+    this.equipment.set(item.type, item);
+  }
+
+  unequip(slot: ItemTypes) {
+    if (this.equipment.has(slot)) this.equipment.set(slot, null);
+  }
+
+  #initEquipment() {
+    const slots = ['weapon', 'shield', 'armor', 'helmet', 'gauntlet'] as const;
+    const map = new Map<ItemTypes, Item | null>();
+
+    slots.forEach((slot) => {
+      map.set(slot, null);
+    });
+
+    return map;
   }
 
   attack() {

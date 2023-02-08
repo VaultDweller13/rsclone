@@ -41,8 +41,8 @@ type ItemTypes = 'weapon' | 'shield' | 'armor' | 'helmet' | 'gauntlet';
 
 type Item = {
   name: string;
+  type: ItemTypes;
   cost: number;
-  // type: ItemTypes;
   effect: string;
   class: ClassName[];
   alignment: Alignment[];
@@ -62,10 +62,4 @@ type Helmet = Armor;
 type Shield = Armor;
 type Gauntlets = Armor;
 
-type Equipment = {
-  head: Helmet | null;
-  body: Armor | null;
-  hands: Gauntlets | null;
-  weapon: Weapon | null;
-  shield: Shield | null;
-};
+type Equipment = Map<ItemTypes, Item | null>;
