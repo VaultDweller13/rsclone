@@ -90,7 +90,7 @@ export default class Character {
   }
 
   removeFromInventory(index: number) {
-    return this.#inventory[index];
+    return this.#inventory.splice(index, 1);
   }
 
   equip(item: Item) {
