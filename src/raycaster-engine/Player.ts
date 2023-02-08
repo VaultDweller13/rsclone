@@ -1,5 +1,6 @@
 import GameMap from './GameMap';
 import {
+  CAMERA_CLOSENESS_RATE,
   CIRCLE,
   FOV,
   ROTATE_SPEED_RATE,
@@ -22,18 +23,30 @@ export default class Player {
   private walk = (distance: number, map: GameMap): void => {
     const dx = Math.cos(this.direction) * distance;
     const dy = Math.sin(this.direction) * distance;
-    if (map.get(this.position.x + dx, this.position.y) <= 0)
+    if (
+      map.get(this.position.x + dx * CAMERA_CLOSENESS_RATE, this.position.y) <=
+      0
+    )
       this.position.x += dx;
-    if (map.get(this.position.x, this.position.y + dy) <= 0)
+    if (
+      map.get(this.position.x, this.position.y + dy * CAMERA_CLOSENESS_RATE) <=
+      0
+    )
       this.position.y += dy;
   };
 
   private shift(distance: number, map: GameMap): void {
     const dx = Math.cos(this.direction + Math.PI / 2) * distance;
     const dy = Math.sin(this.direction + Math.PI / 2) * distance;
-    if (map.get(this.position.x + dx, this.position.y) <= 0)
+    if (
+      map.get(this.position.x + dx * CAMERA_CLOSENESS_RATE, this.position.y) <=
+      0
+    )
       this.position.x += dx;
-    if (map.get(this.position.x, this.position.y + dy) <= 0)
+    if (
+      map.get(this.position.x, this.position.y + dy * CAMERA_CLOSENESS_RATE) <=
+      0
+    )
       this.position.y += dy;
   }
 

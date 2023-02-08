@@ -16,3 +16,4 @@ export const RANGE_TO_CAST = 10;
 
 export const WALK_SPEED_RATE = 2;
 export const ROTATE_SPEED_RATE = 0.7;
+export const CAMERA_CLOSENESS_RATE = 6;
