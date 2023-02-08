@@ -17,7 +17,7 @@ import {
   CANVAS_WIDTH,
   MINI_MAP_SIZE,
 } from './raycaster-engine/utils/constants';
-import getMain from './View/Render/getMain';
+import { getMain } from './View/Render/common';
 
 export default function initGame() {
   const canvas = document.createElement('canvas');
