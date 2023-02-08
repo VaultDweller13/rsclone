@@ -47,19 +47,9 @@ type Item = {
   class: ClassName[];
   alignment: Alignment[];
   cursed: boolean;
-};
-
-type Weapon = Item & {
   damageMin: number;
   damageMax: number;
-};
-
-type Armor = Item & {
   AC: number;
 };
-
-type Helmet = Armor;
-type Shield = Armor;
-type Gauntlets = Armor;
 
 type Equipment = Map<ItemTypes, Item | null>;
