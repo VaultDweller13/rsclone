@@ -15,6 +15,8 @@ export default class Character {
   #maxHp: number;
   status: Status;
   alignment: Alignment;
+  #inventory: Item[];
+  equipment: Equipment;
 
   constructor(
     name: string,
@@ -43,6 +45,15 @@ export default class Character {
     this.#hp = this.#maxHp;
     this.status = 'OK';
     this.alignment = alignment;
+
+    this.#inventory = [];
+    this.equipment = {
+      head: null,
+      body: null,
+      hands: null,
+      weapon: null,
+      shield: null,
+    };
   }
 
   public setHp(value = this.#maxHp) {
@@ -78,6 +89,14 @@ export default class Character {
     const vitMod = this.#getVitMod();
     const samMod = this.class.name === 'samurai' ? 2 : 1;
     return samMod * this.class.hitDice + vitMod;
+  }
+
+  addToInventory(item: Item) {
+    if (this.#inventory.length < 8) this.#inventory.push(item);
+  }
+
+  removeFromInventory(index: number) {
+    return this.#inventory[index];
   }
 
   attack() {

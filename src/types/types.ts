@@ -53,3 +53,19 @@ type Weapon = Item & {
   damageMin: number;
   damageMax: number;
 };
+
+type Armor = Item & {
+  AC: number;
+};
+
+type Helmet = Armor;
+type Shield = Armor;
+type Gauntlets = Armor;
+
+type Equipment = {
+  head: Helmet | null;
+  body: Armor | null;
+  hands: Gauntlets | null;
+  weapon: Weapon | null;
+  shield: Shield | null;
+};
