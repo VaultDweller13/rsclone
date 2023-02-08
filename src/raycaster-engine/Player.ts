@@ -38,7 +38,11 @@ export default class Player {
       this.position.y += dy;
   }
 
-  update = (controls: States, map: GameMap, frameTime: number): void => {
+  update = (
+    controls: Record<KeyboardKeyAlias, boolean>,
+    map: GameMap,
+    frameTime: number
+  ): void => {
     console.log(this.direction);
 
     if (controls['camera-left'])

@@ -34,7 +34,7 @@ export default class Raycaster {
 
   private drawWallSlice(
     column: number,
-    ray: Required<Pick<Step, 'offset' | 'distance' | 'cell'>>[],
+    ray: Required<RayOrigin>[],
     angle: number,
     textures: Texture[]
   ): void {
@@ -43,14 +43,11 @@ export default class Raycaster {
 
     while (hit < ray.length && ray[hit].cell <= 0) hit += 1;
 
-    let texture;
-    let textureX;
-
     if (hit < ray.length) {
       const step = ray[hit];
 
-      texture = textures[step.cell > textures.length ? 0 : step.cell - 1];
-      textureX = Math.floor(texture.width * step.offset);
+      const texture = textures[step.cell > textures.length ? 0 : step.cell - 1];
+      const textureX = Math.floor(texture.width * step.offset);
       const wall = this.project(angle, step.distance);
 
       this.ctx.globalAlpha = 1;

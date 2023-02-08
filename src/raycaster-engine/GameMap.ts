@@ -27,7 +27,7 @@ export default class GameMap {
     point: Position,
     angle: number,
     range: number
-  ): Required<Pick<Step, 'offset' | 'distance' | 'cell'>>[] => {
+  ): Required<RayOrigin>[] => {
     const sin = Math.sin(angle);
     const cos = Math.cos(angle);
 
@@ -47,30 +47,19 @@ export default class GameMap {
   };
 
   private getCollisionPoints = (
-    origin: Required<Step>,
+    origin: Required<Ray>,
     sin: number,
     cos: number,
     range: number
-  ): Required<Step>[] => {
-    const stepX: Pick<Step, 'x' | 'y' | 'depth'> = this.step(
-      sin,
-      cos,
-      origin.x,
-      origin.y
-    );
+  ): Required<Ray>[] => {
+    const stepX: RayStep = this.step(sin, cos, origin.x, origin.y);
 
-    const stepY: Pick<Step, 'x' | 'y' | 'depth'> = this.step(
-      cos,
-      sin,
-      origin.y,
-      origin.x,
-      true
-    );
+    const stepY: RayStep = this.step(cos, sin, origin.y, origin.x, true);
 
-    const nextStep =
+    const nextRay =
       (stepX.depth as number) < (stepY.depth as number)
         ? this.inspect(
-            stepX as Required<Pick<Step, 'x' | 'y' | 'depth'>>,
+            stepX as Required<RayStep>,
             1,
             0,
             origin.distance,
@@ -79,7 +68,7 @@ export default class GameMap {
             sin
           )
         : this.inspect(
-            stepY as Required<Pick<Step, 'x' | 'y' | 'depth'>>,
+            stepY as Required<RayStep>,
             0,
             1,
             origin.distance,
@@ -88,8 +77,8 @@ export default class GameMap {
             sin
           );
 
-    if (nextStep.distance > range) return [origin];
-    return [origin].concat(this.getCollisionPoints(nextStep, sin, cos, range));
+    if (nextRay.distance > range) return [origin];
+    return [origin].concat(this.getCollisionPoints(nextRay, sin, cos, range));
   };
 
   private step = (
@@ -98,7 +87,7 @@ export default class GameMap {
     x: number,
     y: number,
     inverted?: boolean
-  ): Pick<Step, 'x' | 'y' | 'depth'> => {
+  ): RayStep => {
     if (end === 0) return { depth: Infinity };
     const dx = end > 0 ? Math.floor(x + 1) - x : Math.ceil(x - 1) - x;
     const dy = dx * (start / end);
@@ -111,21 +100,21 @@ export default class GameMap {
   };
 
   private inspect = (
-    step: Required<Pick<Step, 'x' | 'y' | 'depth'>>,
+    step: Required<RayStep>,
     shiftX: number,
     shiftY: number,
-    nextStepDistance: number,
+    nextRayDistance: number,
     stepOffset: number,
     cos: number,
     sin: number
-  ): Required<Step> => {
+  ): Required<Ray> => {
     const dx = cos < 0 ? shiftX : 0;
     const dy = sin < 0 ? shiftY : 0;
     const index =
       Math.floor(step.y - dy) * this.width + Math.floor(step.x - dx);
     const cell =
       index < 0 || index >= this.walls.length ? -1 : this.walls[index];
-    const distance = nextStepDistance + Math.sqrt(step.depth);
+    const distance = nextRayDistance + Math.sqrt(step.depth);
 
     const offset = stepOffset - Math.floor(stepOffset);
     return { ...step, cell, distance, offset };
