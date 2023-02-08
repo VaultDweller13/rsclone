@@ -14,12 +14,15 @@ import {
   wall3,
 } from './raycaster-engine';
 
+import { getMain } from './View/Render/common';
+
+
 export default function initGame() {
   const canvas = document.createElement('canvas');
   canvas.id = 'canvas';
   canvas.width = CANVAS_WIDTH;
   canvas.height = CANVAS_HEIGHT;
-  document.body.append(canvas);
+  getMain().append(canvas);
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   const walls = [

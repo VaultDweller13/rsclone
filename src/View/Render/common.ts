@@ -37,5 +37,8 @@ function createLayer(layerNum: number, layerContent: HTMLElement): HTMLElement {
   });
   return newLayer;
 }
+function getMain(): HTMLElement {
+  return document.querySelector('.main') as HTMLElement;
+}
 
-export { createChoice, createElement, createLayer };
+export { createChoice, createElement, createLayer, getMain };

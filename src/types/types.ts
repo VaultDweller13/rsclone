@@ -30,6 +30,13 @@ type ClassName =
   | 'lord'
   | 'ninja';
 
+type Class = {
+  name: ClassName;
+  stats: Partial<Record<Stat, number>>;
+  alignment: Alignment[];
+  hitDice: number;
+};
+
 type ItemTypes = 'weapon' | 'shield' | 'armor' | 'helmet' | 'gauntlet';
 
 type Item = {

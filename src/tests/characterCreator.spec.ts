@@ -33,16 +33,16 @@ describe('getClasses()', () => {
     'luck',
   ];
 
-  const classNames = classes.map((item) => item.name);
-  const good = classes
+  const classNames = Object.values(classes).map((item) => item.name);
+  const good = Object.values(classes)
     .filter((item) => item.alignment.includes('good'))
     .map((item) => item.name)
     .sort();
-  const evil = classes
+  const evil = Object.values(classes)
     .filter((item) => item.alignment.includes('evil'))
     .map((item) => item.name)
     .sort();
-  const neutral = classes
+  const neutral = Object.values(classes)
     .filter((item) => item.alignment.includes('neutral'))
     .map((item) => item.name)
     .sort();

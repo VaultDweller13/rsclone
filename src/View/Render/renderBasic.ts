@@ -1,16 +1,16 @@
 // function removeParent(child: HTMLElement) {
 //   child.parentElement?.remove();
 // }
-import { createElement } from './common';
+import { createElement, getMain } from './common';
 import enterCastle from './castle';
 
 function startGame() {
   const gameBlock = createElement('div', 'game');
 
-  document.getElementById('main')?.append(gameBlock);
-  const main = document.getElementById('main') as HTMLElement;
+  getMain().append(gameBlock);
+  const main = getMain();
   main.innerHTML = `
-    <div id="game">
+    <div class="game">
       <div id="view" class="block">
         <div id="location-name" class="block">
         </div>
@@ -41,20 +41,20 @@ function startGame() {
 function renderBasic() {
   const { body } = document;
   body.innerHTML = `
-  <main id ="main">
+  <main class="main">
     <div class="block">
       <button id="start-game">Start Game</button>
     </div>
   </main>
-  <footer id="footer">
+  <footer class="footer">
     <a id="rs-link" href="https://rs.school/js/">
       <img id="rs-image" src="https://rs.school/images/rs_school_js.svg">
     </a>
     <div id="year">2023</div>
     <ul id="github-list">
-      <li><a href="https://github.com/VaultDweller13">Artem Bagaev</a></li>
-      <li><a href="https://github.com/oryngalikarimzhan">Oryngali Karimzhan</a></li>
-      <li><a href="https://github.com/JaLongin">Vasili Drachou</a></li>
+      <li><a class="link" href="https://github.com/VaultDweller13">Artem Bagaev</a></li>
+      <li><a class="link" href="https://github.com/oryngalikarimzhan">Oryngali Karimzhan</a></li>
+      <li><a class="link" href="https://github.com/JaLongin">Vasili Drachou</a></li>
     </ul>
   </footer>
   `;
