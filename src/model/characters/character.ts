@@ -93,6 +93,10 @@ export default class Character {
     return this.#inventory.splice(index, 1);
   }
 
+  getInventory() {
+    return this.#inventory;
+  }
+
   equip(item: Item) {
     if (!this.equipment.has(item.type)) return;
     if (!item.alignment.includes(this.alignment)) return;
