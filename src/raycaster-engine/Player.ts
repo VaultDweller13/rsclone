@@ -22,7 +22,6 @@ export default class Player {
   private walk = (distance: number, map: GameMap): void => {
     const dx = Math.cos(this.direction) * distance;
     const dy = Math.sin(this.direction) * distance;
-    console.log(dx, dy);
     if (map.get(this.position.x + dx, this.position.y) <= 0)
       this.position.x += dx;
     if (map.get(this.position.x, this.position.y + dy) <= 0)
@@ -43,8 +42,6 @@ export default class Player {
     map: GameMap,
     frameTime: number
   ): void => {
-    console.log(this.direction);
-
     if (controls['camera-left'])
       this.rotate(-Math.PI * frameTime * ROTATE_SPEED_RATE);
     if (controls['camera-right'])

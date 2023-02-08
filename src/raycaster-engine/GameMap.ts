@@ -52,30 +52,20 @@ export default class GameMap {
     cos: number,
     range: number
   ): Required<Ray>[] => {
-    const stepX: RayStep = this.step(sin, cos, origin.x, origin.y);
+    const stepX: Required<RayStep> = this.step(sin, cos, origin.x, origin.y);
 
-    const stepY: RayStep = this.step(cos, sin, origin.y, origin.x, true);
+    const stepY: Required<RayStep> = this.step(
+      cos,
+      sin,
+      origin.y,
+      origin.x,
+      true
+    );
 
     const nextRay =
-      (stepX.depth as number) < (stepY.depth as number)
-        ? this.inspect(
-            stepX as Required<RayStep>,
-            1,
-            0,
-            origin.distance,
-            stepX.y as number,
-            cos,
-            sin
-          )
-        : this.inspect(
-            stepY as Required<RayStep>,
-            0,
-            1,
-            origin.distance,
-            stepY.x as number,
-            cos,
-            sin
-          );
+      stepX.depth < stepY.depth
+        ? this.inspect(stepX, 1, 0, origin.distance, stepX.y, cos, sin)
+        : this.inspect(stepY, 0, 1, origin.distance, stepY.x, cos, sin);
 
     if (nextRay.distance > range) return [origin];
     return [origin].concat(this.getCollisionPoints(nextRay, sin, cos, range));
@@ -87,8 +77,7 @@ export default class GameMap {
     x: number,
     y: number,
     inverted?: boolean
-  ): RayStep => {
-    if (end === 0) return { depth: Infinity };
+  ): Required<RayStep> => {
     const dx = end > 0 ? Math.floor(x + 1) - x : Math.ceil(x - 1) - x;
     const dy = dx * (start / end);
 
