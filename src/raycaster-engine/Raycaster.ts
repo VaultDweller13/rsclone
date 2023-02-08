@@ -1,21 +1,17 @@
 import GameMap from './GameMap';
 import Player from './Player';
 import Texture from './Texture';
-import { SHADING_COLOR } from './utils/constants';
+import { FOV, RANGE_TO_CAST, SHADING_COLOR } from './utils/constants';
 
 export default class Raycaster {
-  width: number;
-  height: number;
-  ctx: CanvasRenderingContext2D;
-  lightRange: number;
-  range = 14;
-  fov = Math.PI / 3;
+  private readonly range = RANGE_TO_CAST;
+  private readonly fov = FOV;
 
   constructor(
-    width: number,
-    height: number,
-    ctx: CanvasRenderingContext2D,
-    lightRange: number
+    public width: number,
+    public height: number,
+    public ctx: CanvasRenderingContext2D,
+    public lightRange: number
   ) {
     this.width = width;
     this.height = height;
@@ -38,29 +34,24 @@ export default class Raycaster {
 
   private drawWallSlice(
     column: number,
-    rays: Step[],
+    ray: Required<Pick<Step, 'offset' | 'distance' | 'cell'>>[],
     angle: number,
     textures: Texture[]
   ): void {
     const left = column;
     let hit = 0;
 
-    while (hit < rays.length && (rays[hit].cell as number) <= 0) hit += 1;
+    while (hit < ray.length && ray[hit].cell <= 0) hit += 1;
 
     let texture;
     let textureX;
 
-    if (hit < rays.length) {
-      const step = rays[hit];
+    if (hit < ray.length) {
+      const step = ray[hit];
 
-      texture =
-        textures[
-          (step.cell as number) > textures.length
-            ? 0
-            : (step.cell as number) - 1
-        ];
-      textureX = Math.floor(texture.width * (step.offset as number));
-      const wall = this.project(angle, step.distance as number);
+      texture = textures[step.cell > textures.length ? 0 : step.cell - 1];
+      textureX = Math.floor(texture.width * step.offset);
+      const wall = this.project(angle, step.distance);
 
       this.ctx.globalAlpha = 1;
       this.ctx.drawImage(
@@ -76,10 +67,7 @@ export default class Raycaster {
       );
 
       this.ctx.fillStyle = SHADING_COLOR;
-      this.ctx.globalAlpha = Math.max(
-        (step.distance as number) / this.lightRange,
-        0
-      );
+      this.ctx.globalAlpha = Math.max(step.distance / this.lightRange, 0);
 
       this.ctx.fillRect(left, wall.top, 1, wall.height);
     }
@@ -91,12 +79,12 @@ export default class Raycaster {
 
     for (let col = 0; col < this.width; col += 1) {
       const angle = this.fov * (col / this.width - 0.5);
-      const rays = map.cast(
+      const ray = map.cast(
         player.position,
         player.direction + angle,
         this.range
       );
-      this.drawWallSlice(col, rays, angle, map.wallTextures);
+      this.drawWallSlice(col, ray, angle, map.wallTextures);
     }
     this.ctx.restore();
   };

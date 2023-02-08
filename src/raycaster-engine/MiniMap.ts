@@ -1,25 +1,27 @@
 import GameMap from './GameMap';
 import {
+  MINI_MAP_CELL_WIDTH,
   MINI_MAP_EMPTY_BLOCK_COLOR,
   MINI_MAP_NOT_EMPTY_BLOCK_COLOR,
   MINI_MAP_PLAYER_COLOR,
 } from './utils/constants';
 
 export default class MiniMap {
-  cellSize = 4;
-  width = 0;
-  height = 0;
-  target = document.createElement('canvas');
-  ctx = this.target.getContext('2d') as CanvasRenderingContext2D;
+  private readonly cellSize = MINI_MAP_CELL_WIDTH;
+  private width: number;
+  private height: number;
+  private readonly target = document.createElement('canvas');
+  private readonly ctx = this.target.getContext(
+    '2d'
+  ) as CanvasRenderingContext2D;
 
   constructor(map: GameMap) {
+    this.width = map.width;
+    this.height = map.height;
     this.load(map);
   }
 
   load = (map: GameMap): void => {
-    this.width = map.width;
-    this.height = map.height;
-
     this.target.width = this.width * this.cellSize;
     this.target.height = this.height * this.cellSize;
 

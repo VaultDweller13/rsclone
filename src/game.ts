@@ -67,7 +67,7 @@ export default function initGame() {
   const map = new GameMap(MINI_MAP_SIZE, walls, wallTextures);
   const player = new Player(initialPosition);
   const miniMap = new MiniMap(map);
-  const controls = new Controls();
+  const controls = new Controls('continuous');
   const loop = new GameLoop();
 
   loop.start((seconds) => {

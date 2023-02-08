@@ -17,6 +17,24 @@ type Step = {
   offset?: number;
 };
 
-type KeyboardKey = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown';
+type KeyboardKey =
+  | 'ArrowLeft'
+  | 'ArrowRight'
+  | 'ArrowUp'
+  | 'ArrowDown'
+  | 'q'
+  | 'e'
+  | 'w'
+  | 's'
+  | 'a'
+  | 'd';
 
-type KeyboardKeyAlias = 'left' | 'right' | 'forward' | 'backward';
+type KeyboardKeyAlias =
+  | 'left'
+  | 'right'
+  | 'forward'
+  | 'backward'
+  | 'camera-left'
+  | 'camera-right';
+
+type ControlMode = 'continuous' | 'discrete';
