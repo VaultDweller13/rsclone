@@ -13,13 +13,13 @@ export const MINI_MAP_CELL_WIDTH = 4;
 export const SHADING_COLOR = 'black';
 export const FOV = Math.PI / 3;
 export const RANGE_TO_CAST = 10;
+export const PERSPECTIVE_RATIO = 0.75;
 
 export const WALK_SPEED_RATE = 2;
 export const ROTATE_SPEED_RATE = 0.7;
 export const CAMERA_CLOSENESS_RATE = 6;
 
 export const CRAB_WALK_ANGLE = Math.PI / 2;
-
 export const DISCRETE_ROTATE_ANGLE_PER_FRAME = Math.PI / 90;
 
 export const DISCRETE_ROTATE_ANGLE_0 = 0;

@@ -1,7 +1,12 @@
 import GameMap from './GameMap';
 import Player from './Player';
 import Texture from './Texture';
-import { FOV, RANGE_TO_CAST, SHADING_COLOR } from './utils/constants';
+import {
+  FOV,
+  PERSPECTIVE_RATIO,
+  RANGE_TO_CAST,
+  SHADING_COLOR,
+} from './utils/constants';
 
 export default class Raycaster {
   private readonly range = RANGE_TO_CAST;
@@ -18,7 +23,7 @@ export default class Raycaster {
     angle: number,
     distance: number
   ): { top: number; height: number } => {
-    const z = 0.5 * distance * Math.cos(angle);
+    const z = PERSPECTIVE_RATIO * distance * Math.cos(angle);
     const wallHeight = this.height / z;
     const top = (this.height / 2) * (1 + 1 / z) - wallHeight;
     return {

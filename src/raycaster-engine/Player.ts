@@ -174,7 +174,7 @@ export default class Player {
 
   private getWalkPredicator = () => () => {
     this.walkSteps += 1;
-    return this.walkSteps < 10;
+    return this.walkSteps < 8;
   };
 
   private getRotateCallback = (isCounterclockwise: boolean) => () =>
