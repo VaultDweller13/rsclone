@@ -21,10 +21,13 @@ export default class Controls {
     backward: false,
   };
 
-  constructor(mode: ControlMode) {
-    if (mode === 'continuous') {
-      document.addEventListener('keydown', (e) => this.onKey(true, e), false);
-      document.addEventListener('keyup', (e) => this.onKey(false, e), false);
+  constructor(public readonly mode: ControlMode) {
+    if (mode === 'discrete') {
+      document.addEventListener(
+        'keydown',
+        (e) => this.onDiscreteModeKey(e),
+        false
+      );
     } else {
       document.addEventListener('keydown', (e) => this.onKey(true, e), false);
       document.addEventListener('keyup', (e) => this.onKey(false, e), false);
@@ -35,6 +38,16 @@ export default class Controls {
     if (Object.keys(this.codes).includes(e.key)) {
       const state = this.codes[e.key as KeyboardKey];
       this.states[state] = val;
+    }
+  };
+
+  private onDiscreteModeKey = (e: KeyboardEvent) => {
+    if (
+      Object.keys(this.codes).includes(e.key) &&
+      Object.values(this.states).every((value: boolean) => !value)
+    ) {
+      const state = this.codes[e.key as KeyboardKey];
+      this.states[state] = true;
     }
   };
 }

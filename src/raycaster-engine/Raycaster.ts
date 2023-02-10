@@ -12,18 +12,13 @@ export default class Raycaster {
     public height: number,
     public ctx: CanvasRenderingContext2D,
     public lightRange: number
-  ) {
-    this.width = width;
-    this.height = height;
-    this.ctx = ctx;
-    this.lightRange = lightRange;
-  }
+  ) {}
 
   private project = (
     angle: number,
     distance: number
   ): { top: number; height: number } => {
-    const z = distance * Math.cos(angle);
+    const z = 0.5 * distance * Math.cos(angle);
     const wallHeight = this.height / z;
     const top = (this.height / 2) * (1 + 1 / z) - wallHeight;
     return {

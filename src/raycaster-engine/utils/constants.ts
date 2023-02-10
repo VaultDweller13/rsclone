@@ -17,3 +17,13 @@ export const RANGE_TO_CAST = 10;
 export const WALK_SPEED_RATE = 2;
 export const ROTATE_SPEED_RATE = 0.7;
 export const CAMERA_CLOSENESS_RATE = 6;
+
+export const CRAB_WALK_ANGLE = Math.PI / 2;
+
+export const DISCRETE_ROTATE_ANGLE_PER_FRAME = Math.PI / 90;
+
+export const DISCRETE_ROTATE_ANGLE_0 = 0;
+export const DISCRETE_ROTATE_ANGLE_90 = Math.PI / 2;
+export const DISCRETE_ROTATE_ANGLE_180 = Math.PI;
+export const DISCRETE_ROTATE_ANGLE_270 =
+  DISCRETE_ROTATE_ANGLE_90 + DISCRETE_ROTATE_ANGLE_180;

@@ -15,7 +15,7 @@ export default class MiniMap {
     '2d'
   ) as CanvasRenderingContext2D;
 
-  constructor(map: GameMap) {
+  constructor(map: GameMap, public readonly miniLayoutPosition: Coordinates) {
     this.width = map.width;
     this.height = map.height;
     this.load(map);
@@ -54,8 +54,8 @@ export default class MiniMap {
 
   render = (
     ctx: CanvasRenderingContext2D,
-    pos: Position,
-    playerPos: Position
+    pos: Coordinates,
+    playerPos: Coordinates
   ): void => {
     const pX = (this.width - Math.floor(playerPos.x) - 1) * this.cellSize;
     const pY = (this.height - Math.floor(playerPos.y) - 1) * this.cellSize;
