@@ -18,10 +18,9 @@ import {
   // door22,
   // door31,
   // door32,
-} from './raycaster-engine';
+} from './raycasting-engine';
 
 import { getMain } from './View/Render/common';
-
 
 export default function initGame() {
   const canvas = document.createElement('canvas');

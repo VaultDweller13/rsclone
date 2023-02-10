@@ -2,6 +2,7 @@ import Controls from './Controls';
 import GameMap from './GameMap';
 import {
   CAMERA_CLOSENESS_RATE,
+  CENTRALIZER_VALUE,
   CIRCLE,
   CRAB_WALK_ANGLE,
   DISCRETE_ROTATE_ANGLE_0,
@@ -9,6 +10,9 @@ import {
   DISCRETE_ROTATE_ANGLE_270,
   DISCRETE_ROTATE_ANGLE_90,
   DISCRETE_ROTATE_ANGLE_PER_FRAME,
+  DISCRETE_WALK_DISTANCE_PER_FRAME,
+  DISCRETE_WALK_MAX_STEPS,
+  DOUBLE_DISCRETE_ROTATE_ANGLE_PER_FRAME,
   FOV,
   ROTATE_SPEED_RATE,
   WALK_SPEED_RATE,
@@ -170,11 +174,11 @@ export default class Player {
 
   private getRotatePredicator = () => () =>
     Math.abs(this.targetDirection - this.direction) >=
-    2 * DISCRETE_ROTATE_ANGLE_PER_FRAME;
+    DOUBLE_DISCRETE_ROTATE_ANGLE_PER_FRAME;
 
   private getWalkPredicator = () => () => {
     this.walkSteps += 1;
-    return this.walkSteps < 8;
+    return this.walkSteps < DISCRETE_WALK_MAX_STEPS;
   };
 
   private getRotateCallback = (isCounterclockwise: boolean) => () =>
@@ -195,12 +199,16 @@ export default class Player {
   };
 
   private centralizePosition = (position: Coordinates): Coordinates => ({
-    x: Math.floor(position.x) + 0.5,
-    y: Math.floor(position.y) + 0.5,
+    x: Math.floor(position.x) + CENTRALIZER_VALUE,
+    y: Math.floor(position.y) + CENTRALIZER_VALUE,
   });
 
   private getWalkCallback =
     (map: GameMap, isNegative: boolean, isCrabWalk = false) =>
     () =>
-      this.walk((isNegative ? -1 : 1) * 0.1, map, isCrabWalk);
+      this.walk(
+        (isNegative ? -1 : 1) * DISCRETE_WALK_DISTANCE_PER_FRAME,
+        map,
+        isCrabWalk
+      );
 }
