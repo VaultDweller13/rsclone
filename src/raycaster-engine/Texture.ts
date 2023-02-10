@@ -1,10 +1,7 @@
 export default class Texture {
-  img: HTMLImageElement;
-  width: number;
-  height: number;
+  readonly img = new Image();
 
-  constructor(src: string, width: number, height: number) {
-    this.img = new Image();
+  constructor(src: string, public width: number, public height: number) {
     this.width = width;
     this.height = height;
     this.img.src = src;

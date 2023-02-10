@@ -1,4 +1,3 @@
-import './raycaster-engine/styles/game-canvas.css';
 import {
   Raycaster,
   GameMap,
@@ -7,17 +6,16 @@ import {
   Controls,
   GameLoop,
   Texture,
-} from './raycaster-engine';
-
-import wall1 from './assets/wall.jpg';
-import wall2 from './assets/wall2.png';
-import wall3 from './assets/wall3.jpg';
-import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
   MINI_MAP_SIZE,
-} from './raycaster-engine/utils/constants';
+  wall1,
+  wall2,
+  wall3,
+} from './raycaster-engine';
+
 import { getMain } from './View/Render/common';
+
 
 export default function initGame() {
   const canvas = document.createElement('canvas');
@@ -28,7 +26,7 @@ export default function initGame() {
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   const walls = [
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,
     1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 2, 2, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0,
     1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1,
@@ -68,7 +66,7 @@ export default function initGame() {
   const map = new GameMap(MINI_MAP_SIZE, walls, wallTextures);
   const player = new Player(initialPosition);
   const miniMap = new MiniMap(map);
-  const controls = new Controls();
+  const controls = new Controls('continuous');
   const loop = new GameLoop();
 
   loop.start((seconds) => {

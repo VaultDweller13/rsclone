@@ -1,12 +1,14 @@
 import Texture from './Texture';
 
 export default class GameMap {
-  width: number;
-  height: number;
-  walls: number[];
-  wallTextures: Texture[];
+  readonly width: number;
+  readonly height: number;
 
-  constructor(size: number, walls: number[], wallTextures: Texture[]) {
+  constructor(
+    size: number,
+    public readonly walls: number[],
+    public readonly wallTextures: Texture[]
+  ) {
     this.width = size;
     this.height = size;
     this.walls = walls;
@@ -24,54 +26,49 @@ export default class GameMap {
   cast = (
     point: Position,
     angle: number,
-    range: number,
-    fullRange = false
-  ): Step[] => {
-    const cells: Step[] = [];
+    range: number
+  ): Required<RayOrigin>[] => {
     const sin = Math.sin(angle);
     const cos = Math.cos(angle);
 
-    let stepX: Step;
-    let stepY: Step;
-    let nextStep: Step;
-    nextStep = { x: point.x, y: point.y, cell: 0, distance: 0 };
+    return this.getCollisionPoints(
+      {
+        x: point.x,
+        y: point.y,
+        cell: 0,
+        distance: 0,
+        offset: 0,
+        depth: 0,
+      },
+      sin,
+      cos,
+      range
+    );
+  };
 
-    do {
-      cells.push(nextStep);
-      if (!fullRange && nextStep.cell && nextStep.cell > 0) break;
+  private getCollisionPoints = (
+    origin: Required<Ray>,
+    sin: number,
+    cos: number,
+    range: number
+  ): Required<Ray>[] => {
+    const stepX: Required<RayStep> = this.step(sin, cos, origin.x, origin.y);
 
-      stepX = this.step(sin, cos, nextStep.x as number, nextStep.y as number);
-      stepY = this.step(
-        cos,
-        sin,
-        nextStep.y as number,
-        nextStep.x as number,
-        true
-      );
+    const stepY: Required<RayStep> = this.step(
+      cos,
+      sin,
+      origin.y,
+      origin.x,
+      true
+    );
 
-      nextStep =
-        (stepX.depth as number) < (stepY.depth as number)
-          ? this.inspect(
-              stepX,
-              1,
-              0,
-              nextStep.distance as number,
-              stepX.y as number,
-              cos,
-              sin
-            )
-          : this.inspect(
-              stepY,
-              0,
-              1,
-              nextStep.distance as number,
-              stepY.x as number,
-              cos,
-              sin
-            );
-    } while (nextStep.distance && nextStep.distance <= range);
+    const nextRay =
+      stepX.depth < stepY.depth
+        ? this.inspect(stepX, 1, 0, origin.distance, stepX.y, cos, sin)
+        : this.inspect(stepY, 0, 1, origin.distance, stepY.x, cos, sin);
 
-    return cells;
+    if (nextRay.distance > range) return [origin];
+    return [origin].concat(this.getCollisionPoints(nextRay, sin, cos, range));
   };
 
   private step = (
@@ -80,8 +77,7 @@ export default class GameMap {
     x: number,
     y: number,
     inverted?: boolean
-  ): Step => {
-    if (end === 0) return { depth: Infinity };
+  ): Required<RayStep> => {
     const dx = end > 0 ? Math.floor(x + 1) - x : Math.ceil(x - 1) - x;
     const dy = dx * (start / end);
 
@@ -93,22 +89,21 @@ export default class GameMap {
   };
 
   private inspect = (
-    step: Step,
+    step: Required<RayStep>,
     shiftX: number,
     shiftY: number,
-    nextStepDistance: number,
+    nextRayDistance: number,
     stepOffset: number,
     cos: number,
     sin: number
-  ): Step => {
+  ): Required<Ray> => {
     const dx = cos < 0 ? shiftX : 0;
     const dy = sin < 0 ? shiftY : 0;
     const index =
-      Math.floor((step.y as number) - dy) * this.width +
-      Math.floor((step.x as number) - dx);
+      Math.floor(step.y - dy) * this.width + Math.floor(step.x - dx);
     const cell =
       index < 0 || index >= this.walls.length ? -1 : this.walls[index];
-    const distance = nextStepDistance + Math.sqrt(step.depth as number);
+    const distance = nextRayDistance + Math.sqrt(step.depth);
 
     const offset = stepOffset - Math.floor(stepOffset);
     return { ...step, cell, distance, offset };

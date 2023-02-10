@@ -4,11 +4,7 @@ type Position = {
   direction?: number;
 };
 
-type States = {
-  [key: string]: boolean;
-};
-
-type Step = {
+type Ray = {
   x?: number;
   y?: number;
   depth?: number;
@@ -16,7 +12,25 @@ type Step = {
   distance?: number;
   offset?: number;
 };
+type RayStep = Pick<Ray, 'x' | 'y' | 'depth'>;
+type RayOrigin = Pick<Ray, 'offset' | 'distance' | 'cell'>;
 
-type KeyboardKey = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown';
-
-type KeyboardKeyAlias = 'left' | 'right' | 'forward' | 'backward';
+type KeyboardKey =
+  | 'ArrowLeft'
+  | 'ArrowRight'
+  | 'ArrowUp'
+  | 'ArrowDown'
+  | 'q'
+  | 'e'
+  | 'w'
+  | 's'
+  | 'a'
+  | 'd';
+type KeyboardKeyAlias =
+  | 'left'
+  | 'right'
+  | 'forward'
+  | 'backward'
+  | 'camera-left'
+  | 'camera-right';
+type ControlMode = 'continuous' | 'discrete';

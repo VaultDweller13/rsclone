@@ -1,11 +1,7 @@
 export default class GameLoop {
-  lastTime = 0;
-  callback: ((seconds: number) => void) | null;
-  loopId = 0;
-
-  constructor() {
-    this.callback = null;
-  }
+  private lastTime = 0;
+  private callback: ((seconds: number) => void) | null = null;
+  private loopId = 0;
 
   start = (callback: (seconds: number) => void) => {
     this.callback = callback;
