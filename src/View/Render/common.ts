@@ -10,6 +10,7 @@ function createElement(tag: string, id: string, elClass?: string): HTMLElement {
   }
   return newEl;
 }
+
 function createChoice(
   choiceId: string,
   buttonsDesc: ChoiceButton[]
@@ -25,6 +26,7 @@ function createChoice(
   });
   return choice;
 }
+
 function createLayer(layerNum: number, layerContent: HTMLElement): HTMLElement {
   const newLayer = createElement('div', '', `layer layer${layerNum}`);
   switch (layerNum) {
@@ -47,17 +49,15 @@ function createLayer(layerNum: number, layerContent: HTMLElement): HTMLElement {
   });
   return newLayer;
 }
+
 function getMain(): HTMLElement {
   return document.querySelector('.main') as HTMLElement;
 }
+
 function getParty(): HTMLElement {
   return document.querySelector('.prty') as HTMLElement;
 }
-// function hideBlock(block: HTMLElement){
-//   if (!block.classList.contains('hidden')){
-//     block.classList.toggle('hidden');
-//   }
-// }
+
 function warning(warnText: string) {
   const view = document.getElementById('view') as HTMLElement;
   const warnBlock = createElement('div', '', 'block pop-up center');
@@ -95,6 +95,7 @@ function resetPage() {
   gamePage.append(view);
   gamePage.append(prtyBlock);
 }
+
 export {
   createChoice,
   createElement,

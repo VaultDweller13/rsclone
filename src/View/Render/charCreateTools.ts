@@ -104,4 +104,11 @@ function setNameHtml() : string{
   </form>
   `
 }
-export { setLineHtml, setStatClassHtml, setRaceHtml, setNameHtml };
+function removeClassInactive(className: string){
+  document.querySelectorAll(`.${className}`).forEach((block) => {
+    if (block.classList.contains('inactive')) {
+      block.classList.remove('inactive');
+    }
+  });
+}
+export { setLineHtml, setStatClassHtml, setRaceHtml, setNameHtml, removeClassInactive };

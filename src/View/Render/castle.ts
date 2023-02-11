@@ -19,12 +19,14 @@ function renderCastle() {
   view.style.backgroundSize = '100% 100%';
   view.append(firstChoice);
 }
+
 let implementCastle = () => {};
 
 const enterCastle = () => {
   renderCastle();
   implementCastle();
 };
+
 implementCastle = () => {
   const view = document.getElementById('view') as HTMLElement;
   document.getElementById('tavern')?.addEventListener('click', () => {
@@ -74,4 +76,5 @@ implementCastle = () => {
     /* go to town's edge */
   });
 };
+
 export default enterCastle;

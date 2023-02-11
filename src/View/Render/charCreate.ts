@@ -4,9 +4,17 @@ import {
   getBonus,
   getClasses,
   getCharacter,
+  getAlignment,
 } from '../../model/characters/characterCreator';
 import classes from '../../model/data/classes';
-import { setLineHtml, setNameHtml, setRaceHtml, setStatClassHtml } from './charCreateHtml';
+import {
+  removeClassInactive,
+  setLineHtml,
+  setNameHtml,
+  setRaceHtml,
+  setStatClassHtml,
+} from './charCreateTools';
+import ChoiceButton from './choice';
 
 const chars = new Map();
 const newChar = {
@@ -16,6 +24,7 @@ const newChar = {
   class: '',
   bonus: 0,
 };
+
 const charStats = {
   strength: 0,
   intelligence: 0,
@@ -24,13 +33,16 @@ const charStats = {
   agility: 0,
   luck: 0,
 };
+
 let confirm = () => {};
+
 function selectClass(clas: string) {
   newChar.class = clas;
   if (newChar.bonus === 0) {
     document.getElementById('confirm')?.classList.remove('inactive');
   }
 }
+
 const setClasses = (alignment: Alignment, stats: Record<Stat, number>) => {
   const classesEl = document.getElementById('classes') as HTMLElement;
   document.querySelectorAll('.class').forEach((el) => el.remove());
@@ -55,6 +67,7 @@ const setClasses = (alignment: Alignment, stats: Record<Stat, number>) => {
     }
   }
 };
+
 function reroll(stats: Record<Stat, number>): number {
   Object.keys(stats).forEach((el) => {
     const key = el as Stat;
@@ -63,11 +76,7 @@ function reroll(stats: Record<Stat, number>): number {
     (
       document.getElementById(key)?.querySelector('.stat-value') as HTMLElement
     ).textContent = stats[key].toString();
-    document.querySelectorAll('.increase').forEach((block) => {
-      if (block.classList.contains('inactive')) {
-        block.classList.remove('inactive');
-      }
-    });
+    removeClassInactive('increase');
     document.querySelectorAll('.decrease').forEach((block) => {
       if (!block.classList.contains('inactive')) {
         block.classList.add('inactive');
@@ -77,6 +86,7 @@ function reroll(stats: Record<Stat, number>): number {
   setClasses(newChar.alignment, stats);
   return getBonus();
 }
+
 function setStats(bons: number, stats: Record<Stat, number>) {
   newChar.bonus = bons;
   Object.keys(stats).forEach((el) => {
@@ -102,11 +112,7 @@ function setStats(bons: number, stats: Record<Stat, number>) {
         ).textContent = charStats[stat].toString();
         (document.getElementById('bonus') as HTMLElement).textContent =
           newChar.bonus.toString();
-        document.querySelectorAll('.increase').forEach((block) => {
-          if (block.classList.contains('inactive')) {
-            block.classList.remove('inactive');
-          }
-        });
+        removeClassInactive('increase');
         if (charStats[stat] === stats[stat]) {
           target.classList.add('inactive');
         }
@@ -166,6 +172,7 @@ function setStats(bons: number, stats: Record<Stat, number>) {
     }
   });
 }
+
 function initStats() {
   (document.getElementById('cur-align') as HTMLElement).textContent =
     newChar.alignment.substring(0, 1).toUpperCase();
@@ -178,88 +185,49 @@ function initStats() {
     charStats[key] = stats[key];
   });
   const bonus = getBonus();
-  (document.getElementById('stats-class') as HTMLElement).innerHTML = setStatClassHtml(bonus);
+  (document.getElementById('stats-class') as HTMLElement).innerHTML =
+    setStatClassHtml(bonus);
   setStats(bonus, stats);
 }
+
 function setAlignment() {
   document.getElementById('current-choice')?.replaceWith(
-    createChoice('current-choice', [
-      {
-        id: 'good',
-        name: 'good',
-        func: () => {
-          newChar.alignment = 'good';
-          initStats();
-        },
-      },
-      {
-        id: 'neutral',
-        name: 'neutral',
-        func: () => {
-          newChar.alignment = 'neutral';
-          initStats();
-        },
-      },
-      {
-        id: 'evil',
-        name: 'evil',
-        func: () => {
-          newChar.alignment = 'evil';
-          initStats();
-        },
-      },
-    ])
+    createChoice(
+      'current-choice',
+      getAlignment().map(
+        (al): ChoiceButton => ({
+          id: al,
+          name: al,
+          func: () => {
+            newChar.alignment = al;
+            initStats();
+          },
+        })
+      )
+    )
   );
   (document.getElementById('race') as HTMLElement).textContent = newChar.race
     .substring(0, 3)
     .toUpperCase();
 }
+
 function setRace() {
   const view = document.getElementById('view') as HTMLElement;
   view.innerHTML = setRaceHtml(newChar.name);
   view.append(
-    createChoice('current-choice', [
-      {
-        id: 'human',
-        name: 'human',
-        func: () => {
-          newChar.race = 'human';
-          setAlignment();
-        },
-      },
-      {
-        id: 'elf',
-        name: 'elf',
-        func: () => {
-          newChar.race = 'elf';
-          setAlignment();
-        },
-      },
-      {
-        id: 'dwarf',
-        name: 'dwarf',
-        func: () => {
-          newChar.race = 'dwarf';
-          setAlignment();
-        },
-      },
-      {
-        id: 'gnome',
-        name: 'gnome',
-        func: () => {
-          newChar.race = 'gnome';
-          setAlignment();
-        },
-      },
-      {
-        id: 'hobbit',
-        name: 'hobbit',
-        func: () => {
-          newChar.race = 'hobbit';
-          setAlignment();
-        },
-      },
-    ])
+    createChoice(
+      'current-choice',
+      getAlignment().map(
+        (race): ChoiceButton => ({
+          id: race,
+          name: race,
+          func: () => {
+            newChar.race = race;
+            setAlignment();
+          },
+        })
+      )
+    )
   );
 }
 

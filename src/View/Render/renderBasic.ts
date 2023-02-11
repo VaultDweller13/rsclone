@@ -31,21 +31,8 @@ function renderBasic() {
     </ul>
   </footer>
   `;
-  /* const main = createElWId('main', 'main');
-  const footer = createElWId('footer', 'footer');
-  body.append(main);
-  body.append(footer);
-  const rsLink = createElWId('a', 'rs-link');
-  const rsImage = createElWId('img', 'rs-image');
-  const year = createElWId('div', 'year');
-  const githubList = createElWId('ul', 'github-list');
-  */
   const startButton = document.getElementById('start-game');
   startButton?.addEventListener('click', startGame);
 }
-// function renderCastle(){
-//   const gameBlock = document.getElementById('game');
-//   const backBlock = createElement('div','a');
-// }
 
 export default renderBasic;
