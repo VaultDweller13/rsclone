@@ -37,20 +37,20 @@ const setClasses = (alignment: Alignment, stats: Record<Stat, number>) => {
   const classNames = getClasses(alignment, stats);
   classNames.forEach((cl) => {
     const classButton = createElement('div', cl, 'class button');
-    if (newChar.bonus > 0){
+    if (newChar.bonus > 0) {
       classButton.classList.add('inactive');
     }
     classButton.textContent = cl;
     classesEl.append(classButton);
     classButton.addEventListener('click', () => {
-      if (newChar.bonus === 0){
+      if (newChar.bonus === 0) {
         selectClass(cl);
         classButton.classList.add('selected');
       }
     });
   });
-  if (newChar.class === '' || newChar.bonus > 0){
-    if (!document.getElementById('confirm')?.classList.contains('inactive')){
+  if (newChar.class === '' || newChar.bonus > 0) {
+    if (!document.getElementById('confirm')?.classList.contains('inactive')) {
       document.getElementById('confirm')?.classList.add('inactive');
     }
   }
