@@ -3,7 +3,7 @@ import initGame from '../../game';
 
 function enterMaze() {
   const block = createElement('div', '', 'block');
-  const button = createElement('button', 'maze-but');
+  const button = createElement('button', 'maze', 'button');
   button.textContent = 'Enter Maze';
   block.append(button);
   getMain().append(block);

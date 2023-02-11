@@ -10,14 +10,27 @@
     padding: 10px;
     margin: 5px;
   }
-  button {
+  .hidden {
+    display: none;
+  }
+  .button {
     background-color: #000000;
     font-weight: 800;
     border: none;
   }
-  button:hover {
+  .button:hover {
     cursor: pointer;
     background-color: #0044ff89;
+  }
+  .button.inactive {
+    background-color: #7f7f7f;
+  }
+  .button.inactive:hover {
+    background-color: #7f7f7f;
+    cursor: default;
+  }
+  .button.selected {
+    background-color: #1b5202;
   }
 }
 
@@ -41,16 +54,16 @@
   }
 }
 .game {
-  max-height: 90vh;
   border-radius: 5px;
   padding: 10px 5px;
-  width: 80%;
   min-width: 350px;
+  max-width: 1440px;
   aspect-ratio: 1.5;
   background-color: #000000;
   position: relative;
   display: flex;
   flex-direction: column;
+  height: 60vh;
   #view {
     position: relative;
     flex-grow: 2;
@@ -63,6 +76,7 @@
       top: -17px;
       left: 0;
       right: 0;
+      z-index: 20;
     }
     .layer1,
     .layer2,
@@ -87,9 +101,40 @@
       position: absolute;
       display: flex;
       flex-direction: column;
+      width: 30%;
+      height: fit-content;
+    }
+    .left {
+      left: 15px;
+    }
+    .center {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+    .form {
+      width: 45%;
+      height: 45%;
+      justify-content: space-evenly;
+      gap: 0.5em;
+      padding: 15px;
+      align-items: center;
+      min-width: 200px;
+      min-height: 100px;
+    }
+    .input {
+      background-color: #000000;
+      border: #ffffff 3px solid;
+      border-radius: 5px;
+    }
+    .input:hover {
+      background-color: #0044ff89;
+      cursor: pointer;
     }
   }
-  #prty {
+  .prty {
     flex-grow: 1;
     position: relative;
     display: flex;

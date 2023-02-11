@@ -1,40 +1,13 @@
 // function removeParent(child: HTMLElement) {
 //   child.parentElement?.remove();
 // }
-import { createElement, getMain } from './common';
+import { getMain, createElement } from './common';
 import enterCastle from './castle';
 
 function startGame() {
-  const gameBlock = createElement('div', 'game');
-
-  getMain().append(gameBlock);
   const main = getMain();
-  main.innerHTML = `
-    <div class="game">
-      <div id="view" class="block">
-        <div id="location-name" class="block">
-        </div>
-      </div>
-      <div id="prty" class="block">
-        <div id="prty-header">
-          <div class="prty-param" id="prty-names"><span class="param-wrap">Name</span></div>
-          <div class="prty-param" id="prty-classes"><span class="param-wrap">Class</span></div>
-          <div class="prty-param" id="prty-ac"><span class="param-wrap">AC?</span></div>
-          <div class="prty-param" id="prty-hp"><span class="param-wrap">HP /</span></div>
-          <div class="prty-param" id="prty-status"><span class="param-wrap">Status</span></div>
-        </div>
-        <div class="prty-body">
-          <div class="prty-chr" id="dummy-name">
-            <div class="chr-name chr-param">Naminous</div>
-            <div class="chr-class chr-param">NamIni</div>
-            <div class="chr-ac chr-param">15s</div>
-            <div class="chr-hp chr-param">8</div>
-            <div class="chr-status chr-param">8</div>
-          </div>
-        </div>
-      </table>
-    </div>
-  `;
+  main.replaceChildren();
+  main.append(createElement('div', '', 'game'));
   enterCastle();
 }
 
@@ -43,7 +16,7 @@ function renderBasic() {
   body.innerHTML = `
   <main class="main">
     <div class="block">
-      <button id="start-game">Start Game</button>
+      <button class="button" id="start-game">Start Game</button>
     </div>
   </main>
   <footer class="footer">
@@ -58,21 +31,8 @@ function renderBasic() {
     </ul>
   </footer>
   `;
-  /* const main = createElWId('main', 'main');
-  const footer = createElWId('footer', 'footer');
-  body.append(main);
-  body.append(footer);
-  const rsLink = createElWId('a', 'rs-link');
-  const rsImage = createElWId('img', 'rs-image');
-  const year = createElWId('div', 'year');
-  const githubList = createElWId('ul', 'github-list');
-  */
   const startButton = document.getElementById('start-game');
   startButton?.addEventListener('click', startGame);
 }
-// function renderCastle(){
-//   const gameBlock = document.getElementById('game');
-//   const backBlock = createElement('div','a');
-// }
 
 export default renderBasic;
