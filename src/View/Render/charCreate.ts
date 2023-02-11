@@ -18,7 +18,7 @@ import {
 import ChoiceButton from './choice';
 
 const chars = new Map();
-const newChar = {
+const newCharacter = {
   name: '',
   race: '',
   alignment: '' as Alignment,
@@ -38,8 +38,8 @@ const charStats = {
 let confirm = () => {};
 
 function selectClass(clas: string) {
-  newChar.class = clas;
-  if (newChar.bonus === 0) {
+  newCharacter.class = clas;
+  if (newCharacter.bonus === 0) {
     document.getElementById('confirm')?.classList.remove('inactive');
   }
 }
@@ -50,19 +50,19 @@ const setClasses = (alignment: Alignment, stats: Record<Stat, number>) => {
   const classNames = getClasses(alignment, stats);
   classNames.forEach((cl) => {
     const classButton = createElement('div', cl, 'class button');
-    if (newChar.bonus > 0) {
+    if (newCharacter.bonus > 0) {
       classButton.classList.add('inactive');
     }
     classButton.textContent = cl;
     classesEl.append(classButton);
     classButton.addEventListener('click', () => {
-      if (newChar.bonus === 0) {
+      if (newCharacter.bonus === 0) {
         selectClass(cl);
         classButton.classList.add('selected');
       }
     });
   });
-  if (newChar.class === '' || newChar.bonus > 0) {
+  if (newCharacter.class === '' || newCharacter.bonus > 0) {
     if (!document.getElementById('confirm')?.classList.contains('inactive')) {
       document.getElementById('confirm')?.classList.add('inactive');
     }
@@ -73,7 +73,7 @@ function reroll(stats: Record<Stat, number>): number {
   Object.keys(stats).forEach((el) => {
     const key = el as Stat;
     charStats[key] = stats[key];
-    newChar.class = '';
+    newCharacter.class = '';
     (
       document.getElementById(key)?.querySelector('.stat-value') as HTMLElement
     ).textContent = stats[key].toString();
@@ -84,18 +84,18 @@ function reroll(stats: Record<Stat, number>): number {
       }
     });
   });
-  setClasses(newChar.alignment, stats);
+  setClasses(newCharacter.alignment, stats);
   return getBonus();
 }
 
 function setStats(bons: number, stats: Record<Stat, number>) {
-  newChar.bonus = bons;
+  newCharacter.bonus = bons;
   Object.keys(stats).forEach((el) => {
     const stat = el as Stat;
     const line = createElement('div', stat, 'stat-line');
     (document.getElementById('stats-table') as HTMLElement).append(line);
     line.innerHTML += setLineHtml(stat, stats[stat]);
-    setClasses(newChar.alignment, charStats);
+    setClasses(newCharacter.alignment, charStats);
     line.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
       if (
@@ -103,38 +103,38 @@ function setStats(bons: number, stats: Record<Stat, number>) {
         charStats[stat] > stats[stat]
       ) {
         charStats[stat] -= 1;
-        newChar.bonus += 1;
-        newChar.class = '';
-        setClasses(newChar.alignment, charStats);
+        newCharacter.bonus += 1;
+        newCharacter.class = '';
+        setClasses(newCharacter.alignment, charStats);
         (
           document
             .getElementById(stat)
             ?.querySelector('.stat-value') as HTMLElement
         ).textContent = charStats[stat].toString();
         (document.getElementById('bonus') as HTMLElement).textContent =
-          newChar.bonus.toString();
+          newCharacter.bonus.toString();
         removeClassInactive('increase');
         if (charStats[stat] === stats[stat]) {
           target.classList.add('inactive');
         }
       }
       if (target.classList.contains('increase')) {
-        if (newChar.bonus === 0) {
+        if (newCharacter.bonus === 0) {
           document.querySelectorAll('.increase').forEach((block) => {
             block.classList.add('inactive');
           });
         }
-        if (newChar.bonus > 0) {
+        if (newCharacter.bonus > 0) {
           charStats[stat] += 1;
-          newChar.bonus -= 1;
-          setClasses(newChar.alignment, charStats);
+          newCharacter.bonus -= 1;
+          setClasses(newCharacter.alignment, charStats);
           (
             document
               .getElementById(stat)
               ?.querySelector('.stat-value') as HTMLElement
           ).textContent = charStats[stat].toString();
           (document.getElementById('bonus') as HTMLElement).textContent =
-            newChar.bonus.toString();
+            newCharacter.bonus.toString();
 
           if (
             target.previousElementSibling?.previousElementSibling?.classList.contains(
@@ -150,25 +150,25 @@ function setStats(bons: number, stats: Record<Stat, number>) {
     });
   });
   document.getElementById('reroll')?.addEventListener('click', () => {
-    newChar.bonus = reroll(stats);
+    newCharacter.bonus = reroll(stats);
     (document.getElementById('bonus') as HTMLElement).textContent =
-      newChar.bonus.toString();
+      newCharacter.bonus.toString();
   });
   document.getElementById('confirm')?.addEventListener('click', () => {
-    if (newChar.bonus === 0 && newChar.class !== '') {
+    if (newCharacter.bonus === 0 && newCharacter.class !== '') {
       chars.set(
-        newChar.name,
+        newCharacter.name,
         getCharacter(
-          newChar.name,
-          newChar.race as Race,
+          newCharacter.name,
+          newCharacter.race as Race,
           charStats,
           Object.values(classes).find(
-            (cl) => cl.name === newChar.class
+            (cl) => cl.name === newCharacter.class
           ) as Class,
-          newChar.alignment
+          newCharacter.alignment
         )
       );
-      console.log(newChar);
+      console.log(newCharacter);
       confirm();
     }
   });
@@ -176,11 +176,11 @@ function setStats(bons: number, stats: Record<Stat, number>) {
 
 function initStats() {
   (document.getElementById('cur-align') as HTMLElement).textContent =
-    newChar.alignment.substring(0, 1).toUpperCase();
+    newCharacter.alignment.substring(0, 1).toUpperCase();
   document
     .getElementById('current-choice')
     ?.replaceWith(createElement('div', 'stats-class'));
-  const stats = getStats(newChar.race as Race) as Record<Stat, number>;
+  const stats = getStats(newCharacter.race as Race) as Record<Stat, number>;
   Object.keys(stats).forEach((el) => {
     const key = el as Stat;
     charStats[key] = stats[key];
@@ -200,21 +200,21 @@ function setAlignment() {
           id: al,
           name: al,
           func: () => {
-            newChar.alignment = al;
+            newCharacter.alignment = al;
             initStats();
           },
         })
       )
     )
   );
-  (document.getElementById('race') as HTMLElement).textContent = newChar.race
+  (document.getElementById('race') as HTMLElement).textContent = newCharacter.race
     .substring(0, 3)
     .toUpperCase();
 }
 
 function setRace() {
   const view = document.getElementById('view') as HTMLElement;
-  view.innerHTML = setRaceHtml(newChar.name);
+  view.innerHTML = setRaceHtml(newCharacter.name);
   view.append(
     createChoice(
       'current-choice',
@@ -223,7 +223,7 @@ function setRace() {
           id: race,
           name: race,
           func: () => {
-            newChar.race = race;
+            newCharacter.race = race;
             setAlignment();
           },
         })
@@ -247,7 +247,7 @@ function createChar(func: () => void) {
     if (name.length < 4 || name.length > 15) {
       warning('Name should contain more than 3 and less than 16 symbols');
     } else {
-      newChar.name = name;
+      newCharacter.name = name;
       setRace();
     }
   });
