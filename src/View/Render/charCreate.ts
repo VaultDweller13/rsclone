@@ -5,8 +5,8 @@ import {
   getClasses,
   getCharacter,
 } from '../../model/characters/characterCreator';
-import die from '../Assets/die.svg';
 import classes from '../../model/data/classes';
+import { setLineHtml, setNameHtml, setRaceHtml, setStatClassHtml } from './charCreateHtml';
 
 const chars = new Map();
 const newChar = {
@@ -83,14 +83,7 @@ function setStats(bons: number, stats: Record<Stat, number>) {
     const stat = el as Stat;
     const line = createElement('div', stat, 'stat-line');
     (document.getElementById('stats-table') as HTMLElement).append(line);
-    line.innerHTML += `
-      <span class='stat-name'>${stat}</span> 
-      <span class="stat-wrap">
-        <button class="decrease button inactive">←</button>
-        <span class="stat-value">${stats[stat]}</span>
-        <button class="increase button">→</button>
-      </span>
-    `;
+    line.innerHTML += setLineHtml(stat, stats[stat]);
     setClasses(newChar.alignment, charStats);
     line.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
@@ -185,66 +178,7 @@ function initStats() {
     charStats[key] = stats[key];
   });
   const bonus = getBonus();
-  (document.getElementById('stats-class') as HTMLElement).innerHTML = `
-    <div id='stats' class="block column">
-      <div id="stats-table">
-      </div>
-      <div class='bonus-cont'>
-      Bonus <span id='bonus'>${bonus}</span>
-        <div class='block input' id="reroll">
-          <img src="${die as string}" alt="reroll">
-        </div>
-      </div>
-    </div>
-    <div id ="classes" class="block column">
-      <div id="confirm" class="button block inactive" >Confirm</div>
-      <style>
-        #confirm{
-          position:absolute;
-          border: 3px #fff solid;
-          bottom: 15px;
-          right: 15px;
-        }
-      </style>
-    </div>
-    <style>
-      #stats-class{
-        display: flex;
-      }
-      .column{
-        width: 45%;
-        position:relative;
-      }
-      .stat-line{
-        display: flex;
-        justify-content: space-between;
-      }
-      .stat-wrap {
-        width: 70px;
-        display: flex;
-        justify-content: space-between;
-      }
-      #reroll{
-        max-height: 34px;
-        max-width: 34px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1.5px;
-      }
-      #reroll img{
-        height: 80%;
-        width: 80%;
-      }
-      #stats .button{
-        border:2px #ffffff solid;
-        border-radius: 5px
-      }
-      #classes .button{
-        text-align:center;
-      }
-    </style>
-  `;
+  (document.getElementById('stats-class') as HTMLElement).innerHTML = setStatClassHtml(bonus);
   setStats(bonus, stats);
 }
 function setAlignment() {
@@ -282,24 +216,7 @@ function setAlignment() {
 }
 function setRace() {
   const view = document.getElementById('view') as HTMLElement;
-  view.innerHTML = `
-  <div id="location-name" class="block">
-  Tavern
-  </div>
-  <div id="current-char" class="block">
-  <div id="cur-name">${newChar.name}</div>
-  <div id="lvl">L</div>
-  <div id="lvl-val">1</div>
-  <div><span id="cur-align">???</span id="cur-class">-<span>???</span></div>
-  <div id="race">???</div>
-  </div>
-  <style>
-    #current-char{
-      display: flex;
-      justify-content: space-between;
-    }
-  </style>
-  `;
+  view.innerHTML = setRaceHtml(newChar.name);
   view.append(
     createChoice('current-choice', [
       {
@@ -353,17 +270,7 @@ function createChar(func: () => void) {
   getParty().remove();
   const view = document.getElementById('view') as HTMLElement;
   view.style.backgroundImage = '';
-  view.innerHTML = `
-  <div id="location-name" class="block">
-  Tavern
-  </div>
-  <form class="block pop-up center form" id="enter-name">
-    <label for="new-name">Enter name of the new character</label>
-    <br>
-    <input type="text" id="new-name" class="input">
-    <input type="submit" class="input" value="Submit">
-  </form>
-  `;
+  view.innerHTML = setNameHtml();
   const formBlock = document.getElementById('enter-name') as HTMLFormElement;
   formBlock.addEventListener('submit', (event) => {
     event.preventDefault();

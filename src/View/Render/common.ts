@@ -58,40 +58,11 @@ function getParty(): HTMLElement {
 //     block.classList.toggle('hidden');
 //   }
 // }
-function showBlock(block: HTMLElement) {
-  if (block.classList.contains('hidden')) {
-    block.classList.toggle('hidden');
-  }
-}
 function warning(warnText: string) {
   const view = document.getElementById('view') as HTMLElement;
   const warnBlock = createElement('div', '', 'block pop-up center');
   warnBlock.textContent = warnText;
   view.append(createLayer(3, warnBlock));
-}
-function renderParty() {
-  const party = createElement('div', '', 'prty block');
-  party.innerHTML = `
-  <div class="prty block">
-        <div id="prty-header">
-          <div class="prty-param" id="prty-names"><span class="param-wrap">Name</span></div>
-          <div class="prty-param" id="prty-classes"><span class="param-wrap">Class</span></div>
-          <div class="prty-param" id="prty-ac"><span class="param-wrap">AC?</span></div>
-          <div class="prty-param" id="prty-hp"><span class="param-wrap">HP /</span></div>
-          <div class="prty-param" id="prty-status"><span class="param-wrap">Status</span></div>
-        </div>
-        <div class="prty-body">
-          <div class="prty-chr" id="dummy-name">
-            <div class="chr-name chr-param">Naminous</div>
-            <div class="chr-class chr-param">NamIni</div>
-            <div class="chr-ac chr-param">15s</div>
-            <div class="chr-hp chr-param">8</div>
-            <div class="chr-status chr-param">8</div>
-          </div>
-        </div>
-      </table>
-    </div>
-    `;
 }
 
 function resetPage() {
@@ -129,9 +100,7 @@ export {
   createElement,
   createLayer,
   getMain,
-  showBlock,
   warning,
   getParty,
-  renderParty,
   resetPage,
 };
