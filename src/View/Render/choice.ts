@@ -1,6 +1,6 @@
 type ChoiceButton = {
   id: string;
   name: string;
-  func?: () => void
+  func?: () => void;
 };
-export default ChoiceButton;
+export default ChoiceButton

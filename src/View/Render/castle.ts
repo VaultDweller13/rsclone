@@ -1,6 +1,6 @@
 import { createChoice, createLayer, createElement, resetPage } from './common';
 import castle from '../Assets/castle.jpg';
-import createChar from './charCreate';
+import createCharacter from './characterCreator';
 
 function renderCastle() {
   resetPage();
@@ -22,7 +22,7 @@ function renderCastle() {
 
 let implementCastle = () => {};
 
-const enterCastle = () => {
+function enterCastle () {
   renderCastle();
   implementCastle();
 };
@@ -40,7 +40,7 @@ implementCastle = () => {
           {
             id: 'inspect',
             name: 'create character',
-            func: () => createChar(enterCastle),
+            func: () => createCharacter(enterCastle),
           },
         ])
       )
