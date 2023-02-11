@@ -5,6 +5,7 @@ import {
   getClasses,
   getCharacter,
   getAlignment,
+  getRaces,
 } from '../../model/characters/characterCreator';
 import classes from '../../model/data/classes';
 import {
@@ -217,7 +218,7 @@ function setRace() {
   view.append(
     createChoice(
       'current-choice',
-      getAlignment().map(
+      getRaces().map(
         (race): ChoiceButton => ({
           id: race,
           name: race,

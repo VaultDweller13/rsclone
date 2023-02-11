@@ -61,6 +61,7 @@ function setStatClassHtml(bonus: number): string {
 </style>
 ;`;
 }
+
 function setLineHtml(stat: Stat, statValue: number): string {
   return `
   <span class='stat-name'>${stat}</span> 
@@ -71,7 +72,8 @@ function setLineHtml(stat: Stat, statValue: number): string {
   </span>
 `;
 }
-function setRaceHtml(name: string):string {
+
+function setRaceHtml(name: string): string {
   return `
   <div id="location-name" class="block">
   Tavern
@@ -91,7 +93,8 @@ function setRaceHtml(name: string):string {
   </style>
   `;
 }
-function setNameHtml() : string{
+
+function setNameHtml(): string {
   return `
   <div id="location-name" class="block">
   Tavern
@@ -102,13 +105,21 @@ function setNameHtml() : string{
     <input type="text" id="new-name" class="input">
     <input type="submit" class="input" value="Submit">
   </form>
-  `
+  `;
 }
-function removeClassInactive(className: string){
+
+function removeClassInactive(className: string) {
   document.querySelectorAll(`.${className}`).forEach((block) => {
     if (block.classList.contains('inactive')) {
       block.classList.remove('inactive');
     }
   });
 }
-export { setLineHtml, setStatClassHtml, setRaceHtml, setNameHtml, removeClassInactive };
+
+export {
+  setLineHtml,
+  setStatClassHtml,
+  setRaceHtml,
+  setNameHtml,
+  removeClassInactive,
+};
