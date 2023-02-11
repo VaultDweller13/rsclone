@@ -12,10 +12,15 @@ import {
   wall1,
   wall2,
   wall3,
-} from './raycaster-engine';
+  door11,
+  // door12,
+  // door21,
+  // door22,
+  // door31,
+  // door32,
+} from './raycasting-engine';
 
 import { getMain } from './View/Render/common';
-
 
 export default function initGame() {
   const canvas = document.createElement('canvas');
@@ -26,7 +31,7 @@ export default function initGame() {
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   const walls = [
-    1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1,
+    1, 2, 2, 3, 4, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,
     1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 2, 2, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0,
     1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1,
@@ -51,7 +56,8 @@ export default function initGame() {
   const wallTextures = [
     new Texture(wall1 as string, 1024, 1024),
     new Texture(wall2 as string, 512, 512),
-    new Texture(wall3 as string, 1024, 1024),
+    new Texture(wall3 as string, 512, 512),
+    new Texture(door11 as string, 1024, 1024),
   ];
 
   const initialPosition: Position = {
@@ -60,19 +66,14 @@ export default function initGame() {
     direction: Math.PI / 3,
   };
 
-  const miniMapPosition: Position = { x: 5, y: 5 };
+  const miniLayoutPosition: Coordinates = { x: 5, y: 5 };
 
   const raycaster = new Raycaster(CANVAS_WIDTH, CANVAS_HEIGHT, ctx, 6);
   const map = new GameMap(MINI_MAP_SIZE, walls, wallTextures);
-  const player = new Player(initialPosition);
-  const miniMap = new MiniMap(map);
-  const controls = new Controls('continuous');
-  const loop = new GameLoop();
+  const controls = new Controls('discrete');
+  const player = new Player(initialPosition, controls);
+  const miniMap = new MiniMap(map, miniLayoutPosition);
 
-  loop.start((seconds) => {
-    player.update(controls.states, map, seconds);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    raycaster.render(player, map);
-    miniMap.render(ctx, miniMapPosition, player.position);
-  });
+  const game = new GameLoop(ctx, raycaster, map, miniMap, player);
+  game.start();
 }

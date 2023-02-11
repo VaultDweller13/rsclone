@@ -11,8 +11,6 @@ export default class GameMap {
   ) {
     this.width = size;
     this.height = size;
-    this.walls = walls;
-    this.wallTextures = wallTextures;
   }
 
   get = (x: number, y: number): number => {

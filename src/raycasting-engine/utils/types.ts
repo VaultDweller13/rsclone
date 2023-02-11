@@ -4,6 +4,8 @@ type Position = {
   direction?: number;
 };
 
+type Coordinates = Required<Pick<Position, 'x' | 'y'>>;
+
 type Ray = {
   x?: number;
   y?: number;
@@ -15,7 +17,7 @@ type Ray = {
 type RayStep = Pick<Ray, 'x' | 'y' | 'depth'>;
 type RayOrigin = Pick<Ray, 'offset' | 'distance' | 'cell'>;
 
-type KeyboardKey =
+type KeyboardKeyCode =
   | 'ArrowLeft'
   | 'ArrowRight'
   | 'ArrowUp'
@@ -25,7 +27,14 @@ type KeyboardKey =
   | 'w'
   | 's'
   | 'a'
-  | 'd';
+  | 'd'
+  | 'й'
+  | 'ц'
+  | 'у'
+  | 'ф'
+  | 'ы'
+  | 'в';
+
 type KeyboardKeyAlias =
   | 'left'
   | 'right'
@@ -33,4 +42,5 @@ type KeyboardKeyAlias =
   | 'backward'
   | 'camera-left'
   | 'camera-right';
+
 type ControlMode = 'continuous' | 'discrete';

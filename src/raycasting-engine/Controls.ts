@@ -1,5 +1,5 @@
 export default class Controls {
-  private readonly codes: Record<KeyboardKey, KeyboardKeyAlias> = {
+  private readonly codes: Record<KeyboardKeyCode, KeyboardKeyAlias> = {
     ArrowLeft: 'camera-left',
     ArrowRight: 'camera-right',
     ArrowUp: 'forward',
@@ -10,6 +10,12 @@ export default class Controls {
     s: 'backward',
     a: 'left',
     d: 'right',
+    й: 'camera-left',
+    у: 'camera-right',
+    ц: 'forward',
+    ы: 'backward',
+    ф: 'left',
+    в: 'right',
   };
 
   readonly states: Record<KeyboardKeyAlias, boolean> = {
@@ -21,10 +27,13 @@ export default class Controls {
     backward: false,
   };
 
-  constructor(mode: ControlMode) {
-    if (mode === 'continuous') {
-      document.addEventListener('keydown', (e) => this.onKey(true, e), false);
-      document.addEventListener('keyup', (e) => this.onKey(false, e), false);
+  constructor(public readonly mode: ControlMode) {
+    if (mode === 'discrete') {
+      document.addEventListener(
+        'keydown',
+        (e) => this.onDiscreteModeKey(e),
+        false
+      );
     } else {
       document.addEventListener('keydown', (e) => this.onKey(true, e), false);
       document.addEventListener('keyup', (e) => this.onKey(false, e), false);
@@ -33,8 +42,18 @@ export default class Controls {
 
   private onKey = (val: boolean, e: KeyboardEvent) => {
     if (Object.keys(this.codes).includes(e.key)) {
-      const state = this.codes[e.key as KeyboardKey];
+      const state = this.codes[e.key as KeyboardKeyCode];
       this.states[state] = val;
+    }
+  };
+
+  private onDiscreteModeKey = (e: KeyboardEvent) => {
+    if (
+      Object.keys(this.codes).includes(e.key) &&
+      Object.values(this.states).every((value: boolean) => !value)
+    ) {
+      const state = this.codes[e.key as KeyboardKeyCode];
+      this.states[state] = true;
     }
   };
 }
