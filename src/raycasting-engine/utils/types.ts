@@ -17,7 +17,7 @@ type Ray = {
 type RayStep = Pick<Ray, 'x' | 'y' | 'depth'>;
 type RayOrigin = Pick<Ray, 'offset' | 'distance' | 'cell'>;
 
-type KeyboardKey =
+type KeyboardKeyCode =
   | 'ArrowLeft'
   | 'ArrowRight'
   | 'ArrowUp'
@@ -27,7 +27,14 @@ type KeyboardKey =
   | 'w'
   | 's'
   | 'a'
-  | 'd';
+  | 'd'
+  | 'й'
+  | 'ц'
+  | 'у'
+  | 'ф'
+  | 'ы'
+  | 'в';
+
 type KeyboardKeyAlias =
   | 'left'
   | 'right'
