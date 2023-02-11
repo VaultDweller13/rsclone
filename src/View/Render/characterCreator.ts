@@ -119,14 +119,14 @@ function setStats(bons: number, stats: Record<Stat, number>) {
         }
       }
       if (target.classList.contains('increase')) {
-        if (newCharacter.bonus === 0) {
-          document.querySelectorAll('.increase').forEach((block) => {
-            block.classList.add('inactive');
-          });
-        }
         if (newCharacter.bonus > 0) {
           characterStats[stat] += 1;
           newCharacter.bonus -= 1;
+          if (newCharacter.bonus === 0) {
+            document.querySelectorAll('.increase').forEach((block) => {
+              block.classList.add('inactive');
+            });
+          }
           setClasses(newCharacter.alignment, characterStats);
           (
             document
@@ -135,15 +135,9 @@ function setStats(bons: number, stats: Record<Stat, number>) {
           ).textContent = characterStats[stat].toString();
           (document.getElementById('bonus') as HTMLElement).textContent =
             newCharacter.bonus.toString();
-          if (
-            target.previousElementSibling?.previousElementSibling?.classList.contains(
-              'inactive'
-            )
-          ) {
-            target.previousElementSibling?.previousElementSibling?.classList.remove(
+            target.parentElement?.querySelector('.decrease')?.classList.remove(
               'inactive'
             );
-          }
         }
       }
     });
