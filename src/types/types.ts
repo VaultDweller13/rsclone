@@ -60,3 +60,10 @@ type Item = {
 };
 
 type Equipment = Map<ItemTypes, Item | null>;
+
+type KeyItems = {
+  name: string;
+  type: 'key';
+  description: string;
+  message: string;
+};
