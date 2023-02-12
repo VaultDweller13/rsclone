@@ -128,6 +128,29 @@ const accessories: Item[] = [
     damageMin: 0,
     damageMax: 0,
   },
+  {
+    name: `Werdna's Amulet`,
+    cost: 999999999999,
+    effect: `Casts MALOR; Prot: Regeneration(3), Fighter. Mage. Priest. Thief.
+    Midget. Giant. Mythical. Dragon. Animal. Were. Undead. Demon. Insect;
+    Res: Noelements. Fire. Cold. Poison. LvlDrain. Stoning. Magic`,
+    class: [
+      'fighter',
+      'priest',
+      'thief',
+      'mage',
+      'bishop',
+      'samurai',
+      'lord',
+      'ninja',
+    ],
+    AC: 0,
+    type: 'accessory',
+    alignment: ['good', 'neutral', 'evil'],
+    cursed: false,
+    damageMin: 0,
+    damageMax: 0,
+  },
 ];
 
 export default accessories;
