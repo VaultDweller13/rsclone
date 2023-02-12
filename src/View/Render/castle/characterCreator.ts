@@ -19,7 +19,7 @@ import {
 import ChoiceButton from '../choice';
 import { tavern } from '../partyService/partyInitializer';
 
-const newCharacter = {
+let newCharacter = {
   name: '',
   race: '',
   alignment: '' as Alignment,
@@ -35,7 +35,12 @@ const newCharacter = {
   } as Record<Stat, number>,
 };
 
-let confirm = () => {};
+const confirm = {
+  func: () => {},
+  setFunc(func: () => void){
+    this.func = func;
+  }
+}
 
 function selectClass(clas: string) {
   newCharacter.class = clas;
@@ -161,7 +166,7 @@ function setStats(bons: number, stats: Record<Stat, number>) {
         )
       );
       console.log(tavern.getParty());
-      confirm();
+      confirm.func();
     }
   });
 }
@@ -205,7 +210,7 @@ function setAlignment() {
 
 function setRace() {
   const view = document.getElementById('view') as HTMLElement;
-  view.innerHTML = setRaceHtml(newCharacter.name);
+  view.innerHTML += setRaceHtml(newCharacter.name);
   view.append(
     createChoice(
       'current-choice',
@@ -224,13 +229,32 @@ function setRace() {
 }
 
 function createCharacter(func: () => void) {
-  confirm = () => {
-    func();
-  };
+  confirm.setFunc(func);
   getParty().remove();
   const view = document.getElementById('view') as HTMLElement;
   view.style.backgroundImage = '';
   view.innerHTML = setNameHtml();
+  const leave = createElement('div', 'leave', 'block button');
+  leave.addEventListener('click', () => {
+    newCharacter = {
+      name: '',
+      race: '',
+      alignment: '' as Alignment,
+      class: '',
+      bonus: 0,
+      stats: {
+        strength: 0,
+        intelligence: 0,
+        piety: 0,
+        vitality: 0,
+        agility: 0,
+        luck: 0,
+      } as Record<Stat, number>,
+    }
+    confirm.func();
+  })
+  leave.textContent = 'leave';
+  view.append(leave);
   const formBlock = document.getElementById('enter-name') as HTMLFormElement;
   formBlock.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -240,10 +264,11 @@ function createCharacter(func: () => void) {
     } else if (nameExists(name)) {
       warning('Character with this name already exists');
     } else {
-      newCharacter.name = name;
+      formBlock.remove();
       setRace();
+      console.log(formBlock);
     }
   });
 }
 
-export default createCharacter;
+export { createCharacter, confirm };

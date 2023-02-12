@@ -1,6 +1,6 @@
 import { createChoice, createLayer, createElement, resetPage } from '../common';
 import castle from '../../Assets/castle.jpg';
-import createCharacter from './characterCreator';
+import { createCharacter } from './characterCreator';
 
 function renderCastle() {
   resetPage();

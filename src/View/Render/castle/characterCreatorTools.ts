@@ -30,6 +30,7 @@ function setStatClassHtml(bonus: number): string {
 <style>
   #stats-class{
     display: flex;
+    justify-content: space-between
   }
   .column{
     width: 45%;
@@ -64,7 +65,7 @@ function setStatClassHtml(bonus: number): string {
     text-align:center;
   }
 </style>
-;`;
+`;
 }
 
 function setLineHtml(stat: Stat, statValue: number): string {

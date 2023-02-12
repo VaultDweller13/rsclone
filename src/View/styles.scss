@@ -178,4 +178,15 @@
     justify-content: space-between;
     top: -21px;
   }
+  #leave{
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: fit-content;
+    text-align: center;
+    border: #ffffff 3px solid;
+  }
+
 }
