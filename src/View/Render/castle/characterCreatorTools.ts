@@ -1,5 +1,5 @@
 import die from '../../Assets/die.svg';
-import { party, tavern } from '../partyService/partyInitializer';
+import { party, tavern } from '../partyInitializer';
 
 const nameExists = (name: string): boolean =>
   party.getParty().some((char) => char.name === name) ||

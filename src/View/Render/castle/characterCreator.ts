@@ -17,7 +17,7 @@ import {
   setStatClassHtml,
 } from './characterCreatorTools';
 import ChoiceButton from '../choice';
-import { tavern } from '../partyService/partyInitializer';
+import { tavern } from '../partyInitializer';
 
 let newCharacter = {
   name: '',
@@ -37,10 +37,10 @@ let newCharacter = {
 
 const confirm = {
   func: () => {},
-  setFunc(func: () => void){
+  setFunc(func: () => void) {
     this.func = func;
-  }
-}
+  },
+};
 
 function selectClass(clas: string) {
   newCharacter.class = clas;
@@ -228,8 +228,7 @@ function setRace() {
   );
 }
 
-function createCharacter(func: () => void) {
-  confirm.setFunc(func);
+function createCharacter() {
   getParty().remove();
   const view = document.getElementById('view') as HTMLElement;
   view.style.backgroundImage = '';
@@ -250,9 +249,9 @@ function createCharacter(func: () => void) {
         agility: 0,
         luck: 0,
       } as Record<Stat, number>,
-    }
+    };
     confirm.func();
-  })
+  });
   leave.textContent = 'leave';
   view.append(leave);
   const formBlock = document.getElementById('enter-name') as HTMLFormElement;

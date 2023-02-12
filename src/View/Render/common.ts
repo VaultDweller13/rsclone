@@ -1,6 +1,6 @@
 import Character from '../../model/characters/character';
 import ChoiceButton from './choice';
-import { party } from './partyService/partyInitializer';
+import { party } from './partyInitializer';
 
 function createElement(tag: string, id: string, elClass?: string): HTMLElement {
   const newEl = document.createElement(tag);
@@ -81,12 +81,12 @@ function renderParty() {
   const prtyBlock = createElement('div', '', 'prty block');
   const partyArr = party.getParty();
   prtyBlock.innerHTML = `
-        <div id="prty-header">
-          <div class="prty-param" id="prty-names"><span class="param-wrap">Name</span></div>
-          <div class="prty-param" id="prty-classes"><span class="param-wrap">Class</span></div>
-          <div class="prty-param" id="prty-ac"><span class="param-wrap">AC?</span></div>
-          <div class="prty-param" id="prty-hp"><span class="param-wrap">HP /</span></div>
-          <div class="prty-param" id="prty-status"><span class="param-wrap">Status</span></div>
+        <div class="prty-header">
+          <div class="prty-param" class="prty-names"><span class="param-wrap">Name</span></div>
+          <div class="prty-param" class="prty-classes"><span class="param-wrap">Class</span></div>
+          <div class="prty-param" class="prty-ac"><span class="param-wrap">AC?</span></div>
+          <div class="prty-param" class="prty-hp"><span class="param-wrap">HP /</span></div>
+          <div class="prty-param" class="prty-status"><span class="param-wrap">Status</span></div>
         </div>
         <div class="prty-body">
           ${partyArr
@@ -138,4 +138,5 @@ export {
   getParty,
   resetPage,
   renderParty,
+  getAC
 };
