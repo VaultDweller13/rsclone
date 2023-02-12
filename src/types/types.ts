@@ -43,7 +43,8 @@ type ItemTypes =
   | 'armor'
   | 'helmet'
   | 'gauntlet'
-  | 'accessory';
+  | 'accessory'
+  | 'expendable';
 
 type Item = {
   name: string;
