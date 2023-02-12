@@ -56,6 +56,18 @@ const helmets: Item[] = [
     damageMin: 0,
     damageMax: 0,
   },
+  {
+    name: 'Helm of Hangovers',
+    cost: 50000,
+    AC: -2,
+    effect: '',
+    class: ['fighter', 'samurai', 'lord', 'ninja'],
+    type: 'helmet',
+    alignment: ['good', 'neutral', 'evil'],
+    cursed: true,
+    damageMin: 0,
+    damageMax: 0,
+  },
 ];
 
 export default helmets;

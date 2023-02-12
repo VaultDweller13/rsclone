@@ -151,6 +151,27 @@ const accessories: Item[] = [
     damageMin: 0,
     damageMax: 0,
   },
+  {
+    name: 'Deadly Ring',
+    cost: 500000,
+    effect: 'Regeneration (-3)',
+    class: [
+      'fighter',
+      'priest',
+      'thief',
+      'mage',
+      'bishop',
+      'samurai',
+      'lord',
+      'ninja',
+    ],
+    AC: 0,
+    type: 'accessory',
+    alignment: ['good', 'neutral', 'evil'],
+    cursed: true,
+    damageMin: 0,
+    damageMax: 0,
+  },
 ];
 
 export default accessories;

@@ -71,6 +71,30 @@ const shields: Item[] = [
     damageMin: 0,
     damageMax: 0,
   },
+  {
+    name: 'Screwy Shield',
+    cost: 1500,
+    AC: 1,
+    effect: '',
+    class: ['fighter', 'priest', 'thief', 'samurai', 'lord'],
+    type: 'armor',
+    alignment: ['good', 'neutral', 'evil'],
+    cursed: true,
+    damageMin: 0,
+    damageMax: 0,
+  },
+  {
+    name: 'Shield of Nothing',
+    cost: 8000,
+    AC: 0,
+    effect: '',
+    class: ['fighter', 'priest', 'thief', 'samurai', 'lord', 'ninja'],
+    type: 'armor',
+    alignment: ['good', 'neutral', 'evil'],
+    cursed: true,
+    damageMin: 0,
+    damageMax: 0,
+  },
 ];
 
 export default shields;
