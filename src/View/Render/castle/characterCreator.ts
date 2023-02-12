@@ -1,4 +1,4 @@
-import { getParty, warning, createChoice, createElement } from './common';
+import { getParty, warning, createChoice, createElement } from '../common';
 import {
   getStats,
   getBonus,
@@ -6,33 +6,34 @@ import {
   getCharacter,
   getAlignment,
   getRaces,
-} from '../../model/characters/characterCreator';
-import classes from '../../model/data/classes';
+} from '../../../model/characters/characterCreator';
+import classes from '../../../model/data/classes';
 import {
+  nameExists,
   removeClassInactive,
   setLineHtml,
   setNameHtml,
   setRaceHtml,
   setStatClassHtml,
 } from './characterCreatorTools';
-import ChoiceButton from './choice';
+import ChoiceButton from '../choice';
+import { tavern } from '../partyService/partyInitializer';
+import Character from '../../../model/characters/character';
 
-const characters = new Map();
 const newCharacter = {
   name: '',
   race: '',
   alignment: '' as Alignment,
   class: '',
   bonus: 0,
-};
-
-const characterStats = {
-  strength: 0,
-  intelligence: 0,
-  piety: 0,
-  vitality: 0,
-  agility: 0,
-  luck: 0,
+  stats: {
+    strength: 0,
+    intelligence: 0,
+    piety: 0,
+    vitality: 0,
+    agility: 0,
+    luck: 0,
+  } as Record<Stat, number>,
 };
 
 let confirm = () => {};
@@ -44,7 +45,7 @@ function selectClass(clas: string) {
   }
 }
 
-function setClasses (alignment: Alignment, stats: Record<Stat, number>) {
+function setClasses(alignment: Alignment, stats: Record<Stat, number>) {
   const classesEl = document.getElementById('classes') as HTMLElement;
   document.querySelectorAll('.class').forEach((el) => el.remove());
   const classNames = getClasses(alignment, stats);
@@ -67,12 +68,12 @@ function setClasses (alignment: Alignment, stats: Record<Stat, number>) {
       document.getElementById('confirm')?.classList.add('inactive');
     }
   }
-};
+}
 
 function reroll(stats: Record<Stat, number>): number {
   Object.keys(stats).forEach((el) => {
     const key = el as Stat;
-    characterStats[key] = stats[key];
+    newCharacter.stats[key] = stats[key];
     newCharacter.class = '';
     (
       document.getElementById(key)?.querySelector('.stat-value') as HTMLElement
@@ -95,49 +96,49 @@ function setStats(bons: number, stats: Record<Stat, number>) {
     const line = createElement('div', stat, 'stat-line');
     (document.getElementById('stats-table') as HTMLElement).append(line);
     line.innerHTML += setLineHtml(stat, stats[stat]);
-    setClasses(newCharacter.alignment, characterStats);
+    setClasses(newCharacter.alignment, newCharacter.stats);
     line.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
       if (
         target.classList.contains('decrease') &&
-        characterStats[stat] > stats[stat]
+        newCharacter.stats[stat] > stats[stat]
       ) {
-        characterStats[stat] -= 1;
+        newCharacter.stats[stat] -= 1;
         newCharacter.bonus += 1;
         newCharacter.class = '';
-        setClasses(newCharacter.alignment, characterStats);
+        setClasses(newCharacter.alignment, newCharacter.stats);
         (
           document
             .getElementById(stat)
             ?.querySelector('.stat-value') as HTMLElement
-        ).textContent = characterStats[stat].toString();
+        ).textContent = newCharacter.stats[stat].toString();
         (document.getElementById('bonus') as HTMLElement).textContent =
           newCharacter.bonus.toString();
         removeClassInactive('increase');
-        if (characterStats[stat] === stats[stat]) {
+        if (newCharacter.stats[stat] === stats[stat]) {
           target.classList.add('inactive');
         }
       }
       if (target.classList.contains('increase')) {
         if (newCharacter.bonus > 0) {
-          characterStats[stat] += 1;
+          newCharacter.stats[stat] += 1;
           newCharacter.bonus -= 1;
           if (newCharacter.bonus === 0) {
             document.querySelectorAll('.increase').forEach((block) => {
               block.classList.add('inactive');
             });
           }
-          setClasses(newCharacter.alignment, characterStats);
+          setClasses(newCharacter.alignment, newCharacter.stats);
           (
             document
               .getElementById(stat)
               ?.querySelector('.stat-value') as HTMLElement
-          ).textContent = characterStats[stat].toString();
+          ).textContent = newCharacter.stats[stat].toString();
           (document.getElementById('bonus') as HTMLElement).textContent =
             newCharacter.bonus.toString();
-            target.parentElement?.querySelector('.decrease')?.classList.remove(
-              'inactive'
-            );
+          target.parentElement
+            ?.querySelector('.decrease')
+            ?.classList.remove('inactive');
         }
       }
     });
@@ -149,19 +150,18 @@ function setStats(bons: number, stats: Record<Stat, number>) {
   });
   document.getElementById('confirm')?.addEventListener('click', () => {
     if (newCharacter.bonus === 0 && newCharacter.class !== '') {
-      characters.set(
-        newCharacter.name,
+      tavern.add(
         getCharacter(
           newCharacter.name,
           newCharacter.race as Race,
-          characterStats,
+          newCharacter.stats,
           Object.values(classes).find(
             (cl) => cl.name === newCharacter.class
           ) as Class,
           newCharacter.alignment
         )
       );
-      console.log(newCharacter);
+      console.log(tavern.getParty());
       confirm();
     }
   });
@@ -176,7 +176,7 @@ function initStats() {
   const stats = getStats(newCharacter.race as Race) as Record<Stat, number>;
   Object.keys(stats).forEach((el) => {
     const key = el as Stat;
-    characterStats[key] = stats[key];
+    newCharacter.stats[key] = stats[key];
   });
   const bonus = getBonus();
   (document.getElementById('stats-class') as HTMLElement).innerHTML =
@@ -200,9 +200,8 @@ function setAlignment() {
       )
     )
   );
-  (document.getElementById('race') as HTMLElement).textContent = newCharacter.race
-    .substring(0, 3)
-    .toUpperCase();
+  (document.getElementById('race') as HTMLElement).textContent =
+    newCharacter.race.substring(0, 3).toUpperCase();
 }
 
 function setRace() {
@@ -239,6 +238,8 @@ function createCharacter(func: () => void) {
     const name = (formBlock.elements[0] as HTMLInputElement).value;
     if (name.length < 4 || name.length > 15) {
       warning('Name should contain more than 3 and less than 16 symbols');
+    } else if (nameExists(name)) {
+      warning('Character with this name already exists');
     } else {
       newCharacter.name = name;
       setRace();

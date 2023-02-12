@@ -1,4 +1,9 @@
-import die from '../Assets/die.svg';
+import die from '../../Assets/die.svg';
+import { party, tavern } from '../partyService/partyInitializer';
+
+const nameExists = (name: string): boolean =>
+  party.getParty().some((char) => char.name === name) ||
+  tavern.getParty().some((char) => char.name === name);
 
 function setStatClassHtml(bonus: number): string {
   return `<div id='stats' class="block column">
@@ -110,7 +115,7 @@ function setNameHtml(): string {
 
 function removeClassInactive(className: string) {
   document.querySelectorAll(`.${className}`).forEach((block) => {
-      block.classList.remove('inactive');
+    block.classList.remove('inactive');
   });
 }
 
@@ -120,4 +125,5 @@ export {
   setRaceHtml,
   setNameHtml,
   removeClassInactive,
+  nameExists,
 };

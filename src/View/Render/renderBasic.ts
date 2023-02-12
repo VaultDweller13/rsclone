@@ -2,7 +2,7 @@
 //   child.parentElement?.remove();
 // }
 import { getMain, createElement } from './common';
-import enterCastle from './castle';
+import enterCastle from './castle/castle';
 
 function startGame() {
   const main = getMain();

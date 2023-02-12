@@ -1,5 +1,5 @@
-import { createChoice, createLayer, createElement, resetPage } from './common';
-import castle from '../Assets/castle.jpg';
+import { createChoice, createLayer, createElement, resetPage } from '../common';
+import castle from '../../Assets/castle.jpg';
 import createCharacter from './characterCreator';
 
 function renderCastle() {
@@ -22,10 +22,10 @@ function renderCastle() {
 
 let implementCastle = () => {};
 
-function enterCastle () {
+function enterCastle() {
   renderCastle();
   implementCastle();
-};
+}
 
 implementCastle = () => {
   const view = document.getElementById('view') as HTMLElement;
