@@ -237,3 +237,5 @@ const armor: Item[] = [
     damageMax: 0,
   },
 ];
+
+export default armor;
