@@ -1,5 +1,6 @@
 import Character from '../model/characters/character';
 import classes from '../model/data/classes';
+import Party from '../model/game/party';
 // import weapons from '../model/data/weapons';
 
 const stats = (str = 18, int = 18, pie = 18, vit = 18, agi = 18, luc = 18) => ({
@@ -38,3 +39,13 @@ console.log(fighter);
 // fighter.addToInventory(weapons[8]);
 // console.log(fighter.removeFromInventory(7));
 // console.log(fighter.getInventory());
+// const party = new Party(6, true, 100);
+// party.add(fighter);
+// console.log(party.getParty());
+// console.log(party.getGold());
+// party.changeGold(200);
+// console.log(party.getGold());
+// party.changeGold(-300);
+// console.log(party.getGold());
+// console.log(party.remove(0));
+// console.log(party.getParty());

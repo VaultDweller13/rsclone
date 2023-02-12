@@ -91,6 +91,8 @@ export default class Character {
 
   removeFromInventory(index: number) {
     if (index >= 0 && index < 8) return this.#inventory.splice(index, 1);
+
+    return undefined;
   }
 
   getInventory() {
