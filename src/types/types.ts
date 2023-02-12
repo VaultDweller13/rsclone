@@ -37,7 +37,13 @@ type Class = {
   hitDice: number;
 };
 
-type ItemTypes = 'weapon' | 'shield' | 'armor' | 'helmet' | 'gauntlet';
+type ItemTypes =
+  | 'weapon'
+  | 'shield'
+  | 'armor'
+  | 'helmet'
+  | 'gauntlet'
+  | 'accessory';
 
 type Item = {
   name: string;
