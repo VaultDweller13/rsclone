@@ -18,7 +18,6 @@ import {
 } from './characterCreatorTools';
 import ChoiceButton from '../choice';
 import { tavern } from '../partyService/partyInitializer';
-import Character from '../../../model/characters/character';
 
 const newCharacter = {
   name: '',

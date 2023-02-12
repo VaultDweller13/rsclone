@@ -1,4 +1,6 @@
+import Character from '../../model/characters/character';
 import ChoiceButton from './choice';
+import { party } from './partyService/partyInitializer';
 
 function createElement(tag: string, id: string, elClass?: string): HTMLElement {
   const newEl = document.createElement(tag);
@@ -65,15 +67,19 @@ function warning(warnText: string) {
   view.append(createLayer(3, warnBlock));
 }
 
-function resetPage() {
-  const gamePage = document.querySelector('.game') as HTMLElement;
-  gamePage.replaceChildren();
-  const view = createElement('div', 'view', 'block');
+function getAC(character: Character): number {
+  let ac = 0;
+  character.equipment.forEach((item) => {
+    if (item) {
+      ac += item.AC;
+    }
+  });
+  return ac;
+}
+
+function renderParty() {
   const prtyBlock = createElement('div', '', 'prty block');
-  view.innerHTML = `
-        <div id="location-name" class="block">
-        </div>
-  `;
+  const partyArr = party.getParty();
   prtyBlock.innerHTML = `
         <div id="prty-header">
           <div class="prty-param" id="prty-names"><span class="param-wrap">Name</span></div>
@@ -83,17 +89,44 @@ function resetPage() {
           <div class="prty-param" id="prty-status"><span class="param-wrap">Status</span></div>
         </div>
         <div class="prty-body">
+          ${partyArr
+            .map(
+              (character) =>
+                `
           <div class="prty-chr" id="dummy-name">
-            <div class="chr-name chr-param">Naminous</div>
-            <div class="chr-class chr-param">NamIni</div>
-            <div class="chr-ac chr-param">15s</div>
-            <div class="chr-hp chr-param">8</div>
-            <div class="chr-status chr-param">8</div>
+            <div class="chr-name chr-param">${character.name}</div>
+            <div class="chr-class chr-param">${character.alignment
+              .slice(0, 1)
+              .toUpperCase()}-${character.class.name
+                  .slice(0, 3)
+                  .toUpperCase()}-${character.race
+                  .slice(0, 3)
+                  .toUpperCase()}</div>
+            <div class="chr-ac chr-param">${getAC(character)}</div>
+            <div class="chr-hp chr-param">${character.getHp()}</div>
+            <div class="chr-status chr-param">${character.status}</div>
           </div>
+            `
+            )
+            .join('\n')}
+        </div>
+  `;
+  if (document.querySelector('.prty')) {
+    document.querySelector('.prty')?.replaceWith(prtyBlock);
+  } else {
+    document.querySelector('.game')?.append(prtyBlock);
+  }
+}
+function resetPage() {
+  const gamePage = document.querySelector('.game') as HTMLElement;
+  gamePage.replaceChildren();
+  const view = createElement('div', 'view', 'block');
+  view.innerHTML = `
+        <div id="location-name" class="block">
         </div>
   `;
   gamePage.append(view);
-  gamePage.append(prtyBlock);
+  renderParty();
 }
 
 export {
@@ -104,4 +137,5 @@ export {
   warning,
   getParty,
   resetPage,
+  renderParty,
 };
