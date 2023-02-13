@@ -21,6 +21,8 @@ const fighter = new Character(
 );
 
 console.log(fighter);
+// console.log(fighter.getAC());
+
 // console.log(fighter.equipment);
 // console.log(weapons[7]);
 // fighter.equip(weapons[7]);
@@ -49,3 +51,7 @@ console.log(fighter);
 // console.log(party.getGold());
 // console.log(party.remove(0));
 // console.log(party.getParty());
+// fighter.equip(armor as Item);
+// fighter.equip(helm as Item);
+// console.log(fighter.equipment);
+// console.log(fighter.getAC());
