@@ -58,6 +58,16 @@ export default class Character {
     return this.#hp;
   }
 
+  public getMaxHP() {
+    return this.#maxHp;
+  }
+
+  public getAC() {
+    const equipment = [...this.equipment.values()];
+
+    return equipment.reduce((AC, item) => AC - (item?.AC || 0), 10);
+  }
+
   #rollMaxHp(): void {
     const vitMod = this.#getVitMod();
     let hp = this.#getStartHp();

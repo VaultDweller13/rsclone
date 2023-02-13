@@ -37,7 +37,14 @@ type Class = {
   hitDice: number;
 };
 
-type ItemTypes = 'weapon' | 'shield' | 'armor' | 'helmet' | 'gauntlet';
+type ItemTypes =
+  | 'weapon'
+  | 'shield'
+  | 'armor'
+  | 'helmet'
+  | 'gauntlet'
+  | 'accessory'
+  | 'expendable';
 
 type Item = {
   name: string;
@@ -53,3 +60,10 @@ type Item = {
 };
 
 type Equipment = Map<ItemTypes, Item | null>;
+
+type KeyItems = {
+  name: string;
+  type: 'key';
+  description: string;
+  message: string;
+};
