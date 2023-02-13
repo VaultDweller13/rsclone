@@ -134,7 +134,8 @@
       cursor: pointer;
     }
   }
-  .prty, .tavern {
+  .prty,
+  .tavern {
     flex-grow: 1;
     position: relative;
     display: flex;
@@ -172,13 +173,20 @@
       background-color: #000000;
     }
   }
+  .prty {
+    max-height: 36%;
+    .prty-body {
+      position: relative;
+      top: -15px;
+    }
+  }
   .prty-header {
     position: relative;
     display: flex;
     justify-content: space-between;
     top: -21px;
   }
-  #leave{
+  #leave {
     position: absolute;
     bottom: 3px;
     left: 0;
@@ -188,5 +196,7 @@
     text-align: center;
     border: #ffffff 3px solid;
   }
-
+  .tavern {
+    height: 90%;
+  }
 }

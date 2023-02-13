@@ -102,9 +102,9 @@ function renderParty() {
                   .toUpperCase()}-${character.race
                   .slice(0, 3)
                   .toUpperCase()}</div>
-            <div class="chr-ac chr-param">${getAC(character)}</div>
+            <div class="chr-ac chr-param">${character.getAC()}</div>
             <div class="chr-hp chr-param">${character.getHp()}</div>
-            <div class="chr-status chr-param">${character.status}</div>
+            <div class="chr-status chr-param">${character.status === 'OK' ? character.getMaxHP() : character.status}</div>
           </div>
             `
             )

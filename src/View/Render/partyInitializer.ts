@@ -20,21 +20,26 @@ party.add(
   )
 );
 const tavern = new Party(20, false);
-tavern.add(
-  new Character(
-    'Gognak',
-    'human',
-    {
-      strength: 18,
-      intelligence: 18,
-      piety: 18,
-      vitality: 18,
-      agility: 18,
-      luck: 18,
-    },
-    classes.fighter,
-    'good'
+
+// added for testing purpose
+
+for (let i = 0; i < 15; i += 1) {
+  tavern.add(
+    new Character(
+      `Gognak${i}`,
+      'human',
+      {
+        strength: 18,
+        intelligence: 18,
+        piety: 18,
+        vitality: 18,
+        agility: 18,
+        luck: 18,
+      },
+      classes.fighter,
+      'good'
+    )
   )
-)
+}
 
 export { party, tavern };

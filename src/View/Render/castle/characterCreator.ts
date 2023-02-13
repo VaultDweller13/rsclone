@@ -3,7 +3,6 @@ import {
   getStats,
   getBonus,
   getClasses,
-  getCharacter,
   getAlignment,
   getRaces,
 } from '../../../model/characters/characterCreator';
@@ -18,6 +17,7 @@ import {
 } from './characterCreatorTools';
 import ChoiceButton from '../choice';
 import { tavern } from '../partyInitializer';
+import Character from '../../../model/characters/character';
 
 let newCharacter = {
   name: '',
@@ -155,7 +155,7 @@ function setStats(bons: number, stats: Record<Stat, number>) {
   document.getElementById('confirm')?.addEventListener('click', () => {
     if (newCharacter.bonus === 0 && newCharacter.class !== '') {
       tavern.add(
-        getCharacter(
+        new Character(
           newCharacter.name,
           newCharacter.race as Race,
           newCharacter.stats,
@@ -263,6 +263,7 @@ function createCharacter() {
     } else if (nameExists(name)) {
       warning('Character with this name already exists');
     } else {
+      newCharacter.name = (formBlock.elements[0] as HTMLInputElement).value;
       formBlock.remove();
       setRace();
       console.log(formBlock);
