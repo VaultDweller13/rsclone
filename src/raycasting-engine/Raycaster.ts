@@ -1,16 +1,11 @@
 import GameMap from './GameMap';
 import Player from './Player';
-import Texture from './Texture';
-import {
-  FOV,
-  PERSPECTIVE_RATIO,
-  RANGE_TO_CAST,
-  SHADING_COLOR,
-} from './utils/constants';
 
 export default class Raycaster {
-  private readonly range = RANGE_TO_CAST;
-  private readonly fov = FOV;
+  private readonly RANGE_TO_CAST = 10;
+  private readonly FOV = Math.PI / 3;
+  private readonly PERSPECTIVE_RATIO = 0.75;
+  private readonly SHADING_COLOR = 'black';
 
   constructor(
     public width: number,
@@ -23,7 +18,7 @@ export default class Raycaster {
     angle: number,
     distance: number
   ): { top: number; height: number } => {
-    const z = PERSPECTIVE_RATIO * distance * Math.cos(angle);
+    const z = this.PERSPECTIVE_RATIO * distance * Math.cos(angle);
     const wallHeight = this.height / z;
     const top = (this.height / 2) * (1 + 1 / z) - wallHeight;
     return {
@@ -32,11 +27,11 @@ export default class Raycaster {
     };
   };
 
-  private drawWallSlice(
+  private drawClipping(
     column: number,
     ray: Required<RayOrigin>[],
     angle: number,
-    textures: Texture[]
+    map: GameMap
   ): void {
     const left = column;
     let hit = 0;
@@ -45,8 +40,21 @@ export default class Raycaster {
 
     if (hit < ray.length) {
       const step = ray[hit];
+      let textureAlias = step.cell;
 
-      const texture = textures[step.cell > textures.length ? 0 : step.cell - 1];
+      if (
+        !Object.keys(map.textureMapping).find(
+          (alias) => +alias === textureAlias
+        ) ||
+        (step.cell === 5 && step.axis !== step.onAxis) ||
+        (step.cell === 6 && step.axis !== step.onAxis)
+      ) {
+        textureAlias = 1;
+      }
+
+      const texture =
+        map.textures[map.textureMapping[textureAlias as TextureAlias]];
+
       const textureX = Math.floor(texture.width * step.offset);
       const wall = this.project(angle, step.distance);
 
@@ -63,30 +71,30 @@ export default class Raycaster {
         wall.height
       );
 
-      this.ctx.fillStyle = SHADING_COLOR;
+      this.ctx.fillStyle = this.SHADING_COLOR;
       this.ctx.globalAlpha = Math.max(step.distance / this.lightRange, 0);
 
       this.ctx.fillRect(left, wall.top, 1, wall.height);
     }
   }
 
-  private drawWall = (player: Player, map: GameMap): void => {
+  private drawTexture = (player: Player, map: GameMap): void => {
     this.ctx.save();
     this.ctx.imageSmoothingEnabled = true;
 
     for (let col = 0; col < this.width; col += 1) {
-      const angle = this.fov * (col / this.width - 0.5);
+      const angle = this.FOV * (col / this.width - 0.5);
       const ray = map.cast(
         player.position,
         player.direction + angle,
-        this.range
+        this.RANGE_TO_CAST
       );
-      this.drawWallSlice(col, ray, angle, map.wallTextures);
+      this.drawClipping(col, ray, angle, map);
     }
     this.ctx.restore();
   };
 
   render = (player: Player, map: GameMap): void => {
-    this.drawWall(player, map);
+    this.drawTexture(player, map);
   };
 }

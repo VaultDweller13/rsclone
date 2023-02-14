@@ -1,13 +1,21 @@
 import Texture from './Texture';
 
 export default class GameMap {
+  readonly textureMapping: Record<TextureAlias, TextureName> = {
+    1: 'wall',
+    2: 'entry',
+    3: 'exit',
+    4: 'closedDoor',
+    5: 'openDoorVertical',
+    6: 'openDoorHorizontal',
+  };
   readonly width: number;
   readonly height: number;
 
   constructor(
     size: number,
     public readonly walls: number[],
-    public readonly wallTextures: Texture[]
+    public readonly textures: Record<TextureName, Texture>
   ) {
     this.width = size;
     this.height = size;
@@ -37,6 +45,8 @@ export default class GameMap {
         distance: 0,
         offset: 0,
         depth: 0,
+        axis: 'both',
+        onAxis: 'both',
       },
       sin,
       cos,
@@ -83,6 +93,7 @@ export default class GameMap {
       x: inverted ? y + dy : x + dx,
       y: inverted ? x + dx : y + dy,
       depth: dx * dx + dy * dy,
+      axis: inverted ? 'y' : 'x',
     };
   };
 
@@ -101,9 +112,17 @@ export default class GameMap {
       Math.floor(step.y - dy) * this.width + Math.floor(step.x - dx);
     const cell =
       index < 0 || index >= this.walls.length ? -1 : this.walls[index];
+
+    let onAxis: Axis = 'both';
+    if (cell === 5) {
+      onAxis = 'y';
+    }
+    if (cell === 6) {
+      onAxis = 'x';
+    }
     const distance = nextRayDistance + Math.sqrt(step.depth);
 
     const offset = stepOffset - Math.floor(stepOffset);
-    return { ...step, cell, distance, offset };
+    return { ...step, cell, distance, offset, onAxis };
   };
 }
