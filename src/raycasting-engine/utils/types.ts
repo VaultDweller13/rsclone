@@ -6,6 +6,8 @@ type Position = {
 
 type Coordinates = Required<Pick<Position, 'x' | 'y'>>;
 
+type Axis = 'x' | 'y' | 'both';
+
 type Ray = {
   x?: number;
   y?: number;
@@ -13,9 +15,12 @@ type Ray = {
   cell?: number;
   distance?: number;
   offset?: number;
+  axis?: Axis;
+  onAxis?: Axis;
 };
-type RayStep = Pick<Ray, 'x' | 'y' | 'depth'>;
-type RayOrigin = Pick<Ray, 'offset' | 'distance' | 'cell'>;
+
+type RayStep = Pick<Ray, 'x' | 'y' | 'depth' | 'axis'>;
+type RayOrigin = Pick<Ray, 'offset' | 'distance' | 'cell' | 'axis' | 'onAxis'>;
 
 type KeyboardKeyCode =
   | 'ArrowLeft'
@@ -44,3 +49,13 @@ type KeyboardKeyAlias =
   | 'camera-right';
 
 type ControlMode = 'continuous' | 'discrete';
+
+type TextureName =
+  | 'wall'
+  | 'entry'
+  | 'exit'
+  | 'closedDoor'
+  | 'openDoorVertical'
+  | 'openDoorHorizontal';
+
+type TextureAlias = 1 | 2 | 3 | 4 | 5 | 6;

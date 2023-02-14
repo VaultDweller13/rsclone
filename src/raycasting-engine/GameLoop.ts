@@ -5,8 +5,8 @@ import Raycaster from './Raycaster';
 
 export default class GameLoop {
   private lastTime = 0;
-  private callback: ((seconds: number) => void) | null = null;
   private loopId = 0;
+  private callback: ((seconds: number) => void) | null = null;
 
   constructor(
     private ctx: CanvasRenderingContext2D,

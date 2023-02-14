@@ -1,38 +1,37 @@
 import Controls from './Controls';
 import GameMap from './GameMap';
-import {
-  CAMERA_CLOSENESS_RATE,
-  CENTRALIZER_VALUE,
-  CIRCLE,
-  CRAB_WALK_ANGLE,
-  DISCRETE_ROTATE_ANGLE_0,
-  DISCRETE_ROTATE_ANGLE_180,
-  DISCRETE_ROTATE_ANGLE_270,
-  DISCRETE_ROTATE_ANGLE_90,
-  DISCRETE_ROTATE_ANGLE_PER_FRAME,
-  DISCRETE_WALK_DISTANCE_PER_FRAME,
-  DISCRETE_WALK_MAX_STEPS,
-  DOUBLE_DISCRETE_ROTATE_ANGLE_PER_FRAME,
-  FOV,
-  ROTATE_SPEED_RATE,
-  WALK_SPEED_RATE,
-} from './utils/constants';
 
 export default class Player {
-  position: Coordinates;
-  direction: number;
+  private readonly CAMERA_CLOSENESS_RATE = 6;
+  private readonly CENTRALIZER_VALUE = 0.5;
+  private readonly CIRCLE = Math.PI * 2;
+  private readonly CRAB_WALK_ANGLE = Math.PI / 2;
+  private readonly DISCRETE_ROTATE_ANGLE_0 = 0;
+  private readonly DISCRETE_ROTATE_ANGLE_90 = Math.PI / 2;
+  private readonly DISCRETE_ROTATE_ANGLE_180 = Math.PI;
+  private readonly DISCRETE_ROTATE_ANGLE_270 = 1.5 * Math.PI;
+  private readonly DISCRETE_ROTATE_ANGLE_PER_FRAME = Math.PI / 90;
+  private readonly DISCRETE_WALK_DISTANCE_PER_FRAME = 0.1;
+  private readonly DISCRETE_WALK_MAX_STEPS = 7;
+  private readonly ROTATE_SPEED_RATE = 0.7;
+  private readonly WALK_SPEED_RATE = 2;
+
   private moveId = 0;
   private canMove = true;
   private targetDirection = 0;
   private walkSteps = 0;
-  private discreteDirections = [
-    DISCRETE_ROTATE_ANGLE_0,
-    DISCRETE_ROTATE_ANGLE_90,
-    DISCRETE_ROTATE_ANGLE_180,
-    DISCRETE_ROTATE_ANGLE_270,
+
+  position: Coordinates;
+  direction: number;
+
+  private readonly discreteDirections = [
+    this.DISCRETE_ROTATE_ANGLE_0,
+    this.DISCRETE_ROTATE_ANGLE_90,
+    this.DISCRETE_ROTATE_ANGLE_180,
+    this.DISCRETE_ROTATE_ANGLE_270,
   ];
 
-  constructor(initialPosition: Position, public controls: Controls) {
+  constructor(initialPosition: Required<Position>, public controls: Controls) {
     if (controls.mode === 'discrete') {
       this.position = this.centralizePosition({
         x: initialPosition.x,
@@ -41,7 +40,7 @@ export default class Player {
       this.direction = 0;
     } else {
       this.position = initialPosition;
-      this.direction = initialPosition.direction ?? FOV;
+      this.direction = initialPosition.direction;
     }
   }
 
@@ -53,17 +52,17 @@ export default class Player {
 
   private updateOnContinuesMode = (map: GameMap, frameTime: number) => {
     if (this.controls.states['camera-left'])
-      this.rotate(-Math.PI * frameTime * ROTATE_SPEED_RATE);
+      this.rotate(-Math.PI * frameTime * this.ROTATE_SPEED_RATE);
     if (this.controls.states['camera-right'])
-      this.rotate(Math.PI * frameTime * ROTATE_SPEED_RATE);
+      this.rotate(Math.PI * frameTime * this.ROTATE_SPEED_RATE);
     if (this.controls.states.forward)
-      this.walk(WALK_SPEED_RATE * frameTime, map);
+      this.walk(this.WALK_SPEED_RATE * frameTime, map);
     if (this.controls.states.backward)
-      this.walk(-WALK_SPEED_RATE * frameTime, map);
+      this.walk(-this.WALK_SPEED_RATE * frameTime, map);
     if (this.controls.states.left)
-      this.walk(-WALK_SPEED_RATE * frameTime, map, true);
+      this.walk(-this.WALK_SPEED_RATE * frameTime, map, true);
     if (this.controls.states.right)
-      this.walk(WALK_SPEED_RATE * frameTime, map, true);
+      this.walk(this.WALK_SPEED_RATE * frameTime, map, true);
   };
 
   private updateOnDiscreteMode = (map: GameMap): void => {
@@ -127,24 +126,30 @@ export default class Player {
   };
 
   private rotate = (angle: number): void => {
-    this.direction = (this.direction + angle + CIRCLE) % CIRCLE;
+    this.direction = (this.direction + angle + this.CIRCLE) % this.CIRCLE;
   };
 
   private walk = (distance: number, map: GameMap, isCrabWalk = false): void => {
     const dx =
-      Math.cos(this.direction + (isCrabWalk ? CRAB_WALK_ANGLE : 0)) * distance;
+      Math.cos(this.direction + (isCrabWalk ? this.CRAB_WALK_ANGLE : 0)) *
+      distance;
     const dy =
-      Math.sin(this.direction + (isCrabWalk ? CRAB_WALK_ANGLE : 0)) * distance;
+      Math.sin(this.direction + (isCrabWalk ? this.CRAB_WALK_ANGLE : 0)) *
+      distance;
 
     if (
-      map.get(this.position.x + dx * CAMERA_CLOSENESS_RATE, this.position.y) <=
-      0
+      map.get(
+        this.position.x + dx * this.CAMERA_CLOSENESS_RATE,
+        this.position.y
+      ) <= 0
     )
       this.position.x += dx;
 
     if (
-      map.get(this.position.x, this.position.y + dy * CAMERA_CLOSENESS_RATE) <=
-      0
+      map.get(
+        this.position.x,
+        this.position.y + dy * this.CAMERA_CLOSENESS_RATE
+      ) <= 0
     )
       this.position.y += dy;
   };
@@ -174,16 +179,16 @@ export default class Player {
 
   private getRotatePredicator = () => () =>
     Math.abs(this.targetDirection - this.direction) >=
-    DOUBLE_DISCRETE_ROTATE_ANGLE_PER_FRAME;
+    2 * this.DISCRETE_ROTATE_ANGLE_PER_FRAME;
 
   private getWalkPredicator = () => () => {
     this.walkSteps += 1;
-    return this.walkSteps < DISCRETE_WALK_MAX_STEPS;
+    return this.walkSteps < this.DISCRETE_WALK_MAX_STEPS;
   };
 
   private getRotateCallback = (isCounterclockwise: boolean) => () =>
     this.rotate(
-      (isCounterclockwise ? -1 : 1) * DISCRETE_ROTATE_ANGLE_PER_FRAME
+      (isCounterclockwise ? -1 : 1) * this.DISCRETE_ROTATE_ANGLE_PER_FRAME
     );
 
   private defineTargetDirection = (isCounterclockwise: boolean) => {
@@ -199,15 +204,15 @@ export default class Player {
   };
 
   private centralizePosition = (position: Coordinates): Coordinates => ({
-    x: Math.floor(position.x) + CENTRALIZER_VALUE,
-    y: Math.floor(position.y) + CENTRALIZER_VALUE,
+    x: Math.floor(position.x) + this.CENTRALIZER_VALUE,
+    y: Math.floor(position.y) + this.CENTRALIZER_VALUE,
   });
 
   private getWalkCallback =
     (map: GameMap, isNegative: boolean, isCrabWalk = false) =>
     () =>
       this.walk(
-        (isNegative ? -1 : 1) * DISCRETE_WALK_DISTANCE_PER_FRAME,
+        (isNegative ? -1 : 1) * this.DISCRETE_WALK_DISTANCE_PER_FRAME,
         map,
         isCrabWalk
       );
