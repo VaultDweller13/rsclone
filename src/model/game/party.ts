@@ -14,16 +14,7 @@ export default class Party {
   }
 
   public add(character: Character) {
-    if (this.#arr.length > this.#size - 1) return;
-
-    if (
-      this.#check &&
-      this.#arr.some(
-        (char) => ![char.alignment, 'neutral'].includes(character.alignment)
-      )
-    ) {
-      return;
-    }
+    if (!this.canBeAdded(character)) return;
 
     this.#arr.push(character);
   }
@@ -32,6 +23,19 @@ export default class Party {
     if (index >= 0 && index < this.#size) return this.#arr.splice(index, 1)[0];
 
     return undefined;
+  }
+
+  public canBeAdded(character: Character) {
+    if (
+      this.#check &&
+      this.#arr.some(
+        (char) => ![char.alignment, 'neutral'].includes(character.alignment)
+      )
+    ) {
+      return false;
+    }
+
+    return this.#arr.length < this.#size;
   }
 
   public getParty() {
