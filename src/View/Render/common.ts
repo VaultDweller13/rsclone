@@ -1,4 +1,3 @@
-import Character from '../../model/characters/character';
 import ChoiceButton from './choice';
 import { party } from './partyInitializer';
 
@@ -67,16 +66,6 @@ function warning(warnText: string) {
   view.append(createLayer(3, warnBlock));
 }
 
-function getAC(character: Character): number {
-  let ac = 0;
-  character.equipment.forEach((item) => {
-    if (item) {
-      ac += item.AC;
-    }
-  });
-  return ac;
-}
-
 function renderParty() {
   const prtyBlock = createElement('div', '', 'prty block');
   const partyArr = party.getParty();
@@ -138,5 +127,4 @@ export {
   getParty,
   resetPage,
   renderParty,
-  getAC
 };
