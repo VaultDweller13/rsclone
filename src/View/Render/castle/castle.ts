@@ -1,6 +1,7 @@
-import { createChoice, createLayer, createElement, resetPage } from './common';
-import castle from '../Assets/castle.jpg';
-import createCharacter from './characterCreator';
+import { createChoice, createLayer, createElement, resetPage } from '../common';
+import castle from '../../Assets/castle.jpg';
+import { createCharacter } from './characterCreator';
+import changeParty from './changeParty';
 
 function renderCastle() {
   resetPage();
@@ -22,10 +23,10 @@ function renderCastle() {
 
 let implementCastle = () => {};
 
-function enterCastle () {
+function enterCastle() {
   renderCastle();
   implementCastle();
-};
+}
 
 implementCastle = () => {
   const view = document.getElementById('view') as HTMLElement;
@@ -34,13 +35,12 @@ implementCastle = () => {
       createLayer(
         1,
         createChoice('tav-choice', [
-          { id: 'add-to-prty', name: 'add to party' },
-          { id: 'rmv-frm-prty', name: 'remove from party' },
+          { id: 'add-to-prty', name: 'change party', func: () => changeParty() },
           { id: 'inspect', name: 'inspect character' },
           {
             id: 'inspect',
             name: 'create character',
-            func: () => createCharacter(enterCastle),
+            func: () => createCharacter(),
           },
         ])
       )

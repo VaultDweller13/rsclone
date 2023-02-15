@@ -3,4 +3,4 @@ type ChoiceButton = {
   name: string;
   func?: () => void;
 };
-export default ChoiceButton
+export default ChoiceButton;
