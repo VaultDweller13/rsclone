@@ -1,8 +1,7 @@
 import { party, tavern } from '../partyInitializer';
 import { createChoice, createElement } from '../common';
 import { confirm } from './characterCreator';
-import Character from '../../../model/characters/character'; 
-
+import Character from '../../../model/characters/character';
 
 let currentPage = 1;
 
@@ -16,23 +15,23 @@ function checkIfPagePossible(page: number): boolean {
 }
 
 function addFromParty(character: Character, index: number) {
-  /* if can add */
-  // there's no check yet
-  tavern.add(character);
-  party.remove(index);
-  renderPartyforTavern();
-  renderTaverners(currentPage);
+  if (tavern.canBeAdded(character)) {
+    tavern.add(character);
+    party.remove(index);
+    renderPartyforTavern();
+    renderTaverners(currentPage);
+  }
 }
 function addFromTavern(character: Character, index: number) {
-  /* if can add */
-  // there's no check yet
-  party.add(character);
-  tavern.remove(index);
-  renderPartyforTavern();
-  if (!checkIfPagePossible(currentPage) && currentPage !== 1) {
-    currentPage -= 1;
+  if (party.canBeAdded(character)) {
+    party.add(character);
+    tavern.remove(index);
+    renderPartyforTavern();
+    if (!checkIfPagePossible(currentPage) && currentPage !== 1) {
+      currentPage -= 1;
+    }
+    renderTaverners(currentPage);
   }
-  renderTaverners(currentPage);
 }
 
 function changeParty() {
