@@ -67,3 +67,17 @@ type KeyItems = {
   description: string;
   message: string;
 };
+
+type Monster = {
+  name: string;
+  unidentified: string;
+  AC: number;
+  HPMin: number;
+  HPMax: number;
+  damageMin: number;
+  damageMax: number;
+  attacks: number;
+  resistances: string[];
+  abilities: string[];
+  exp: number;
+};
