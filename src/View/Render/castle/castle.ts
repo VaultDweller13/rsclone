@@ -90,7 +90,7 @@ implementCastle = () => {
     }
     initGame();
     } else {
-      warning('You cannot empty maze without party');
+      warning('You cannot enter maze without a party');
     }
   });
 };
