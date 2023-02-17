@@ -12,8 +12,9 @@ export default class MiniMap {
 
   private width: number;
   private height: number;
+  readonly miniLayoutPosition: Coordinates = { x: 5, y: 5 };
 
-  constructor(map: GameMap, public readonly miniLayoutPosition: Coordinates) {
+  constructor(map: GameMap) {
     this.width = map.width;
     this.height = map.height;
     this.load(map);

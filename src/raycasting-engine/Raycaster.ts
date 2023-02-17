@@ -1,18 +1,18 @@
 import GameMap from './GameMap';
-import Player from './Player';
+import Player from './Camera';
 
 export default class Raycaster {
   private readonly RANGE_TO_CAST = 10;
   private readonly FOV = Math.PI / 3;
   private readonly PERSPECTIVE_RATIO = 0.75;
   private readonly SHADING_COLOR = 'black';
+  private width: number;
+  private height: number;
 
-  constructor(
-    public width: number,
-    public height: number,
-    public ctx: CanvasRenderingContext2D,
-    public lightRange: number
-  ) {}
+  constructor(public ctx: CanvasRenderingContext2D, public lightRange: number) {
+    this.width = this.ctx.canvas.width;
+    this.height = this.ctx.canvas.height;
+  }
 
   private project = (
     angle: number,
@@ -27,7 +27,7 @@ export default class Raycaster {
     };
   };
 
-  private drawClipping(
+  private drawTextureStripe(
     column: number,
     ray: Required<RayOrigin>[],
     angle: number,
@@ -89,7 +89,7 @@ export default class Raycaster {
         player.direction + angle,
         this.RANGE_TO_CAST
       );
-      this.drawClipping(col, ray, angle, map);
+      this.drawTextureStripe(col, ray, angle, map);
     }
     this.ctx.restore();
   };

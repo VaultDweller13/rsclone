@@ -1,7 +1,7 @@
 import './styles/game-canvas.css';
 
 export { default as Controls } from './Controls';
-export { default as Player } from './Player';
+export { default as Camera } from './Camera';
 export { default as GameMap } from './GameMap';
 export { default as MiniMap } from './MiniMap';
 export { default as Raycaster } from './Raycaster';

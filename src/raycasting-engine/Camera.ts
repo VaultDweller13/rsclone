@@ -1,25 +1,25 @@
 import Controls from './Controls';
 import GameMap from './GameMap';
 
-export default class Player {
+export default class Camera {
   private readonly CAMERA_CLOSENESS_RATE = 6;
   private readonly CENTRALIZER_VALUE = 0.5;
   private readonly CIRCLE = Math.PI * 2;
-  private readonly CRAB_WALK_ANGLE = Math.PI / 2;
+  private readonly STRAFE_MOVE_ANGLE = Math.PI / 2;
   private readonly DISCRETE_ROTATE_ANGLE_0 = 0;
   private readonly DISCRETE_ROTATE_ANGLE_90 = Math.PI / 2;
   private readonly DISCRETE_ROTATE_ANGLE_180 = Math.PI;
   private readonly DISCRETE_ROTATE_ANGLE_270 = 1.5 * Math.PI;
   private readonly DISCRETE_ROTATE_ANGLE_PER_FRAME = Math.PI / 90;
-  private readonly DISCRETE_WALK_DISTANCE_PER_FRAME = 0.1;
-  private readonly DISCRETE_WALK_MAX_STEPS = 7;
+  private readonly DISCRETE_MOVE_DISTANCE_PER_FRAME = 0.1;
+  private readonly DISCRETE_MOVE_MAX_STEPS = 7;
   private readonly ROTATE_SPEED_RATE = 0.7;
-  private readonly WALK_SPEED_RATE = 2;
+  private readonly MOVE_SPEED_RATE = 2;
 
   private moveId = 0;
   private canMove = true;
   private targetDirection = 0;
-  private walkSteps = 0;
+  private moveSteps = 0;
 
   position: Coordinates;
   direction: number;
@@ -37,7 +37,7 @@ export default class Player {
         x: initialPosition.x,
         y: initialPosition.y,
       });
-      this.direction = 0;
+      this.direction = this.DISCRETE_ROTATE_ANGLE_90;
     } else {
       this.position = initialPosition;
       this.direction = initialPosition.direction;
@@ -56,13 +56,13 @@ export default class Player {
     if (this.controls.states['camera-right'])
       this.rotate(Math.PI * frameTime * this.ROTATE_SPEED_RATE);
     if (this.controls.states.forward)
-      this.walk(this.WALK_SPEED_RATE * frameTime, map);
+      this.move(this.MOVE_SPEED_RATE * frameTime, map);
     if (this.controls.states.backward)
-      this.walk(-this.WALK_SPEED_RATE * frameTime, map);
+      this.move(-this.MOVE_SPEED_RATE * frameTime, map);
     if (this.controls.states.left)
-      this.walk(-this.WALK_SPEED_RATE * frameTime, map, true);
+      this.move(-this.MOVE_SPEED_RATE * frameTime, map, true);
     if (this.controls.states.right)
-      this.walk(this.WALK_SPEED_RATE * frameTime, map, true);
+      this.move(this.MOVE_SPEED_RATE * frameTime, map, true);
   };
 
   private updateOnDiscreteMode = (map: GameMap): void => {
@@ -89,23 +89,23 @@ export default class Player {
           break;
         }
         case 'right': {
-          callback = this.getWalkCallback(map, false, true);
-          predicator = this.getWalkPredicator();
+          callback = this.getMoveCallback(map, false, true);
+          predicator = this.getMovePredicator();
           break;
         }
         case 'left': {
-          callback = this.getWalkCallback(map, true, true);
-          predicator = this.getWalkPredicator();
+          callback = this.getMoveCallback(map, true, true);
+          predicator = this.getMovePredicator();
           break;
         }
         case 'forward': {
-          callback = this.getWalkCallback(map, false);
-          predicator = this.getWalkPredicator();
+          callback = this.getMoveCallback(map, false);
+          predicator = this.getMovePredicator();
           break;
         }
         case 'backward': {
-          callback = this.getWalkCallback(map, true);
-          predicator = this.getWalkPredicator();
+          callback = this.getMoveCallback(map, true);
+          predicator = this.getMovePredicator();
           break;
         }
         default: {
@@ -116,7 +116,7 @@ export default class Player {
       }
 
       if (callback && predicator) {
-        this.executeDiscreteMotion(
+        this.executeDiscreteMovement(
           callback,
           predicator,
           stateKey as KeyboardKeyAlias
@@ -129,12 +129,12 @@ export default class Player {
     this.direction = (this.direction + angle + this.CIRCLE) % this.CIRCLE;
   };
 
-  private walk = (distance: number, map: GameMap, isCrabWalk = false): void => {
+  private move = (distance: number, map: GameMap, isStrafe = false): void => {
     const dx =
-      Math.cos(this.direction + (isCrabWalk ? this.CRAB_WALK_ANGLE : 0)) *
+      Math.cos(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) *
       distance;
     const dy =
-      Math.sin(this.direction + (isCrabWalk ? this.CRAB_WALK_ANGLE : 0)) *
+      Math.sin(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) *
       distance;
 
     if (
@@ -154,19 +154,19 @@ export default class Player {
       this.position.y += dy;
   };
 
-  private executeDiscreteMotion = (
+  private executeDiscreteMovement = (
     callback: () => void,
     predicator: () => boolean,
     stateKey: KeyboardKeyAlias
   ) => {
-    const discreteMotion = () => {
+    const discreteMovement = () => {
       if (predicator()) {
         callback();
-        this.moveId = requestAnimationFrame(discreteMotion);
+        this.moveId = requestAnimationFrame(discreteMovement);
       } else {
         this.direction = this.targetDirection;
         this.position = this.centralizePosition(this.position);
-        this.walkSteps = 0;
+        this.moveSteps = 0;
         this.controls.states[stateKey] = false;
         cancelAnimationFrame(this.moveId);
         this.moveId = 0;
@@ -174,16 +174,16 @@ export default class Player {
       }
     };
 
-    if (this.controls.states[stateKey]) requestAnimationFrame(discreteMotion);
+    if (this.controls.states[stateKey]) requestAnimationFrame(discreteMovement);
   };
 
   private getRotatePredicator = () => () =>
     Math.abs(this.targetDirection - this.direction) >=
     2 * this.DISCRETE_ROTATE_ANGLE_PER_FRAME;
 
-  private getWalkPredicator = () => () => {
-    this.walkSteps += 1;
-    return this.walkSteps < this.DISCRETE_WALK_MAX_STEPS;
+  private getMovePredicator = () => () => {
+    this.moveSteps += 1;
+    return this.moveSteps < this.DISCRETE_MOVE_MAX_STEPS;
   };
 
   private getRotateCallback = (isCounterclockwise: boolean) => () =>
@@ -208,12 +208,12 @@ export default class Player {
     y: Math.floor(position.y) + this.CENTRALIZER_VALUE,
   });
 
-  private getWalkCallback =
-    (map: GameMap, isNegative: boolean, isCrabWalk = false) =>
+  private getMoveCallback =
+    (map: GameMap, isNegative: boolean, isStrafe = false) =>
     () =>
-      this.walk(
-        (isNegative ? -1 : 1) * this.DISCRETE_WALK_DISTANCE_PER_FRAME,
+      this.move(
+        (isNegative ? -1 : 1) * this.DISCRETE_MOVE_DISTANCE_PER_FRAME,
         map,
-        isCrabWalk
+        isStrafe
       );
 }

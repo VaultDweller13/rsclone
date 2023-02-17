@@ -11,7 +11,7 @@ type Axis = 'x' | 'y' | 'both';
 type Ray = {
   x?: number;
   y?: number;
-  depth?: number;
+  deltaDistance?: number;
   cell?: number;
   distance?: number;
   offset?: number;
@@ -19,7 +19,7 @@ type Ray = {
   onAxis?: Axis;
 };
 
-type RayStep = Pick<Ray, 'x' | 'y' | 'depth' | 'axis'>;
+type RayStep = Pick<Ray, 'x' | 'y' | 'deltaDistance' | 'axis'>;
 type RayOrigin = Pick<Ray, 'offset' | 'distance' | 'cell' | 'axis' | 'onAxis'>;
 
 type KeyboardKeyCode =

@@ -1,6 +1,6 @@
 import GameMap from './GameMap';
 import MiniMap from './MiniMap';
-import Player from './Player';
+import Player from './Camera';
 import Raycaster from './Raycaster';
 
 export default class GameLoop {

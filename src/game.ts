@@ -1,7 +1,7 @@
 import {
   Raycaster,
   GameMap,
-  Player,
+  Camera,
   MiniMap,
   Controls,
   GameLoop,
@@ -21,6 +21,7 @@ export default function initGame() {
   canvas.width = CANVAS_WIDTH;
   canvas.height = CANVAS_HEIGHT;
   getMain().append(canvas);
+
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   /**
@@ -34,15 +35,15 @@ export default function initGame() {
    */
   // prettier-ignore
   const walls = [
-    1, 2, 1, 6, 0, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 
-    3, 0, 0, 0, 0, 5, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1,
-    1, 0, 0, 0, 0, 4, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 
-    1, 0, 1, 0, 0, 5, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 
-    1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1,
-    1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1,
-    1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 
-    1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 
+    1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1,
+    1, 0, 0, 0, 0, 5, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 
+    1, 0, 1, 0, 0, 4, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 
+    1, 0, 1, 0, 0, 5, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1,
+    1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1,
+    1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 
+    1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 
     1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 
     1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 
     1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 
@@ -59,18 +60,16 @@ export default function initGame() {
   ];
 
   const initialPosition: Required<Position> = {
-    x: 2,
-    y: 2,
+    x: 1,
+    y: 1,
     direction: Math.PI / 3,
   };
 
-  const miniLayoutPosition: Coordinates = { x: 5, y: 5 };
-
-  const raycaster = new Raycaster(CANVAS_WIDTH, CANVAS_HEIGHT, ctx, 6);
-  const map = new GameMap(Math.sqrt(walls.length), walls, option3);
+  const raycaster = new Raycaster(ctx, 6);
+  const map = new GameMap(walls, option3);
+  const miniMap = new MiniMap(map);
   const controls = new Controls('discrete');
-  const player = new Player(initialPosition, controls);
-  const miniMap = new MiniMap(map, miniLayoutPosition);
+  const player = new Camera(initialPosition, controls);
 
   const game = new GameLoop(ctx, raycaster, map, miniMap, player);
   game.start();
