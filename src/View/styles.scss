@@ -57,13 +57,14 @@
   border-radius: 5px;
   padding: 10px 5px;
   min-width: 350px;
-  max-width: 1440px;
+  max-width: 100%;
   aspect-ratio: 1.5;
   background-color: #000000;
   position: relative;
   display: flex;
   flex-direction: column;
   height: 60vh;
+  width: 80vh;
   #view {
     position: relative;
     flex-grow: 2;
@@ -133,6 +134,10 @@
       background-color: #0044ff89;
       cursor: pointer;
     }
+  }
+  .maze#view{
+    padding: 0;
+    max-height: 60%;
   }
   .prty,
   .tavern {
