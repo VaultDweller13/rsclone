@@ -14,16 +14,17 @@ import {
 } from '../game-engine';
 
 import sprites from '../../model/data/monsterSprites';
-import { getMain } from '../../View/Render/common';
 import Battle from '../game-engine/Battle';
 
 export default function initGame() {
   const canvas = document.createElement('canvas');
+  const viewHtml = document.getElementById('view');
   canvas.id = 'canvas';
   canvas.width = CANVAS_WIDTH;
   canvas.height = CANVAS_HEIGHT;
-  getMain().append(canvas);
-
+  if (viewHtml) {
+    viewHtml.append(canvas);
+  }
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   /**

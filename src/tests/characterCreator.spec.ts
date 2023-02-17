@@ -8,6 +8,7 @@ import {
 } from '../model/characters/characterCreator';
 import classes from '../model/data/classes';
 import races from '../model/data/races';
+import type { Stat } from '../types/types';
 
 describe('getBonus()', () => {
   it('should return 5 - 9 || 15 - 19 || 25 - 29', () => {

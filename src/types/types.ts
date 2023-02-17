@@ -1,4 +1,6 @@
-type Stat =
+import Character from '../model/characters/character';
+
+export type Stat =
   | 'strength'
   | 'intelligence'
   | 'piety'
@@ -6,7 +8,7 @@ type Stat =
   | 'agility'
   | 'luck';
 
-type Status =
+export type Status =
   | 'OK'
   | 'AFRAID'
   | 'ASLEEP'
@@ -16,11 +18,11 @@ type Status =
   | 'ASHES'
   | 'LOST';
 
-type Alignment = 'good' | 'neutral' | 'evil';
+export type Alignment = 'good' | 'neutral' | 'evil';
 
-type Race = 'human' | 'dwarf' | 'elf' | 'gnome' | 'hobbit';
+export type Race = 'human' | 'dwarf' | 'elf' | 'gnome' | 'hobbit';
 
-type ClassName =
+export type ClassName =
   | 'fighter'
   | 'priest'
   | 'mage'
@@ -30,14 +32,14 @@ type ClassName =
   | 'lord'
   | 'ninja';
 
-type Class = {
+export type Class = {
   name: ClassName;
   stats: Partial<Record<Stat, number>>;
   alignment: Alignment[];
   hitDice: number;
 };
 
-type ItemTypes =
+export type ItemTypes =
   | 'weapon'
   | 'shield'
   | 'armor'
@@ -46,7 +48,7 @@ type ItemTypes =
   | 'accessory'
   | 'expendable';
 
-type Item = {
+export type Item = {
   name: string;
   type: ItemTypes;
   cost: number;
@@ -59,16 +61,16 @@ type Item = {
   AC: number;
 };
 
-type Equipment = Map<ItemTypes, Item | null>;
+export type Equipment = Map<ItemTypes, Item | null>;
 
-type KeyItems = {
+export type KeyItems = {
   name: string;
   type: 'key';
   description: string;
   message: string;
 };
 
-type Monster = {
+export type Monster = {
   name: string;
   unidentified: string;
   AC: number;
@@ -81,4 +83,13 @@ type Monster = {
   abilities: string[];
   exp: number;
   img: string;
+};
+
+export type Spell = {
+  name: string;
+  level: number;
+  target: 'monster' | 'group' | 'all' | 'self' | 'party' | 'character';
+  description: string;
+  type: 'battle' | 'maze' | 'any';
+  cast: (target?: Monster[] | Character) => void;
 };
