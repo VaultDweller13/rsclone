@@ -13,14 +13,15 @@ import {
   option3,
 } from './raycasting-engine';
 
-import { getMain } from './View/Render/common';
-
 export default function initGame() {
   const canvas = document.createElement('canvas');
+  const viewHtml = document.getElementById('view');
   canvas.id = 'canvas';
   canvas.width = CANVAS_WIDTH;
   canvas.height = CANVAS_HEIGHT;
-  getMain().append(canvas);
+  if (viewHtml){
+    viewHtml.append(canvas);
+  }
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   /**
