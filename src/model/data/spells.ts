@@ -1,4 +1,159 @@
-export const mage = [];
+export const mage = [
+  // Level 1
+  {
+    name: 'DUMAPIC',
+    level: 1,
+    target: 'self',
+    description: 'Shows map',
+    type: 'map',
+  },
+  {
+    name: 'HALITO',
+    level: 1,
+    target: 'monster',
+    description: `Causes a fireball to hit a monster for 1-8 points of fire damage`,
+    type: 'battle',
+  },
+  {
+    name: 'KATINO',
+    level: 1,
+    target: 'group',
+    description: `Causes most of the monsters in a group to fall asleep`,
+    type: 'battle',
+  },
+  {
+    name: 'MOGREF',
+    level: 1,
+    target: 'self',
+    description: `Reduces the caster's armor class by 2 for the encounter`,
+    type: 'battle',
+  },
+  // Level 2
+  {
+    name: 'DILTO',
+    level: 2,
+    target: 'group',
+    description: `Causes one group of monsters to be enveloped in darkness, lowering their defense`,
+    type: 'battle',
+  },
+  {
+    name: 'SOPIC',
+    level: 2,
+    target: 'self',
+    description: `Causes the caster to become transparent, thus reducing their armor class by 4`,
+    type: 'battle',
+  },
+  // Level 3
+  {
+    name: 'MAHALITO',
+    level: 3,
+    target: 'group',
+    description: `Causes an explosion in a monster group, doing 4-24 points of fire damage`,
+    type: 'battle',
+  },
+  {
+    name: 'MOLITO',
+    level: 3,
+    target: 'group',
+    description: `Causes sparks to damage half of the monsters in a group for 3-18 points damage`,
+    type: 'battle',
+  },
+  // Level 4
+  {
+    name: 'DALTO',
+    level: 4,
+    target: 'group',
+    description: `Does 6-36 points of cold damage`,
+    type: 'battle',
+  },
+  {
+    name: 'LAHALITO',
+    level: 4,
+    target: 'group',
+    description: `Does 6-36 points of fire damage`,
+    type: 'battle',
+  },
+  {
+    name: 'MORLIS',
+    level: 4,
+    target: 'group',
+    description: `Causes a group of monsters to fear the party`,
+    type: 'battle',
+  },
+  // Level 5
+  {
+    name: 'MADALTO',
+    level: 5,
+    target: 'group',
+    description: `Causes 8-64 points of cold damage`,
+    type: 'battle',
+  },
+  {
+    name: 'MAKANITO',
+    level: 5,
+    target: 'all',
+    description: `Kills low-level monsters`,
+    type: 'battle',
+  },
+  {
+    name: 'MAMORLIS',
+    level: 5,
+    target: 'all',
+    description: `Causes all monsters to fear the party`,
+    type: 'battle',
+  },
+  // Level 6
+  {
+    name: 'HAMAN',
+    level: 6,
+    target: 'party',
+    description: `Not implemented`,
+    type: 'battle',
+  },
+  {
+    name: 'LAKANITO',
+    level: 6,
+    target: 'group',
+    description: `Attempts to kill a group of monsters`,
+    type: 'battle',
+  },
+  {
+    name: 'MASOPIC	',
+    level: 6,
+    target: 'party',
+    description: `Reduces the armor class of the entire party by 4`,
+    type: 'battle',
+  },
+  {
+    name: 'ZILWAN	',
+    level: 6,
+    target: 'monster',
+    description: `Will destroy one undead monster`,
+    type: 'battle',
+  },
+  // Level 7
+  {
+    name: 'MAHAMAN',
+    level: 7,
+    target: 'party',
+    description: `Not implemented`,
+    type: 'battle',
+  },
+  {
+    name: 'MALOR',
+    level: 7,
+    target: 'party',
+    description: `Teleports party to the specified location`,
+    type: 'any',
+  },
+  {
+    name: 'TILTOWAIT',
+    level: 7,
+    target: 'all',
+    description: `Does 10-100 hit points of damage to all monster`,
+    type: 'battle',
+  },
+];
 
 export const priest = [
   // Level 1
@@ -207,7 +362,7 @@ export const priest = [
   {
     name: 'MALIKTO',
     level: 7,
-    target: 'all monsters',
+    target: 'all',
     description: `Causes 12-72 hit points of damage to all monsters`,
     type: 'battle',
   },
