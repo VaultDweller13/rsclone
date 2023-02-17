@@ -1,6 +1,7 @@
 import Character from './character';
 import classes from '../data/classes';
 import races from '../data/races';
+import type { Race, Alignment, Stat, Class } from '../../types/types';
 
 export function getRaces(): Race[] {
   return races.map((race) => race.name) as Race[];

@@ -1,3 +1,14 @@
+import type {
+  Race,
+  Class,
+  Status,
+  Alignment,
+  Item,
+  Equipment,
+  Stat,
+  ItemTypes,
+} from '../../types/types';
+
 export default class Character {
   public name: string;
   public age: number;

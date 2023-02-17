@@ -3,6 +3,7 @@ import classes from '../model/data/classes';
 // import Party from '../model/game/party';
 // import weapons from '../model/data/weapons';
 import monsters from '../model/data/monsters';
+import type { Monster } from '../types/types';
 
 const stats = (str = 18, int = 18, pie = 18, vit = 18, agi = 18, luc = 18) => ({
   strength: str,

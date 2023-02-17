@@ -18,6 +18,7 @@ import {
 import ChoiceButton from '../choice';
 import { tavern } from '../partyInitializer';
 import Character from '../../../model/characters/character';
+import type { Alignment, Stat, Race, Class } from '../../types/types';
 
 let newCharacter = {
   name: '',

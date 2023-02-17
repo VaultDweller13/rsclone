@@ -1,11 +1,13 @@
-export const mage = [
+import type { Spell } from '../../types/types';
+
+export const mage: Spell[] = [
   // Level 1
   {
     name: 'DUMAPIC',
     level: 1,
     target: 'self',
     description: 'Shows map',
-    type: 'map',
+    type: 'maze',
   },
   {
     name: 'HALITO',
