@@ -1,10 +1,10 @@
+import type { Stat } from '../../../types/types';
 import die from '../../Assets/die.svg';
 import { party, tavern } from '../partyInitializer';
 
 const nameExists = (name: string): boolean =>
   party.getParty().some((char) => char.name === name) ||
   tavern.getParty().some((char) => char.name === name);
-import type { Stat } from '../../types/types';
 
 function setStatClassHtml(bonus: number): string {
   return `<div id='stats' class="block column">
