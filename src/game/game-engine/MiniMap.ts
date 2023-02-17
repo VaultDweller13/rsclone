@@ -12,7 +12,7 @@ export default class MiniMap {
 
   private width: number;
   private height: number;
-  readonly miniLayoutPosition: Coordinates = { x: 5, y: 5 };
+  readonly layoutPosition = { x: 5, y: 5 };
 
   constructor(map: GameMap) {
     this.width = map.width;
@@ -51,26 +51,22 @@ export default class MiniMap {
     }
   };
 
-  render = (
-    ctx: CanvasRenderingContext2D,
-    pos: Coordinates,
-    playerPos: Coordinates
-  ): void => {
+  render = (ctx: CanvasRenderingContext2D, playerPos: Coordinates): void => {
     const pX =
       (this.width - Math.floor(playerPos.x) - 1) * this.MINI_MAP_CELL_WIDTH;
     const pY =
       (this.height - Math.floor(playerPos.y) - 1) * this.MINI_MAP_CELL_WIDTH;
     ctx.drawImage(
       this.target,
-      pos.x,
-      pos.y,
+      this.layoutPosition.x,
+      this.layoutPosition.y,
       this.target.width,
       this.target.height
     );
     ctx.fillStyle = this.MINI_MAP_PLAYER_COLOR;
     ctx.fillRect(
-      pos.x + pX,
-      pos.y + pY,
+      this.layoutPosition.x + pX,
+      this.layoutPosition.y + pY,
       this.MINI_MAP_CELL_WIDTH,
       this.MINI_MAP_CELL_WIDTH
     );

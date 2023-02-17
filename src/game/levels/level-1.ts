@@ -11,9 +11,11 @@ import {
   // option1,
   // option2,
   option3,
-} from './raycasting-engine';
+} from '../game-engine';
 
-import { getMain } from './View/Render/common';
+import sprites from '../../model/data/monsterSprites';
+import { getMain } from '../../View/Render/common';
+import Battle from '../game-engine/Battle';
 
 export default function initGame() {
   const canvas = document.createElement('canvas');
@@ -59,7 +61,7 @@ export default function initGame() {
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1,
   ];
 
-  const initialPosition: Required<Position> = {
+  const startPosition: Required<Position> = {
     x: 1,
     y: 1,
     direction: Math.PI / 3,
@@ -69,8 +71,19 @@ export default function initGame() {
   const map = new GameMap(walls, option3);
   const miniMap = new MiniMap(map);
   const controls = new Controls('discrete');
-  const player = new Camera(initialPosition, controls);
+  const player = new Camera(startPosition, controls);
+  const battle = new Battle(ctx);
+  const game = new GameLoop(ctx, raycaster, map, miniMap, player, battle);
 
-  const game = new GameLoop(ctx, raycaster, map, miniMap, player);
   game.start();
+
+  controls.changeAccessibility(false);
+  battle.defineEnemies([
+    { enemy: sprites.attackDog, name: 'Attack Dog', amount: 2, isDead: false },
+    { enemy: sprites.bishop, name: 'Bishop', amount: 3, isDead: true },
+    { enemy: sprites.chimera, name: 'Chimera', amount: 3, isDead: false },
+    { enemy: sprites.bleeb, name: 'Bleeb', amount: 3, isDead: false },
+  ]);
+
+  return { game, battle, controls };
 }

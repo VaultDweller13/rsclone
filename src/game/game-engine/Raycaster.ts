@@ -6,21 +6,20 @@ export default class Raycaster {
   private readonly FOV = Math.PI / 3;
   private readonly PERSPECTIVE_RATIO = 0.75;
   private readonly SHADING_COLOR = 'black';
-  private width: number;
-  private height: number;
 
-  constructor(public ctx: CanvasRenderingContext2D, public lightRange: number) {
-    this.width = this.ctx.canvas.width;
-    this.height = this.ctx.canvas.height;
-  }
+  constructor(
+    public ctx: CanvasRenderingContext2D,
+    public lightRange: number
+  ) {}
 
   private project = (
     angle: number,
     distance: number
   ): { top: number; height: number } => {
+    const { height } = this.ctx.canvas;
     const z = this.PERSPECTIVE_RATIO * distance * Math.cos(angle);
-    const wallHeight = this.height / z;
-    const top = (this.height / 2) * (1 + 1 / z) - wallHeight;
+    const wallHeight = height / z;
+    const top = (height / 2) * (1 + 1 / z) - wallHeight;
     return {
       top,
       height: wallHeight,
@@ -79,11 +78,12 @@ export default class Raycaster {
   }
 
   private drawTexture = (player: Player, map: GameMap): void => {
+    const { width } = this.ctx.canvas;
     this.ctx.save();
     this.ctx.imageSmoothingEnabled = true;
 
-    for (let col = 0; col < this.width; col += 1) {
-      const angle = this.FOV * (col / this.width - 0.5);
+    for (let col = 0; col < width; col += 1) {
+      const angle = this.FOV * (col / width - 0.5);
       const ray = map.cast(
         player.position,
         player.direction + angle,

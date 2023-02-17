@@ -31,16 +31,16 @@ export default class Camera {
     this.DISCRETE_ROTATE_ANGLE_270,
   ];
 
-  constructor(initialPosition: Required<Position>, public controls: Controls) {
+  constructor(startPosition: Required<Position>, public controls: Controls) {
     if (controls.mode === 'discrete') {
       this.position = this.centralizePosition({
-        x: initialPosition.x,
-        y: initialPosition.y,
+        x: startPosition.x,
+        y: startPosition.y,
       });
-      this.direction = this.DISCRETE_ROTATE_ANGLE_90;
+      this.direction = 0;
     } else {
-      this.position = initialPosition;
-      this.direction = initialPosition.direction;
+      this.position = startPosition;
+      this.direction = startPosition.direction;
     }
   }
 
