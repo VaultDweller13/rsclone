@@ -1,3 +1,5 @@
+import type { ClassName, Alignment } from '../../types/types';
+
 export default {
   fighter: {
     name: 'fighter' as ClassName,

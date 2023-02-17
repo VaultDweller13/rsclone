@@ -1,3 +1,4 @@
+import type { Stat } from '../../../types/types';
 import die from '../../Assets/die.svg';
 import { party, tavern } from '../partyInitializer';
 

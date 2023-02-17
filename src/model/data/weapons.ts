@@ -1,3 +1,5 @@
+import type { Item } from '../../types/types';
+
 const weapons: Item[] = [
   {
     name: 'dagger',

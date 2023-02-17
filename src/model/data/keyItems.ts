@@ -1,3 +1,5 @@
+import type { KeyItems } from '../../types/types';
+
 const keyItems: KeyItems[] = [
   {
     name: 'Bear statue',

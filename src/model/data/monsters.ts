@@ -1,4 +1,5 @@
 import sprites from './monsterSprites';
+import type { Monster } from '../../types/types';
 
 const monsters: Monster[] = [
   {
