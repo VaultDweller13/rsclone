@@ -80,4 +80,5 @@ type Monster = {
   resistances: string[];
   abilities: string[];
   exp: number;
+  img: string;
 };
