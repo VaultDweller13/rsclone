@@ -1,4 +1,9 @@
-import die from '../Assets/die.svg';
+import die from '../../Assets/die.svg';
+import { party, tavern } from '../partyInitializer';
+
+const nameExists = (name: string): boolean =>
+  party.getParty().some((char) => char.name === name) ||
+  tavern.getParty().some((char) => char.name === name);
 
 function setStatClassHtml(bonus: number): string {
   return `<div id='stats' class="block column">
@@ -25,6 +30,7 @@ function setStatClassHtml(bonus: number): string {
 <style>
   #stats-class{
     display: flex;
+    justify-content: space-between
   }
   .column{
     width: 45%;
@@ -59,7 +65,7 @@ function setStatClassHtml(bonus: number): string {
     text-align:center;
   }
 </style>
-;`;
+`;
 }
 
 function setLineHtml(stat: Stat, statValue: number): string {
@@ -110,7 +116,7 @@ function setNameHtml(): string {
 
 function removeClassInactive(className: string) {
   document.querySelectorAll(`.${className}`).forEach((block) => {
-      block.classList.remove('inactive');
+    block.classList.remove('inactive');
   });
 }
 
@@ -120,4 +126,5 @@ export {
   setRaceHtml,
   setNameHtml,
   removeClassInactive,
+  nameExists,
 };
