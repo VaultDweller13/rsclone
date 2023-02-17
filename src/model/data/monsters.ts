@@ -1,7 +1,7 @@
 import sprites from './monsterSprites';
-import type { Monster } from '../../types/types';
+import type { MonsterData } from '../../types/types';
 
-const monsters: Monster[] = [
+const monsters: MonsterData[] = [
   {
     name: 'Bubbly Slime',
     unidentified: 'Slimes',
