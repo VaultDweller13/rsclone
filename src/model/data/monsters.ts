@@ -1,3 +1,5 @@
+import sprites from './monsterSprites';
+
 const monsters: Monster[] = [
   {
     name: 'Bubbly Slime',
@@ -11,7 +13,7 @@ const monsters: Monster[] = [
     resistances: ['Magic'],
     abilities: ['Slept'],
     exp: 55,
-    img: `../assets/bubblySlime.gif`,
+    img: sprites.slime,
   },
   {
     name: 'Undead Kobold',
@@ -25,7 +27,7 @@ const monsters: Monster[] = [
     resistances: ['Fire', 'Cold'],
     abilities: ['None'],
     exp: 230,
-    img: `../assets/undeadKobold.gif`,
+    img: sprites.undeadKobold,
   },
   {
     name: 'Orc',
@@ -39,7 +41,7 @@ const monsters: Monster[] = [
     resistances: ['Fire'],
     abilities: ['Slept', 'Run'],
     exp: 235,
-    img: `../assets/orc.gif`,
+    img: sprites.orc,
   },
   {
     name: 'Gas Cloud',
@@ -53,7 +55,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Paralyze', 'Run'],
     exp: 350,
-    img: `../assets/gasCloud.gif`,
+    img: sprites.gasCloud,
   },
   {
     name: 'Bushwacker',
@@ -67,7 +69,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept', 'Run'],
     exp: 380,
-    img: `../assets/bushwacker.gif`,
+    img: sprites.rogue,
   },
   {
     name: 'Kobold',
@@ -81,7 +83,7 @@ const monsters: Monster[] = [
     resistances: ['Cold'],
     abilities: ['Slept', 'Run'],
     exp: 415,
-    img: `../assets/kobold.gif`,
+    img: sprites.kobold,
   },
   {
     name: 'Mage, Lvl 1',
@@ -95,7 +97,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept', 'Run'],
     exp: 475,
-    img: `../assets/mage.gif`,
+    img: sprites.mage,
   },
   {
     name: 'Priest, Lvl 1',
@@ -109,7 +111,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept', 'Run'],
     exp: 515,
-    img: `../assets/priest.gif`,
+    img: sprites.priest,
   },
   {
     name: 'Capybara',
@@ -123,7 +125,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Poison', 'Run'],
     exp: 520,
-    img: `../assets/capybara.gif`,
+    img: sprites.capybara,
   },
   {
     name: 'Zombie',
@@ -137,7 +139,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Paralyze'],
     exp: 520,
-    img: `../assets/zombie.gif`,
+    img: sprites.zombie,
   },
   {
     name: 'Creeping Crud',
@@ -151,7 +153,7 @@ const monsters: Monster[] = [
     resistances: ['Cold', 'Magic'],
     abilities: ['Poison'],
     exp: 550,
-    img: `../assets/creepingCrud.gif`,
+    img: sprites.creepingCrud,
   },
   {
     name: 'Ninja, Lvl 1',
@@ -165,7 +167,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Autokill', 'Slept'],
     exp: 600,
-    img: `../assets/ninja.gif`,
+    img: sprites.ninja,
   },
   {
     name: 'Spider, Huge',
@@ -179,7 +181,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Poison', 'Slept'],
     exp: 600,
-    img: `../assets/spider.gif`,
+    img: sprites.spider,
   },
   {
     name: 'Rogue',
@@ -193,7 +195,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept', 'Run'],
     exp: 620,
-    img: `../assets/rogue.gif`,
+    img: sprites.rogue,
   },
   {
     name: 'Mage, Lvl 5',
@@ -207,7 +209,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept'],
     exp: 620,
-    img: `../assets/mage.gif`,
+    img: sprites.mage,
   },
   {
     name: 'Rotting Corpse',
@@ -221,7 +223,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Paralyze'],
     exp: 680,
-    img: `../assets/rottingCorpse.gif`,
+    img: sprites.rottingCorpse,
   },
   {
     name: 'Vorpal Bunny',
@@ -235,7 +237,7 @@ const monsters: Monster[] = [
     resistances: ['Cold'],
     abilities: ['Autokill, Run'],
     exp: 735,
-    img: `../assets/vorpalBunny.gif`,
+    img: sprites.vorpalBunny,
   },
   {
     name: 'Wererat',
@@ -249,7 +251,7 @@ const monsters: Monster[] = [
     resistances: ['Magic'],
     abilities: ['Slept'],
     exp: 755,
-    img: `../assets/wererat.gif`,
+    img: sprites.wererat,
   },
   {
     name: 'Coyote',
@@ -263,7 +265,7 @@ const monsters: Monster[] = [
     resistances: ['Poison', 'LvlDrain', 'Stoning'],
     abilities: ['Run'],
     exp: 780,
-    img: `../assets/coyote.gif`,
+    img: sprites.coyote,
   },
   {
     name: 'Mage, Arch',
@@ -277,7 +279,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 790,
-    img: `../assets/mage.gif`,
+    img: sprites.mage,
   },
   {
     name: 'Giant Toad',
@@ -291,7 +293,7 @@ const monsters: Monster[] = [
     resistances: ['Fire'],
     abilities: ['Poison', 'Run'],
     exp: 795,
-    img: `../assets/giantToad.gif`,
+    img: sprites.giantToad,
   },
   {
     name: 'Samurai, Lvl 3',
@@ -305,7 +307,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Run'],
     exp: 795,
-    img: `../assets/samurai.gif`,
+    img: sprites.samurai,
   },
   {
     name: 'Highwayman',
@@ -319,7 +321,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Autokill', 'Slept', 'Run'],
     exp: 840,
-    img: `../assets/highwayman.gif`,
+    img: sprites.rogue,
   },
   {
     name: 'Priestess',
@@ -333,7 +335,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept'],
     exp: 870,
-    img: `../assets/priestess.gif`,
+    img: sprites.priestess,
   },
   {
     name: 'Shade',
@@ -347,7 +349,7 @@ const monsters: Monster[] = [
     resistances: ['Magic'],
     abilities: ['LvlDrain'],
     exp: 875,
-    img: `../assets/shade.gif`,
+    img: sprites.shade,
   },
   {
     name: 'Creeping Coin',
@@ -361,7 +363,7 @@ const monsters: Monster[] = [
     resistances: ['Fire', 'Cold', 'Poison', 'LvlDrain', 'Stoning'],
     abilities: ['Help', 'Breath'],
     exp: 920,
-    img: `../assets/creepingCoin.gif`,
+    img: sprites.creepingCoin,
   },
   {
     name: 'Thief, Master',
@@ -375,7 +377,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept', 'Run'],
     exp: 960,
-    img: `../assets/thief.gif`,
+    img: sprites.thief,
   },
   {
     name: 'Swordsman',
@@ -389,7 +391,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept'],
     exp: 960,
-    img: `../assets/swordsman.gif`,
+    img: sprites.swordsman,
   },
   {
     name: 'Ogre',
@@ -403,7 +405,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept', 'Run'],
     exp: 960,
-    img: `../assets/ogre.gif`,
+    img: sprites.ogre,
   },
   {
     name: 'Spider, Giant',
@@ -417,7 +419,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Poison'],
     exp: 960,
-    img: `../assets/spider.gif`,
+    img: sprites.spider,
   },
   {
     name: 'Werewolf',
@@ -431,7 +433,7 @@ const monsters: Monster[] = [
     resistances: ['Magic'],
     abilities: ['None'],
     exp: 975,
-    img: `../assets/werewolf.gif`,
+    img: sprites.werewolf,
   },
   {
     name: 'Priest, Lvl 3',
@@ -445,7 +447,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Poison, Slept, Run'],
     exp: 990,
-    img: `../assets/priest.gif`,
+    img: sprites.priest,
   },
   {
     name: 'Mage, Lvl 7',
@@ -459,7 +461,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept'],
     exp: 100,
-    img: `../assets/mage.gif`,
+    img: sprites.mage,
   },
   {
     name: 'Ninja, Lvl 8',
@@ -473,7 +475,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Autokill'],
     exp: 102,
-    img: `../assets/ninja.gif`,
+    img: sprites.ninja,
   },
   {
     name: 'Medusalizard',
@@ -487,7 +489,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Stone'],
     exp: 104,
-    img: `../assets/meduzalizard.gif`,
+    img: sprites.meduzalizard,
   },
   {
     name: 'Grave Mist',
@@ -501,7 +503,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Paralyze'],
     exp: 108,
-    img: `../assets/graveMist.gif`,
+    img: sprites.graveMist,
   },
   {
     name: 'Attack Dog',
@@ -515,7 +517,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept, Run'],
     exp: 112,
-    img: `../assets/attackDog.gif`,
+    img: sprites.graveMist,
   },
   {
     name: 'Boring Beetle',
@@ -529,7 +531,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 112,
-    img: `../assets/boringBeetle.gif`,
+    img: sprites.boringBeetle,
   },
   {
     name: 'Bishop',
@@ -543,7 +545,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept'],
     exp: 113,
-    img: `../assets/bishop.gif`,
+    img: sprites.bishop,
   },
   {
     name: 'Thief, Master',
@@ -557,7 +559,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Run'],
     exp: 114,
-    img: `../assets/thief.gif`,
+    img: sprites.thief,
   },
   {
     name: 'Daimyo, Minor',
@@ -571,7 +573,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Slept', 'Help'],
     exp: 120,
-    img: `../assets/daimyo.gif`,
+    img: sprites.daimyo,
   },
   {
     name: 'Priest, Lvl 5',
@@ -585,7 +587,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 122,
-    img: `../assets/priest.gif`,
+    img: sprites.priest,
   },
   {
     name: 'Thief, Lvl 7',
@@ -599,7 +601,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Run'],
     exp: 122,
-    img: `../assets/thief.gif`,
+    img: sprites.thief,
   },
   {
     name: 'Gaze Hound',
@@ -613,7 +615,7 @@ const monsters: Monster[] = [
     resistances: ['Magic'],
     abilities: ['Paralyze', 'Run'],
     exp: 123,
-    img: `../assets/gazeHound.gif`,
+    img: sprites.gazeHound,
   },
   {
     name: 'Mage, Lvl 7',
@@ -627,7 +629,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 124,
-    img: `../assets/mage.gif`,
+    img: sprites.mage,
   },
   {
     name: 'Spirit',
@@ -641,7 +643,7 @@ const monsters: Monster[] = [
     resistances: ['Magic', 'Poison'],
     abilities: ['None'],
     exp: 124,
-    img: `../assets/spirit.gif`,
+    img: sprites.spirit,
   },
   {
     name: 'Dragon Fly',
@@ -655,7 +657,7 @@ const monsters: Monster[] = [
     resistances: ['Fire'],
     abilities: ['Slept', 'Breath'],
     exp: 127,
-    img: `../assets/dragonFly.gif`,
+    img: sprites.dragonfly,
   },
   {
     name: 'Ninja, Master',
@@ -669,7 +671,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Autokill'],
     exp: 128,
-    img: `../assets/ninja.gif`,
+    img: sprites.ninja,
   },
   {
     name: 'Were Bear',
@@ -683,7 +685,7 @@ const monsters: Monster[] = [
     resistances: ['Cold', 'Poison'],
     abilities: ['Paralyze', 'Run'],
     exp: 132,
-    img: `../assets/werebear.gif`,
+    img: sprites.werebear,
   },
   {
     name: 'Ninja, Lvl 3',
@@ -697,7 +699,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Poison', 'Autokill'],
     exp: 136,
-    img: `../assets/ninja.gif`,
+    img: sprites.ninja,
   },
   {
     name: 'Mage, Lvl 10',
@@ -711,7 +713,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 140,
-    img: `../assets/mage.gif`,
+    img: sprites.mage,
   },
   {
     name: 'Weretiger',
@@ -725,7 +727,7 @@ const monsters: Monster[] = [
     resistances: ['Magic'],
     abilities: ['Paralyze', 'Slept'],
     exp: 140,
-    img: `../assets/weretiger.gif`,
+    img: sprites.weretiger,
   },
   {
     name: 'Killer Wolf',
@@ -739,7 +741,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 146,
-    img: `../assets/killerWolf.gif`,
+    img: sprites.killerWolf,
   },
   {
     name: 'Nightstalker',
@@ -753,7 +755,7 @@ const monsters: Monster[] = [
     resistances: ['Magic'],
     abilities: ['LvlDrain'],
     exp: 147,
-    img: `../assets/nightstalker.gif`,
+    img: sprites.nightstalker,
   },
   {
     name: 'Ninja, Lvl 6',
@@ -767,7 +769,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Autokill'],
     exp: 152,
-    img: `../assets/ninja.gif`,
+    img: sprites.ninja,
   },
   {
     name: 'Wyvern',
@@ -781,7 +783,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Poison'],
     exp: 154,
-    img: `../assets/wyvern.gif`,
+    img: sprites.wyvern,
   },
   {
     name: 'Hatamoto',
@@ -795,7 +797,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Autokill'],
     exp: 160,
-    img: `../assets/hatamoto.gif`,
+    img: sprites.samurai,
   },
   {
     name: 'Ninja, High',
@@ -809,7 +811,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Autokill'],
     exp: 160,
-    img: `../assets/ninja.gif`,
+    img: sprites.ninja,
   },
   {
     name: 'Thief',
@@ -823,7 +825,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Run'],
     exp: 164,
-    img: `../assets/thief.gif`,
+    img: sprites.thief,
   },
   {
     name: 'Priest, Lvl 8',
@@ -837,7 +839,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 172,
-    img: `../assets/priest.gif`,
+    img: sprites.priest,
   },
   {
     name: 'Troll',
@@ -851,7 +853,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 172,
-    img: `../assets/troll.gif`,
+    img: sprites.troll,
   },
   {
     name: 'Ogre Lord',
@@ -865,7 +867,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 179,
-    img: `../assets/ogreLord.gif`,
+    img: sprites.ogreLord,
   },
   {
     name: 'Fighter, Lvl 7',
@@ -879,7 +881,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 190,
-    img: `../assets/fighter.gif`,
+    img: sprites.fighter,
   },
   {
     name: 'Fighter, Lvl 10',
@@ -893,7 +895,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 190,
-    img: `../assets/fighter.gif`,
+    img: sprites.fighter,
   },
   {
     name: 'Thief, Master',
@@ -907,7 +909,7 @@ const monsters: Monster[] = [
     resistances: ['Poison'],
     abilities: ['Run'],
     exp: 193,
-    img: `../assets/thief.gif`,
+    img: sprites.thief,
   },
   {
     name: 'Bishop, Lvl 8',
@@ -921,7 +923,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 206,
-    img: `../assets/bishop.gif`,
+    img: sprites.bishop,
   },
   {
     name: 'Dragon, Gas',
@@ -935,7 +937,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None', 'Breath'],
     exp: 207,
-    img: `../assets/gasDragon.gif`,
+    img: sprites.gasDragon,
   },
   {
     name: 'Giant, Fire',
@@ -949,7 +951,7 @@ const monsters: Monster[] = [
     resistances: ['Fire'],
     abilities: ['None'],
     exp: 211,
-    img: `../assets/fireGiant.gif`,
+    img: sprites.fireGiant,
   },
   {
     name: 'Fighter, Lvl 8',
@@ -963,7 +965,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 214,
-    img: `../assets/fighter.gif`,
+    img: sprites.fighter,
   },
   {
     name: 'Priest, High',
@@ -977,7 +979,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 216,
-    img: `../assets/priest.gif`,
+    img: sprites.priest,
   },
   {
     name: 'Lifestealer',
@@ -991,7 +993,7 @@ const monsters: Monster[] = [
     resistances: ['Poison', 'LvlDrain', 'Stoning', 'Magic'],
     abilities: ['LvlDrain'],
     exp: 224,
-    img: `../assets/lifestealer.gif`,
+    img: sprites.lifestealer,
   },
   {
     name: 'Dragon Puppy',
@@ -1005,7 +1007,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 228,
-    img: `../assets/dragonPuppy.gif`,
+    img: sprites.dragonPuppy,
   },
   {
     name: 'Daimyo, Major',
@@ -1019,7 +1021,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Help'],
     exp: 234,
-    img: `../assets/daimyo.gif`,
+    img: sprites.daimyo,
   },
   {
     name: 'Samurai, Champ',
@@ -1033,7 +1035,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 239,
-    img: `../assets/samurai.gif`,
+    img: sprites.samurai,
   },
   {
     name: 'Wizard, High',
@@ -1047,7 +1049,7 @@ const monsters: Monster[] = [
     resistances: ['Fire'],
     abilities: ['Slept'],
     exp: 239,
-    img: `../assets/wizard.gif`,
+    img: sprites.mage,
   },
   {
     name: 'Thief, Lvl 4',
@@ -1061,7 +1063,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 239,
-    img: `../assets/thief.gif`,
+    img: sprites.thief,
   },
   {
     name: 'Gargoyle',
@@ -1075,7 +1077,7 @@ const monsters: Monster[] = [
     resistances: ['Magic'],
     abilities: ['None'],
     exp: 243,
-    img: `../assets/gargoyle.gif`,
+    img: sprites.gargoyle,
   },
   {
     name: 'Gorgon',
@@ -1089,7 +1091,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Breath'],
     exp: 292,
-    img: `../assets/gorgon.gif`,
+    img: sprites.gorgon,
   },
   {
     name: 'High Master',
@@ -1103,7 +1105,7 @@ const monsters: Monster[] = [
     resistances: ['Fire', 'Cold', 'Poison', 'LvlDrain', 'Stoning', 'Magic'],
     abilities: ['Autokill'],
     exp: 300,
-    img: `../assets/ninja.gif`,
+    img: sprites.ninja,
   },
   {
     name: 'Mage, Arch',
@@ -1117,7 +1119,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 316,
-    img: `../assets/archmage.gif`,
+    img: sprites.mage,
   },
   {
     name: 'Bleeb',
@@ -1131,7 +1133,7 @@ const monsters: Monster[] = [
     resistances: ['Fire', 'Cold', 'Poison', 'LvlDrain', 'Stoning', 'Magic'],
     abilities: ['Run', 'Help'],
     exp: 330,
-    img: `../assets/bleeb.gif`,
+    img: sprites.bleeb,
   },
   {
     name: 'Priest, High',
@@ -1145,7 +1147,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 330,
-    img: `../assets/priest.gif`,
+    img: sprites.priest,
   },
   {
     name: 'Vampire',
@@ -1159,7 +1161,7 @@ const monsters: Monster[] = [
     resistances: ['Poison', 'LvlDrain', 'Stoning'],
     abilities: ['Paralyze', 'LvlDrain'],
     exp: 333,
-    img: `../assets/vampire.gif`,
+    img: sprites.vampire,
   },
   {
     name: 'Chimera',
@@ -1173,7 +1175,7 @@ const monsters: Monster[] = [
     resistances: ['Fire'],
     abilities: ['Breath'],
     exp: 351,
-    img: `../assets/chimera.gif`,
+    img: sprites.chimera,
   },
   {
     name: 'Raver Lord',
@@ -1187,7 +1189,7 @@ const monsters: Monster[] = [
     resistances: ['Fire'],
     abilities: ['None'],
     exp: 415,
-    img: `../assets/raverLord.gif`,
+    img: sprites.raverLord,
   },
   {
     name: "Murphy's Ghost",
@@ -1201,7 +1203,7 @@ const monsters: Monster[] = [
     resistances: ['Fire', 'Cold', 'Poison', 'LvlDrain', 'Stoning', 'Magic'],
     abilities: ['None'],
     exp: 445,
-    img: `../assets/murphysGhost.gif`,
+    img: sprites.murphysGhost,
   },
   {
     name: 'Dragon, Fire',
@@ -1215,7 +1217,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Breath'],
     exp: 500,
-    img: `../assets/fireDragon.gif`,
+    img: sprites.fireDragon,
   },
   {
     name: 'Demon, Lesser',
@@ -1229,7 +1231,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Help, LvlDrain'],
     exp: 510,
-    img: `../assets/lesserDemon.gif`,
+    img: sprites.lesserDemon,
   },
   {
     name: 'Dragon Zombie',
@@ -1243,7 +1245,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 520,
-    img: `../assets/dragonZombie.gif`,
+    img: sprites.zombieDragon,
   },
   {
     name: 'Vampire Lord',
@@ -1257,7 +1259,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Paralyze'],
     exp: 732,
-    img: `../assets/vampireLord.gif`,
+    img: sprites.vampireLord,
   },
   {
     name: 'Maelific',
@@ -1271,7 +1273,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Poison, Paralyze'],
     exp: 746,
-    img: `../assets/maelific.gif`,
+    img: sprites.maelific,
   },
   {
     name: 'Flack',
@@ -1285,7 +1287,7 @@ const monsters: Monster[] = [
     resistances: ['Fire', 'Cold', 'Poison', 'LvlDrain', 'Stoning', 'Magic'],
     abilities: ['Stone', 'Poison', 'Paralyze', 'Autokill'],
     exp: 920,
-    img: `../assets/flack.gif`,
+    img: sprites.flack,
   },
   {
     name: 'W E R D N A',
@@ -1299,7 +1301,7 @@ const monsters: Monster[] = [
     resistances: ['Fire', 'Cold', 'Poison'],
     abilities: ['Stone', 'Poison', 'Paralyze', 'LvlDrain', 'Autokill'],
     exp: 158,
-    img: `../assets/werdna.gif`,
+    img: sprites.werdna,
   },
   {
     name: 'Giant, Earth',
@@ -1313,7 +1315,7 @@ const monsters: Monster[] = [
     resistances: ['Magic'],
     abilities: ['None'],
     exp: 204,
-    img: `../assets/earthGiant.gif`,
+    img: sprites.earthGiant,
   },
   {
     name: 'Giant, Poison',
@@ -1327,7 +1329,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Breath'],
     exp: 408,
-    img: `../assets/poisonGiant.gif`,
+    img: sprites.poisonGiant,
   },
   {
     name: 'Giant, Frost',
@@ -1341,7 +1343,7 @@ const monsters: Monster[] = [
     resistances: ['Cold'],
     abilities: ['None'],
     exp: 408,
-    img: `../assets/frostGiant.gif`,
+    img: sprites.frostGiant,
   },
   {
     name: "Will O' Wisp",
@@ -1355,7 +1357,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['None'],
     exp: 428,
-    img: `../assets/willowisp.gif`,
+    img: sprites.willowisp,
   },
   {
     name: 'Demon, Greater',
@@ -1369,7 +1371,7 @@ const monsters: Monster[] = [
     resistances: ['None'],
     abilities: ['Poison', 'Help', 'Paralyze', 'LvlDrain'],
     exp: 440,
-    img: `../assets/greaterDemon.gif`,
+    img: sprites.greaterDemon,
   },
 ];
 
