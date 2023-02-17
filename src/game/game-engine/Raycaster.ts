@@ -7,15 +7,9 @@ export default class Raycaster {
   private readonly PERSPECTIVE_RATIO = 0.75;
   private readonly SHADING_COLOR = 'black';
 
-  constructor(
-    public ctx: CanvasRenderingContext2D,
-    public lightRange: number
-  ) {}
+  constructor(public ctx: CanvasRenderingContext2D, public lightRange: number) {}
 
-  private project = (
-    angle: number,
-    distance: number
-  ): { top: number; height: number } => {
+  private project = (angle: number, distance: number): { top: number; height: number } => {
     const { height } = this.ctx.canvas;
     const z = this.PERSPECTIVE_RATIO * distance * Math.cos(angle);
     const wallHeight = height / z;
@@ -42,17 +36,14 @@ export default class Raycaster {
       let textureAlias = step.cell;
 
       if (
-        !Object.keys(map.textureMapping).find(
-          (alias) => +alias === textureAlias
-        ) ||
+        !Object.keys(map.textureMapping).find((alias) => +alias === textureAlias) ||
         (step.cell === 5 && step.axis !== step.onAxis) ||
         (step.cell === 6 && step.axis !== step.onAxis)
       ) {
         textureAlias = 1;
       }
 
-      const texture =
-        map.textures[map.textureMapping[textureAlias as TextureAlias]];
+      const texture = map.textures[map.textureMapping[textureAlias as TextureAlias]];
 
       const textureX = Math.floor(texture.width * step.offset);
       const wall = this.project(angle, step.distance);
@@ -84,11 +75,7 @@ export default class Raycaster {
 
     for (let col = 0; col < width; col += 1) {
       const angle = this.FOV * (col / width - 0.5);
-      const ray = map.cast(
-        player.position,
-        player.direction + angle,
-        this.RANGE_TO_CAST
-      );
+      const ray = map.cast(player.position, player.direction + angle, this.RANGE_TO_CAST);
       this.drawTextureStripe(col, ray, angle, map);
     }
     this.ctx.restore();

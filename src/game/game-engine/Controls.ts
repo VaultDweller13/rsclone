@@ -31,22 +31,10 @@ export default class Controls {
 
   constructor(public readonly mode: ControlMode) {
     if (mode === 'discrete') {
-      document.addEventListener(
-        'keydown',
-        (e) => this.handleKeysOnDiscreteMode(e),
-        false
-      );
+      document.addEventListener('keydown', (e) => this.handleKeysOnDiscreteMode(e), false);
     } else {
-      document.addEventListener(
-        'keydown',
-        (e) => this.handleKeysOnContinuousMode(true, e),
-        false
-      );
-      document.addEventListener(
-        'keyup',
-        (e) => this.handleKeysOnContinuousMode(false, e),
-        false
-      );
+      document.addEventListener('keydown', (e) => this.handleKeysOnContinuousMode(true, e), false);
+      document.addEventListener('keyup', (e) => this.handleKeysOnContinuousMode(false, e), false);
     }
   }
 

@@ -60,9 +60,6 @@ export default class Battle {
     this.ctx.fillStyle = this.BACKGROUND_COLOR;
     this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT);
 
-    this.ctx.strokeStyle = this.STROKE_COLOR;
-    this.ctx.lineWidth = this.STROKE_WIDTH;
-
     this.drawTarget();
     this.drawInfoBox();
     this.drawRest();
@@ -100,13 +97,7 @@ export default class Battle {
     this.ctx.beginPath();
     this.ctx.strokeStyle = this.STROKE_COLOR;
     this.ctx.lineWidth = this.STROKE_WIDTH;
-    this.ctx.roundRect(
-      x,
-      y,
-      this.INFO_BOX_WIDTH,
-      this.INFO_BOX_HEIGHT,
-      this.CORNER_RADIUS
-    );
+    this.ctx.roundRect(x, y, this.INFO_BOX_WIDTH, this.INFO_BOX_HEIGHT, this.CORNER_RADIUS);
 
     const textX = this.TARGET_SIZE + this.MARGIN * 5;
     let textY = this.INFO_BOX_HEIGHT / 2 + this.MARGIN * 2;
@@ -117,13 +108,7 @@ export default class Battle {
 
     y = this.MARGIN * 2 + this.INFO_BOX_HEIGHT;
 
-    this.ctx.roundRect(
-      x,
-      y,
-      this.INFO_BOX_WIDTH,
-      this.INFO_BOX_HEIGHT,
-      this.CORNER_RADIUS
-    );
+    this.ctx.roundRect(x, y, this.INFO_BOX_WIDTH, this.INFO_BOX_HEIGHT, this.CORNER_RADIUS);
 
     textY = this.INFO_BOX_HEIGHT * 1.5 + this.MARGIN * 3;
     this.ctx.fillText(`Remain: ${this.target?.amount as number}`, textX, textY);
@@ -140,13 +125,7 @@ export default class Battle {
       this.ctx.beginPath();
       this.ctx.strokeStyle = this.STROKE_COLOR;
       this.ctx.lineWidth = this.STROKE_WIDTH;
-      this.ctx.roundRect(
-        x,
-        y,
-        this.REST_SIZE,
-        this.REST_SIZE,
-        this.CORNER_RADIUS
-      );
+      this.ctx.roundRect(x, y, this.REST_SIZE, this.REST_SIZE, this.CORNER_RADIUS);
       this.ctx.stroke();
 
       this.ctx.drawImage(
@@ -167,10 +146,7 @@ export default class Battle {
         this.ctx.lineWidth = this.STROKE_WIDTH;
 
         this.ctx.moveTo(x + this.PADDING, y + this.PADDING);
-        this.ctx.lineTo(
-          x + this.REST_SIZE - this.PADDING,
-          y + this.REST_SIZE - this.PADDING
-        );
+        this.ctx.lineTo(x + this.REST_SIZE - this.PADDING, y + this.REST_SIZE - this.PADDING);
 
         this.ctx.moveTo(x + this.REST_SIZE - this.PADDING, y + this.PADDING);
         this.ctx.lineTo(x + this.PADDING, y + this.REST_SIZE - this.PADDING);

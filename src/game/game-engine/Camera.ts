@@ -55,14 +55,10 @@ export default class Camera {
       this.rotate(-Math.PI * frameTime * this.ROTATE_SPEED_RATE);
     if (this.controls.states['camera-right'])
       this.rotate(Math.PI * frameTime * this.ROTATE_SPEED_RATE);
-    if (this.controls.states.forward)
-      this.move(this.MOVE_SPEED_RATE * frameTime, map);
-    if (this.controls.states.backward)
-      this.move(-this.MOVE_SPEED_RATE * frameTime, map);
-    if (this.controls.states.left)
-      this.move(-this.MOVE_SPEED_RATE * frameTime, map, true);
-    if (this.controls.states.right)
-      this.move(this.MOVE_SPEED_RATE * frameTime, map, true);
+    if (this.controls.states.forward) this.move(this.MOVE_SPEED_RATE * frameTime, map);
+    if (this.controls.states.backward) this.move(-this.MOVE_SPEED_RATE * frameTime, map);
+    if (this.controls.states.left) this.move(-this.MOVE_SPEED_RATE * frameTime, map, true);
+    if (this.controls.states.right) this.move(this.MOVE_SPEED_RATE * frameTime, map, true);
   };
 
   private updateOnDiscreteMode = (map: GameMap): void => {
@@ -72,56 +68,42 @@ export default class Camera {
     if (stateKey) {
       this.canMove = false;
 
-      let callback: (() => void) | null;
-      let predicator: (() => boolean) | null;
+      let callback: (() => void) | null = null;
+      let predicator: (() => boolean) | null = null;
 
       switch (stateKey) {
-        case 'camera-left': {
+        case 'camera-left':
           callback = this.getRotateCallback(true);
           this.defineTargetDirection(true);
           predicator = this.getRotatePredicator();
           break;
-        }
-        case 'camera-right': {
+        case 'camera-right':
           callback = this.getRotateCallback(false);
           this.defineTargetDirection(false);
           predicator = this.getRotatePredicator();
           break;
-        }
-        case 'right': {
+        case 'right':
           callback = this.getMoveCallback(map, false, true);
           predicator = this.getMovePredicator();
           break;
-        }
-        case 'left': {
+        case 'left':
           callback = this.getMoveCallback(map, true, true);
           predicator = this.getMovePredicator();
           break;
-        }
-        case 'forward': {
+        case 'forward':
           callback = this.getMoveCallback(map, false);
           predicator = this.getMovePredicator();
           break;
-        }
-        case 'backward': {
+        case 'backward':
           callback = this.getMoveCallback(map, true);
           predicator = this.getMovePredicator();
           break;
-        }
-        default: {
-          callback = null;
-          predicator = null;
-          break;
-        }
+        default:
+          this.canMove = true;
       }
 
-      if (callback && predicator) {
-        this.executeDiscreteMovement(
-          callback,
-          predicator,
-          stateKey as KeyboardKeyAlias
-        );
-      }
+      if (callback && predicator)
+        this.executeDiscreteMovement(callback, predicator, stateKey as KeyboardKeyAlias);
     }
   };
 
@@ -130,27 +112,13 @@ export default class Camera {
   };
 
   private move = (distance: number, map: GameMap, isStrafe = false): void => {
-    const dx =
-      Math.cos(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) *
-      distance;
-    const dy =
-      Math.sin(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) *
-      distance;
+    const dx = Math.cos(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) * distance;
+    const dy = Math.sin(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) * distance;
 
-    if (
-      map.get(
-        this.position.x + dx * this.CAMERA_CLOSENESS_RATE,
-        this.position.y
-      ) <= 0
-    )
+    if (map.get(this.position.x + dx * this.CAMERA_CLOSENESS_RATE, this.position.y) <= 0)
       this.position.x += dx;
 
-    if (
-      map.get(
-        this.position.x,
-        this.position.y + dy * this.CAMERA_CLOSENESS_RATE
-      ) <= 0
-    )
+    if (map.get(this.position.x, this.position.y + dy * this.CAMERA_CLOSENESS_RATE) <= 0)
       this.position.y += dy;
   };
 
@@ -178,27 +146,18 @@ export default class Camera {
   };
 
   private getRotatePredicator = () => () =>
-    Math.abs(this.targetDirection - this.direction) >=
-    2 * this.DISCRETE_ROTATE_ANGLE_PER_FRAME;
+    Math.abs(this.targetDirection - this.direction) >= 2 * this.DISCRETE_ROTATE_ANGLE_PER_FRAME;
 
   private getMovePredicator = () => () => {
     this.moveSteps += 1;
     return this.moveSteps < this.DISCRETE_MOVE_MAX_STEPS;
   };
 
-  private getRotateCallback = (isCounterclockwise: boolean) => () =>
-    this.rotate(
-      (isCounterclockwise ? -1 : 1) * this.DISCRETE_ROTATE_ANGLE_PER_FRAME
-    );
-
   private defineTargetDirection = (isCounterclockwise: boolean) => {
-    const index = this.discreteDirections.findIndex(
-      (angle: number) => this.direction === angle
-    );
+    const index = this.discreteDirections.findIndex((angle: number) => this.direction === angle);
     this.targetDirection =
       this.discreteDirections[
-        ((isCounterclockwise ? index - 1 : index + 1) +
-          this.discreteDirections.length) %
+        ((isCounterclockwise ? index - 1 : index + 1) + this.discreteDirections.length) %
           this.discreteDirections.length
       ];
   };
@@ -208,12 +167,11 @@ export default class Camera {
     y: Math.floor(position.y) + this.CENTRALIZER_VALUE,
   });
 
+  private getRotateCallback = (isCounterclockwise: boolean) => () =>
+    this.rotate((isCounterclockwise ? -1 : 1) * this.DISCRETE_ROTATE_ANGLE_PER_FRAME);
+
   private getMoveCallback =
     (map: GameMap, isNegative: boolean, isStrafe = false) =>
     () =>
-      this.move(
-        (isNegative ? -1 : 1) * this.DISCRETE_MOVE_DISTANCE_PER_FRAME,
-        map,
-        isStrafe
-      );
+      this.move((isNegative ? -1 : 1) * this.DISCRETE_MOVE_DISTANCE_PER_FRAME, map, isStrafe);
 }

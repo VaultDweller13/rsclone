@@ -24,16 +24,11 @@ export default class GameMap {
   get = (x: number, y: number): number => {
     const column = Math.floor(x);
     const row = Math.floor(y);
-    if (column < 0 || column >= this.width || row < 0 || row >= this.height)
-      return -1;
+    if (column < 0 || column >= this.width || row < 0 || row >= this.height) return -1;
     return this.walls[row * this.width + column];
   };
 
-  cast = (
-    point: Position,
-    angle: number,
-    range: number
-  ): Required<RayOrigin>[] => {
+  cast = (point: Position, angle: number, range: number): Required<RayOrigin>[] => {
     const sin = Math.sin(angle);
     const cos = Math.cos(angle);
 
@@ -62,13 +57,7 @@ export default class GameMap {
   ): Required<Ray>[] => {
     const stepX: Required<RayStep> = this.step(sin, cos, origin.x, origin.y);
 
-    const stepY: Required<RayStep> = this.step(
-      cos,
-      sin,
-      origin.y,
-      origin.x,
-      true
-    );
+    const stepY: Required<RayStep> = this.step(cos, sin, origin.y, origin.x, true);
 
     const nextRay =
       stepX.deltaDistance < stepY.deltaDistance
@@ -108,10 +97,8 @@ export default class GameMap {
   ): Required<Ray> => {
     const dx = cos < 0 ? shiftX : 0;
     const dy = sin < 0 ? shiftY : 0;
-    const index =
-      Math.floor(step.y - dy) * this.width + Math.floor(step.x - dx);
-    const cell =
-      index < 0 || index >= this.walls.length ? -1 : this.walls[index];
+    const index = Math.floor(step.y - dy) * this.width + Math.floor(step.x - dx);
+    const cell = index < 0 || index >= this.walls.length ? -1 : this.walls[index];
 
     let onAxis: Axis = 'both';
     if (cell === 5) {

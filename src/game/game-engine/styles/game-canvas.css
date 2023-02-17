@@ -1,11 +1,5 @@
 #canvas {
   width: 640px;
   height: 360px;
-  background: linear-gradient(
-    to bottom,
-    rgb(99, 99, 99) 0%,
-    black 40%,
-    black 60%,
-    #333 100%
-  );
+  background: linear-gradient(to bottom, rgb(99, 99, 99) 0%, black 40%, black 60%, #333 100%);
 }

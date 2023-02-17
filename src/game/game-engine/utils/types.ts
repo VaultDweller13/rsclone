@@ -40,13 +40,7 @@ type KeyboardKeyCode =
   | 'ы'
   | 'в';
 
-type KeyboardKeyAlias =
-  | 'left'
-  | 'right'
-  | 'forward'
-  | 'backward'
-  | 'camera-left'
-  | 'camera-right';
+type KeyboardKeyAlias = 'left' | 'right' | 'forward' | 'backward' | 'camera-left' | 'camera-right';
 
 type ControlMode = 'continuous' | 'discrete';
 
