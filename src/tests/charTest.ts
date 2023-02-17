@@ -1,7 +1,8 @@
 import Character from '../model/characters/character';
 import classes from '../model/data/classes';
-import Party from '../model/game/party';
+// import Party from '../model/game/party';
 // import weapons from '../model/data/weapons';
+import monsters from '../model/data/monsters';
 
 const stats = (str = 18, int = 18, pie = 18, vit = 18, agi = 18, luc = 18) => ({
   strength: str,
@@ -55,3 +56,24 @@ console.log(fighter);
 // fighter.equip(helm as Item);
 // console.log(fighter.equipment);
 // console.log(fighter.getAC());
+
+function showMonster(monster: Monster) {
+  const container = document.createElement('div');
+  const name = document.createElement('p');
+  name.classList.add('.name');
+  name.textContent = monster.name;
+  const img = document.createElement('img');
+  img.src = monster.img;
+  img.classList.add('monster');
+
+  container.append(name, img);
+
+  return container;
+}
+
+export default function setMonstersBlock() {
+  const block = document.createElement('div');
+  monsters.forEach((monster) => block.append(showMonster(monster)));
+
+  document.body.append(block);
+}
