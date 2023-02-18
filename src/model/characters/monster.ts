@@ -4,6 +4,7 @@ import Character from './character';
 
 export default class Monster {
   name: string;
+  level: number;
   AC: number;
   HP: number;
   damageMin: number;
@@ -17,6 +18,7 @@ export default class Monster {
 
   constructor(monster: MonsterData) {
     this.name = monster.name;
+    this.level = monster.level;
     this.AC = monster.AC;
     this.HP = getFromRange(monster.HPMin, monster.HPMax);
     this.damageMin = monster.damageMin;
@@ -29,12 +31,18 @@ export default class Monster {
     this.status = 'OK';
   }
 
-  // attack(target: Character) {
-  //   if (['DEAD', 'ASHES', 'LOST'].includes(target.status)) return;
-  //   if (['ASLEEP', 'STONED', 'PLYZE', 'AFRAID'].includes(this.status)) return;
+  attack(target: Character) {
+    if (['DEAD', 'ASHES', 'LOST'].includes(target.status)) return;
+    if (['ASLEEP', 'STONED', 'PLYZE', 'AFRAID'].includes(this.status)) return;
 
-  //   const damage = getFromRange(this.damageMin, this.damageMax);
+    const damage = getFromRange(this.damageMin, this.damageMax);
 
-  //   target.
-  // }
+    let hitChance = (this.level + target.getAC()) * 5;
+    hitChance = hitChance < 5 ? 5 : hitChance;
+    hitChance = hitChance > 95 ? 95 : hitChance;
+
+    if (hitChance < getFromRange(0, 100)) return;
+
+    target.setHp(target.getHp() - damage);
+  }
 }

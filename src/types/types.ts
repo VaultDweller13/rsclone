@@ -84,6 +84,7 @@ export type MonsterData = {
   abilities: string[];
   exp: number;
   img: string;
+  level: number;
 };
 
 export type Spell = {
