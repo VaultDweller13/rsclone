@@ -1,3 +1,4 @@
+import { ifEncounter, startBattle } from '../../model/game/battle';
 import {
   Raycaster,
   GameMap,
@@ -68,11 +69,15 @@ export default function initGame() {
     direction: Math.PI / 3,
   };
 
+  const events = () => {
+    if (ifEncounter()) startBattle();
+  };
+
   const raycaster = new Raycaster(ctx, 6);
   const map = new GameMap(mapArr, option3);
   const miniMap = new MiniMap(map);
   const controls = new Controls('discrete');
-  const player = new Camera(startPosition, controls);
+  const player = new Camera(startPosition, controls, events);
   const battle = new Battle(ctx);
 
   const game = new GameLoop(ctx, raycaster, map, miniMap, player, battle);

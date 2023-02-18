@@ -34,7 +34,9 @@ export default class Camera {
     this.DISCRETE_ROTATE_ANGLE_270,
   ];
 
-  constructor(startPosition: Required<Position>, public controls: Controls) {
+  private events: () => void;
+
+  constructor(startPosition: Required<Position>, public controls: Controls, events: () => void) {
     if (controls.mode === 'discrete') {
       this.position = this.centralizePosition({
         x: startPosition.x,
@@ -45,6 +47,8 @@ export default class Camera {
       this.position = startPosition;
       this.direction = startPosition.direction;
     }
+
+    this.events = () => events();
   }
 
   update = (map: GameMap, frameTime: number): void => {
@@ -172,7 +176,7 @@ export default class Camera {
         this.finishMovement();
       }
     };
-
+    this.events();
     if (this.stateKey && this.controls.states[this.stateKey]) requestAnimationFrame(discreteMovement);
   };
 
