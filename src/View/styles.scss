@@ -18,6 +18,11 @@
     font-weight: 800;
     border: none;
   }
+  .block.button {
+    border: 3px solid #ffffff;
+    width: fit-content;
+    margin: 5px auto 0;
+  }
   .button:hover {
     cursor: pointer;
     background-color: #0044ff89;
@@ -56,7 +61,7 @@
 .game {
   border-radius: 5px;
   padding: 10px 5px;
-  min-width: 350px;
+  min-width: 400px;
   max-width: 100%;
   aspect-ratio: 1.5;
   background-color: #000000;
@@ -64,6 +69,7 @@
   display: flex;
   flex-direction: column;
   height: 60vh;
+  min-height: 400px;
   width: 80vh;
   #view {
     position: relative;
@@ -99,6 +105,7 @@
       z-index: 6;
     }
     .pop-up {
+      text-align: center;
       position: absolute;
       display: flex;
       flex-direction: column;
@@ -134,8 +141,31 @@
       background-color: #0044ff89;
       cursor: pointer;
     }
+    #char-table{
+      width: 100%;
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+      .stats-block{
+        max-width: 50%;
+      }
+    }
   }
-  .maze#view{
+  .flex#view{
+    display: flex;
+    flex-direction: column;
+  }
+  .flex-default{
+    display: flex;
+    justify-content: space-between;
+  }
+  .flex-around{
+    display: flex;
+    justify-content: space-around;
+  }
+  .maze#view {
     padding: 0;
     max-height: 60%;
   }

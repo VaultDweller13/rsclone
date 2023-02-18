@@ -1,3 +1,4 @@
+import Character from '../../model/characters/character';
 import ChoiceButton from './choice';
 import { party } from './partyInitializer';
 
@@ -93,7 +94,11 @@ function renderParty() {
                   .toUpperCase()}</div>
             <div class="chr-ac chr-param">${character.getAC()}</div>
             <div class="chr-hp chr-param">${character.getHp()}</div>
-            <div class="chr-status chr-param">${character.status === 'OK' ? character.getMaxHP() : character.status}</div>
+            <div class="chr-status chr-param">${
+              character.status === 'OK'
+                ? character.getMaxHP()
+                : character.status
+            }</div>
           </div>
             `
             )
@@ -106,6 +111,7 @@ function renderParty() {
     document.querySelector('.game')?.append(prtyBlock);
   }
 }
+
 function resetPage() {
   const gamePage = document.querySelector('.game') as HTMLElement;
   gamePage.replaceChildren();
@@ -118,6 +124,33 @@ function resetPage() {
   renderParty();
 }
 
+function selectCharacter(func: (char: Character) => void): HTMLElement {
+  const selectBlock = createElement('div', 'select', 'pop-up block center');
+  selectBlock.textContent = 'please, select character';
+  const cancelButton = createElement('button', 'cancel', 'block button');
+  cancelButton.textContent = 'cancel';
+  cancelButton.addEventListener('click', () => {
+    let layerParent: null | undefined | HTMLElement =
+      cancelButton.parentElement;
+    for (let i = 0; i < 3; i += 1) {
+      if (!layerParent?.classList.contains('layer')) {
+        layerParent = layerParent?.parentElement;
+      } else {
+        layerParent.remove();
+      }
+    }
+  });
+  selectBlock.appendChild(cancelButton);
+  const characters = document.querySelectorAll('.prty-chr');
+  characters.forEach((character, index) => {
+    character.addEventListener('click', () => {
+      func(party.getParty()[index]);
+      console.log(party.getParty()[index]);
+    });
+  });
+  return selectBlock;
+}
+
 export {
   createChoice,
   createElement,
@@ -127,4 +160,5 @@ export {
   getParty,
   resetPage,
   renderParty,
+  selectCharacter,
 };

@@ -4,12 +4,15 @@ import {
   createElement,
   resetPage,
   warning,
+  selectCharacter,
 } from '../common';
 import castle from '../../Assets/castle.jpg';
 import { createCharacter } from './characterCreator';
 import changeParty from './changeParty';
 import initGame from '../../../game/levels/level-1';
 import { party } from '../partyInitializer';
+import Character from '../../../model/characters/character';
+import inspect from '../inspection';
 
 function renderCastle() {
   resetPage();
@@ -48,7 +51,17 @@ implementCastle = () => {
             name: 'change party',
             func: () => changeParty(),
           },
-          { id: 'inspect', name: 'inspect character' },
+          {
+            id: 'inspect',
+            name: 'inspect character',
+            func: () => {
+              document.getElementById('tav-choice')?.replaceWith(
+                selectCharacter((char: Character) => {
+                  inspect(char);
+                })
+              );
+            },
+          },
           {
             id: 'inspect',
             name: 'create character',
