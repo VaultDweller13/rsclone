@@ -16,6 +16,7 @@ export default class Controls {
     ы: 'backward',
     ф: 'left',
     в: 'right',
+    Shift: 'open-door',
   };
 
   readonly states: Record<KeyboardKeyAlias, boolean> = {
@@ -25,9 +26,10 @@ export default class Controls {
     right: false,
     forward: false,
     backward: false,
+    'open-door': false,
   };
 
-  hasAccess = false;
+  hasAccess = true;
 
   constructor(public readonly mode: ControlMode) {
     if (mode === 'discrete') {
@@ -38,12 +40,12 @@ export default class Controls {
     }
   }
 
-  changeAccessibility = (isAccessible: boolean) => {
-    this.hasAccess = isAccessible;
+  changeAccessibility = (hasAccess: boolean) => {
+    this.hasAccess = hasAccess;
   };
 
   private handleKeysOnContinuousMode = (val: boolean, e: KeyboardEvent) => {
-    if (!this.hasAccess && Object.keys(this.codes).includes(e.key)) {
+    if (this.hasAccess && Object.keys(this.codes).includes(e.key)) {
       const state = this.codes[e.key as KeyboardKeyCode];
       this.states[state] = val;
     }
@@ -51,7 +53,7 @@ export default class Controls {
 
   private handleKeysOnDiscreteMode = (e: KeyboardEvent) => {
     if (
-      !this.hasAccess &&
+      this.hasAccess &&
       Object.keys(this.codes).includes(e.key) &&
       Object.values(this.states).every((value: boolean) => !value)
     ) {

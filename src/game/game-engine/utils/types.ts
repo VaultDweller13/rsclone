@@ -38,18 +38,13 @@ type KeyboardKeyCode =
   | 'у'
   | 'ф'
   | 'ы'
-  | 'в';
+  | 'в'
+  | 'Shift';
 
-type KeyboardKeyAlias = 'left' | 'right' | 'forward' | 'backward' | 'camera-left' | 'camera-right';
+type KeyboardKeyAlias = 'left' | 'right' | 'forward' | 'backward' | 'camera-left' | 'camera-right' | 'open-door';
 
 type ControlMode = 'continuous' | 'discrete';
 
-type TextureName =
-  | 'wall'
-  | 'entry'
-  | 'exit'
-  | 'closedDoor'
-  | 'openDoorVertical'
-  | 'openDoorHorizontal';
+type TextureName = 'wall' | 'entry' | 'exit' | 'closedDoor' | 'openDoorVertical' | 'openDoorHorizontal';
 
 type TextureAlias = 1 | 2 | 3 | 4 | 5 | 6;

@@ -15,6 +15,7 @@ export default class Camera {
   private readonly DISCRETE_MOVE_MAX_STEPS = 7;
   private readonly ROTATE_SPEED_RATE = 0.7;
   private readonly MOVE_SPEED_RATE = 2;
+  private readonly DOOR_DISTANCE = 1;
 
   private moveId = 0;
   private canMove = true;
@@ -51,10 +52,8 @@ export default class Camera {
   };
 
   private updateOnContinuesMode = (map: GameMap, frameTime: number) => {
-    if (this.controls.states['camera-left'])
-      this.rotate(-Math.PI * frameTime * this.ROTATE_SPEED_RATE);
-    if (this.controls.states['camera-right'])
-      this.rotate(Math.PI * frameTime * this.ROTATE_SPEED_RATE);
+    if (this.controls.states['camera-left']) this.rotate(-Math.PI * frameTime * this.ROTATE_SPEED_RATE);
+    if (this.controls.states['camera-right']) this.rotate(Math.PI * frameTime * this.ROTATE_SPEED_RATE);
     if (this.controls.states.forward) this.move(this.MOVE_SPEED_RATE * frameTime, map);
     if (this.controls.states.backward) this.move(-this.MOVE_SPEED_RATE * frameTime, map);
     if (this.controls.states.left) this.move(-this.MOVE_SPEED_RATE * frameTime, map, true);
@@ -62,10 +61,8 @@ export default class Camera {
   };
 
   private updateOnDiscreteMode = (map: GameMap): void => {
-    const stateKey = Object.keys(this.controls.states).find(
-      (key) => this.controls.states[key as KeyboardKeyAlias]
-    );
-    if (stateKey) {
+    const stateKey = Object.keys(this.controls.states).find((key) => this.controls.states[key as KeyboardKeyAlias]);
+    if (stateKey && stateKey !== 'open-door') {
       this.canMove = false;
 
       let callback: (() => void) | null = null;
@@ -102,8 +99,10 @@ export default class Camera {
           this.canMove = true;
       }
 
-      if (callback && predicator)
-        this.executeDiscreteMovement(callback, predicator, stateKey as KeyboardKeyAlias);
+      if (callback && predicator) this.executeDiscreteMovement(callback, predicator, stateKey as KeyboardKeyAlias);
+    } else if (stateKey === 'open-door') {
+      this.openDoor(map);
+      this.finishMovement(stateKey);
     }
   };
 
@@ -115,18 +114,23 @@ export default class Camera {
     const dx = Math.cos(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) * distance;
     const dy = Math.sin(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) * distance;
 
-    if (map.get(this.position.x + dx * this.CAMERA_CLOSENESS_RATE, this.position.y) <= 0)
-      this.position.x += dx;
+    if (map.getMapValue(this.position.x + dx * this.CAMERA_CLOSENESS_RATE, this.position.y) <= 0) this.position.x += dx;
 
-    if (map.get(this.position.x, this.position.y + dy * this.CAMERA_CLOSENESS_RATE) <= 0)
-      this.position.y += dy;
+    if (map.getMapValue(this.position.x, this.position.y + dy * this.CAMERA_CLOSENESS_RATE) <= 0) this.position.y += dy;
   };
 
-  private executeDiscreteMovement = (
-    callback: () => void,
-    predicator: () => boolean,
-    stateKey: KeyboardKeyAlias
-  ) => {
+  private openDoor = (map: GameMap) => {
+    const dx = Math.cos(this.direction) * this.DOOR_DISTANCE;
+    const dy = Math.sin(this.direction) * this.DOOR_DISTANCE;
+
+    if (map.getMapValue(this.position.x + dx, this.position.y) === 4)
+      map.changeMapValue(this.position.x + dx, this.position.y, 0);
+
+    if (map.getMapValue(this.position.x, this.position.y + dy) === 4)
+      map.changeMapValue(this.position.x, this.position.y + dy, 0);
+  };
+
+  private executeDiscreteMovement = (callback: () => void, predicator: () => boolean, stateKey: KeyboardKeyAlias) => {
     const discreteMovement = () => {
       if (predicator()) {
         callback();
@@ -135,14 +139,18 @@ export default class Camera {
         this.direction = this.targetDirection;
         this.position = this.centralizePosition(this.position);
         this.moveSteps = 0;
-        this.controls.states[stateKey] = false;
         cancelAnimationFrame(this.moveId);
         this.moveId = 0;
-        this.canMove = true;
+        this.finishMovement(stateKey);
       }
     };
 
     if (this.controls.states[stateKey]) requestAnimationFrame(discreteMovement);
+  };
+
+  private finishMovement = (stateKey: KeyboardKeyAlias) => {
+    this.controls.states[stateKey] = false;
+    this.canMove = true;
   };
 
   private getRotatePredicator = () => () =>
@@ -157,8 +165,7 @@ export default class Camera {
     const index = this.discreteDirections.findIndex((angle: number) => this.direction === angle);
     this.targetDirection =
       this.discreteDirections[
-        ((isCounterclockwise ? index - 1 : index + 1) + this.discreteDirections.length) %
-          this.discreteDirections.length
+        ((isCounterclockwise ? index - 1 : index + 1) + this.discreteDirections.length) % this.discreteDirections.length
       ];
   };
 
