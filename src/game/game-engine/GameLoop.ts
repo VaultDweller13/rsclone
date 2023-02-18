@@ -1,7 +1,8 @@
 import GameMap from './GameMap';
 import MiniMap from './MiniMap';
-import Player from './Player';
+import Player from './Camera';
 import Raycaster from './Raycaster';
+import Battle from './Battle';
 
 export default class GameLoop {
   private lastTime = 0;
@@ -13,19 +14,18 @@ export default class GameLoop {
     private raycaster: Raycaster,
     private map: GameMap,
     private miniMap: MiniMap,
-    private player: Player
+    private player: Player,
+    private battle: Battle
   ) {}
 
   start = () => {
     this.callback = (seconds) => {
       this.player.update(this.map, seconds);
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-      this.raycaster.render(this.player, this.map);
-      this.miniMap.render(
-        this.ctx,
-        this.miniMap.miniLayoutPosition,
-        this.player.position
-      );
+      if (this.battle.enemies.length === 0) {
+        this.raycaster.render(this.player, this.map);
+        this.miniMap.render(this.ctx, this.player.position);
+      } else this.battle.render();
     };
     this.loopId = requestAnimationFrame(this.frame);
   };

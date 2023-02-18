@@ -1,5 +1,5 @@
 import { createElement, getMain } from './common';
-import initGame from '../../game';
+import initGame from '../../game/levels/level-1';
 
 function enterMaze() {
   const block = createElement('div', '', 'block');

@@ -27,28 +27,31 @@ export default class Controls {
     backward: false,
   };
 
+  hasAccess = false;
+
   constructor(public readonly mode: ControlMode) {
     if (mode === 'discrete') {
-      document.addEventListener(
-        'keydown',
-        (e) => this.onDiscreteModeKey(e),
-        false
-      );
+      document.addEventListener('keydown', (e) => this.handleKeysOnDiscreteMode(e), false);
     } else {
-      document.addEventListener('keydown', (e) => this.onKey(true, e), false);
-      document.addEventListener('keyup', (e) => this.onKey(false, e), false);
+      document.addEventListener('keydown', (e) => this.handleKeysOnContinuousMode(true, e), false);
+      document.addEventListener('keyup', (e) => this.handleKeysOnContinuousMode(false, e), false);
     }
   }
 
-  private onKey = (val: boolean, e: KeyboardEvent) => {
-    if (Object.keys(this.codes).includes(e.key)) {
+  changeAccessibility = (isAccessible: boolean) => {
+    this.hasAccess = isAccessible;
+  };
+
+  private handleKeysOnContinuousMode = (val: boolean, e: KeyboardEvent) => {
+    if (!this.hasAccess && Object.keys(this.codes).includes(e.key)) {
       const state = this.codes[e.key as KeyboardKeyCode];
       this.states[state] = val;
     }
   };
 
-  private onDiscreteModeKey = (e: KeyboardEvent) => {
+  private handleKeysOnDiscreteMode = (e: KeyboardEvent) => {
     if (
+      !this.hasAccess &&
       Object.keys(this.codes).includes(e.key) &&
       Object.values(this.states).every((value: boolean) => !value)
     ) {

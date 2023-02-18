@@ -1,8 +1,14 @@
-import { createChoice, createLayer, createElement, resetPage, warning } from '../common';
+import {
+  createChoice,
+  createLayer,
+  createElement,
+  resetPage,
+  warning,
+} from '../common';
 import castle from '../../Assets/castle.jpg';
 import { createCharacter } from './characterCreator';
 import changeParty from './changeParty';
-import initGame from '../../../game';
+import initGame from '../../../game/levels/level-1';
 import { party } from '../partyInitializer';
 
 function renderCastle() {
@@ -81,14 +87,14 @@ implementCastle = () => {
   document.getElementById('enter-maze')?.addEventListener('click', () => {
     if (party.getParty().length > 0) {
       const locationName = document.getElementById('location-name');
-    if (locationName) {
-      locationName.textContent = 'Maze';
-    }
-    document.getElementById('cstl-choice')?.remove();
-    if (!document.getElementById('view')?.classList.contains('maze')){
-      document.getElementById('view')?.classList.add('maze');
-    }
-    initGame();
+      if (locationName) {
+        locationName.textContent = 'Maze';
+      }
+      document.getElementById('cstl-choice')?.remove();
+      if (!document.getElementById('view')?.classList.contains('maze')) {
+        document.getElementById('view')?.classList.add('maze');
+      }
+      initGame();
     } else {
       warning('You cannot enter maze without a party');
     }
