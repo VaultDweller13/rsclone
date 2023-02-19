@@ -23,6 +23,8 @@ export default class Camera {
   private moveSteps = 0;
   private isPossibleToMove = true;
   private stateKey: null | KeyboardKeyAlias = null;
+  private isMoving = false;
+  isMoved = false;
 
   position: Coordinates;
   direction: number;
@@ -34,9 +36,7 @@ export default class Camera {
     this.DISCRETE_ROTATE_ANGLE_270,
   ];
 
-  private events: () => void;
-
-  constructor(startPosition: Required<Position>, public controls: Controls, events: () => void) {
+  constructor(startPosition: Required<Position>, public controls: Controls) {
     if (controls.mode === 'discrete') {
       this.position = this.centralizePosition({
         x: startPosition.x,
@@ -47,8 +47,6 @@ export default class Camera {
       this.position = startPosition;
       this.direction = startPosition.direction;
     }
-
-    this.events = () => events();
   }
 
   update = (map: GameMap, frameTime: number): void => {
@@ -113,6 +111,7 @@ export default class Camera {
   };
 
   private rotate = (angle: number): void => {
+    this.isMoving = true;
     this.direction = (this.direction + angle + this.CIRCLE) % this.CIRCLE;
   };
 
@@ -120,6 +119,7 @@ export default class Camera {
     const { possibleBlock } = this.getBlock(distance, map, isStrafe);
 
     if (possibleBlock === 0) {
+      this.isMoving = true;
       const dx = Math.cos(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) * distance;
       const dy = Math.sin(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) * distance;
 
@@ -176,7 +176,7 @@ export default class Camera {
         this.finishMovement();
       }
     };
-    this.events();
+
     if (this.stateKey && this.controls.states[this.stateKey]) requestAnimationFrame(discreteMovement);
   };
 
@@ -187,6 +187,12 @@ export default class Camera {
     this.moveId = 0;
     this.stateKey = null;
     this.isPossibleToMove = true;
+    if (this.isMoving) this.changeMoveState(true);
+    this.isMoving = false;
+  };
+
+  changeMoveState = (isMoved: boolean) => {
+    this.isMoved = isMoved;
   };
 
   private getRotatePredicator = () => () =>

@@ -76,11 +76,10 @@ export default function initGame() {
   const battle = new Battle(ctx);
 
   const logic = new Logic(battle);
-  const player = new Camera(startPosition, controls, () => logic.events());
+  const player = new Camera(startPosition, controls);
 
-  const game = new GameLoop(ctx, raycaster, map, miniMap, player, battle);
+  const game = new GameLoop(ctx, raycaster, map, miniMap, player, battle, logic);
 
-  game.init();
   game.start();
 
   return game;
