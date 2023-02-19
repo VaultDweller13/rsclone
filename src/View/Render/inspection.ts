@@ -2,6 +2,19 @@ import Character from '../../model/characters/character';
 import { createElement, getParty } from './common';
 import { confirm } from './castle/characterCreator';
 
+
+function renderInventory(page: number, character: Character, inventoryBlock: HTMLElement){
+  const inventory = character.getInventory();
+  if (Math.ceil(inventory.length / 5) >= page && page > 0){
+    inventory.slice((page-1) * 5, page * 5).forEach((item) => {
+      const itemBlock = createElement('div', item.name, 'item');
+      itemBlock.classList.add('button');
+      itemBlock.textContent = item.name;
+      inventoryBlock?.append(itemBlock);
+    });
+  }
+}
+
 function charInfo(character: Character): HTMLElement[] {
   const basicInfo = createElement('div', '', 'flex-around');
   basicInfo.style.display = 'flex';
@@ -59,9 +72,37 @@ function charInfo(character: Character): HTMLElement[] {
     </div>
   </div>
   `;
-  const changeItemsBlock = createElement('div', 'change-items')
+  const changeItemsBlock = createElement('div', 'change-items', 'flex-default');
+  const equipmentWrap = createElement('div', 'equipment-wrap', 'items-wrap');
+  const equipmentName = createElement('div', 'equipment-name');
+  equipmentName.textContent = 'Equipment';
+  const equipment = createElement('div', 'equipment', 'items-block block');
+  Array.from(character.equipment.keys()).forEach((itemType) => {
+    const item = character.equipment.get(itemType);
+    const itemBlock = createElement('div', itemType, 'item');
+    if (item) {
+      itemBlock.classList.add('button');
+      itemBlock.textContent = item.name;
+    } else {
+      itemBlock.textContent = `--${itemType}--`;
+    }
+    equipment.append(itemBlock);
+  });
+  equipmentWrap.append(equipmentName);
+  equipmentWrap.append(equipment);
+  changeItemsBlock.append(equipmentWrap);
+  const inventoryWrap = createElement('div', 'equipment', 'items-wrap');
+  const inventoryName = createElement('div', 'inventory-name');
+  inventoryName.textContent = 'Inventory';
+  inventoryWrap.append(inventoryName);
+  const inventory = createElement('div', 'inventory', 'items-block block');
+  inventoryWrap.append(inventory);
+  changeItemsBlock.append(inventoryWrap);
+  renderInventory(1, character, inventory);
+  console.log(character.getInventory(), character.equipment);
   return [basicInfo, secondaryInfo, statsInfo, changeItemsBlock];
 }
+
 
 function inspect(character: Character) {
   getParty().remove();
@@ -80,7 +121,6 @@ function inspect(character: Character) {
     charTable.append(block);
   });
   view.appendChild(cancelButton);
-  console.log(character.name);
 }
 
 export default inspect;
