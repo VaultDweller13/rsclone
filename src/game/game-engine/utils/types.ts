@@ -44,12 +44,6 @@ type KeyboardKeyAlias = 'left' | 'right' | 'forward' | 'backward' | 'camera-left
 
 type ControlMode = 'continuous' | 'discrete';
 
-type TextureName =
-  | 'wall'
-  | 'entry'
-  | 'exit'
-  | 'closedDoor'
-  | 'openDoorVertical'
-  | 'openDoorHorizontal';
+type TextureName = 'wall' | 'entry' | 'exit' | 'closedDoor' | 'openDoorVertical' | 'openDoorHorizontal';
 
 type TextureAlias = 1 | 2 | 3 | 4 | 5 | 6;

@@ -6,7 +6,8 @@ import Battle from './Battle';
 
 export default class GameLoop {
   private lastTime = 0;
-  private loopId = 0;
+  private loopId: number | null = null;
+  private isPaused = false;
   private callback: ((seconds: number) => void) | null = null;
 
   constructor(
@@ -18,15 +19,28 @@ export default class GameLoop {
     private battle: Battle
   ) {}
 
-  start = () => {
+  init = () => {
     this.callback = (seconds) => {
       this.player.update(this.map, seconds);
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-      if (this.battle.enemies.length === 0) {
-        this.raycaster.render(this.player, this.map);
-        this.miniMap.render(this.ctx, this.player.position);
-      } else this.battle.render();
+      this.raycaster.render(this.player, this.map);
+      this.miniMap.render(this.ctx, this.player.position);
     };
+
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'p') {
+        if (!this.isPaused) this.pause();
+        else this.start();
+      }
+    });
+  };
+
+  start = () => {
+    if (this.isPaused) {
+      this.isPaused = !this.isPaused;
+      this.lastTime = Date.now();
+      this.player.controls.changeAccessibility(true);
+    }
     this.loopId = requestAnimationFrame(this.frame);
   };
 
@@ -34,11 +48,17 @@ export default class GameLoop {
     const seconds = (time - this.lastTime) / 1000;
     this.lastTime = time;
     if (seconds < 0.2 && this.callback) this.callback(seconds);
-    requestAnimationFrame(this.frame);
+    this.loopId = requestAnimationFrame(this.frame);
   };
 
   stop = () => {
-    cancelAnimationFrame(this.loopId);
-    this.loopId = 0;
+    if (this.loopId) cancelAnimationFrame(this.loopId);
+    this.loopId = null;
+  };
+
+  pause = () => {
+    this.isPaused = !this.isPaused;
+    this.player.controls.changeAccessibility(false);
+    this.stop();
   };
 }

@@ -13,7 +13,7 @@ import {
   option3,
 } from '../game-engine';
 
-import sprites from '../../model/data/monsterSprites';
+// import sprites from '../../model/data/monsterSprites';
 import Battle from '../game-engine/Battle';
 
 export default function initGame() {
@@ -37,7 +37,7 @@ export default function initGame() {
    *    6: 'openDoorHorizontal'
    */
   // prettier-ignore
-  const walls = [
+  const mapArr = [
     1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 
     1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1,
@@ -69,22 +69,49 @@ export default function initGame() {
   };
 
   const raycaster = new Raycaster(ctx, 6);
-  const map = new GameMap(walls, option3);
+  const map = new GameMap(mapArr, option3);
   const miniMap = new MiniMap(map);
   const controls = new Controls('discrete');
   const player = new Camera(startPosition, controls);
   const battle = new Battle(ctx);
+
   const game = new GameLoop(ctx, raycaster, map, miniMap, player, battle);
 
+  game.init();
   game.start();
 
-  controls.changeAccessibility(false);
-  battle.defineEnemies([
-    { enemy: sprites.attackDog, name: 'Attack Dog', amount: 2, isDead: false },
-    { enemy: sprites.bishop, name: 'Bishop', amount: 3, isDead: true },
-    { enemy: sprites.chimera, name: 'Chimera', amount: 3, isDead: false },
-    { enemy: sprites.bleeb, name: 'Bleeb', amount: 3, isDead: false },
-  ]);
-
-  return { game, battle, controls };
+  return game;
 }
+
+// controls.changeAccessibility(false);
+// battle.defineEnemies([
+//   { enemy: sprites.attackDog, name: 'Attack Dog', amount: 2, isDead: false },
+//   { enemy: sprites.bishop, name: 'Bishop', amount: 3, isDead: true },
+//   { enemy: sprites.chimera, name: 'Chimera', amount: 3, isDead: false },
+//   { enemy: sprites.bleeb, name: 'Bleeb', amount: 3, isDead: false },
+// ]);
+
+// const walls1 = `
+//   WsWWWWWWWWWWWWWWWW
+//   W................W
+//   W.W...WHDHHDHDW..W
+//   W.W...W...W...W..W
+//   W.W...W...W....W.W
+//   W.WWW.W.WWW.WWWW.W
+//   W.W...W...W.W....W
+//   W.....WWWWW.W....W
+//   W.WWW.....W.WHDHWW
+//   W.V..W..W...W....W
+//   W.D..W..W...W....W
+//   W.V..W......WWHDHW
+//   W.WWWWW..W..W....W
+//   W.W...W.W...V....W
+//   W.W...W.....D....W
+//   W.W...WWHDHWV....W
+//   W.W...W.....VWWWWW
+//   W.W...W.....D....W
+//   W.WHDHWWWWWWV....W
+//   W.V...W.....W....W
+//   W.D...W..........W
+//   WWVWWWWWWFWWWWWWWW
+// `;
