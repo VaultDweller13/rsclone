@@ -16,7 +16,8 @@ export type Status =
   | 'STONED'
   | 'DEAD'
   | 'ASHES'
-  | 'LOST';
+  | 'LOST'
+  | 'MUTED';
 
 export type Alignment = 'good' | 'neutral' | 'evil';
 
@@ -70,7 +71,7 @@ export type KeyItems = {
   message: string;
 };
 
-export type Monster = {
+export type MonsterData = {
   name: string;
   unidentified: string;
   AC: number;
@@ -83,6 +84,7 @@ export type Monster = {
   abilities: string[];
   exp: number;
   img: string;
+  level: number;
 };
 
 export type Spell = {
@@ -91,5 +93,5 @@ export type Spell = {
   target: 'monster' | 'group' | 'all' | 'self' | 'party' | 'character';
   description: string;
   type: 'battle' | 'maze' | 'any';
-  cast: (target?: Monster[] | Character) => void;
+  cast: (target?: MonsterData[] | Character) => void;
 };

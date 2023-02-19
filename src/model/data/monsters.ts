@@ -1,7 +1,7 @@
 import sprites from './monsterSprites';
-import type { Monster } from '../../types/types';
+import type { MonsterData } from '../../types/types';
 
-const monsters: Monster[] = [
+const monsters: MonsterData[] = [
   {
     name: 'Bubbly Slime',
     unidentified: 'Slimes',
@@ -15,6 +15,7 @@ const monsters: Monster[] = [
     abilities: ['Slept'],
     exp: 55,
     img: sprites.slime,
+    level: 0,
   },
   {
     name: 'Undead Kobold',
@@ -29,6 +30,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 230,
     img: sprites.undeadKobold,
+    level: 0,
   },
   {
     name: 'Orc',
@@ -43,6 +45,7 @@ const monsters: Monster[] = [
     abilities: ['Slept', 'Run'],
     exp: 235,
     img: sprites.orc,
+    level: 0,
   },
   {
     name: 'Gas Cloud',
@@ -57,6 +60,7 @@ const monsters: Monster[] = [
     abilities: ['Paralyze', 'Run'],
     exp: 350,
     img: sprites.gasCloud,
+    level: 0,
   },
   {
     name: 'Bushwacker',
@@ -71,6 +75,7 @@ const monsters: Monster[] = [
     abilities: ['Slept', 'Run'],
     exp: 380,
     img: sprites.rogue,
+    level: 0,
   },
   {
     name: 'Kobold',
@@ -85,6 +90,7 @@ const monsters: Monster[] = [
     abilities: ['Slept', 'Run'],
     exp: 415,
     img: sprites.kobold,
+    level: 0,
   },
   {
     name: 'Mage, Lvl 1',
@@ -99,6 +105,7 @@ const monsters: Monster[] = [
     abilities: ['Slept', 'Run'],
     exp: 475,
     img: sprites.mage,
+    level: 1,
   },
   {
     name: 'Priest, Lvl 1',
@@ -113,6 +120,7 @@ const monsters: Monster[] = [
     abilities: ['Slept', 'Run'],
     exp: 515,
     img: sprites.priest,
+    level: 1,
   },
   {
     name: 'Capybara',
@@ -127,6 +135,7 @@ const monsters: Monster[] = [
     abilities: ['Poison', 'Run'],
     exp: 520,
     img: sprites.capybara,
+    level: 1,
   },
   {
     name: 'Zombie',
@@ -141,6 +150,7 @@ const monsters: Monster[] = [
     abilities: ['Paralyze'],
     exp: 520,
     img: sprites.zombie,
+    level: 0,
   },
   {
     name: 'Creeping Crud',
@@ -155,6 +165,7 @@ const monsters: Monster[] = [
     abilities: ['Poison'],
     exp: 550,
     img: sprites.creepingCrud,
+    level: 1,
   },
   {
     name: 'Ninja, Lvl 1',
@@ -169,6 +180,7 @@ const monsters: Monster[] = [
     abilities: ['Autokill', 'Slept'],
     exp: 600,
     img: sprites.ninja,
+    level: 1,
   },
   {
     name: 'Spider, Huge',
@@ -183,6 +195,7 @@ const monsters: Monster[] = [
     abilities: ['Poison', 'Slept'],
     exp: 600,
     img: sprites.spider,
+    level: 2,
   },
   {
     name: 'Rogue',
@@ -197,6 +210,7 @@ const monsters: Monster[] = [
     abilities: ['Slept', 'Run'],
     exp: 620,
     img: sprites.rogue,
+    level: 0,
   },
   {
     name: 'Mage, Lvl 5',
@@ -211,6 +225,7 @@ const monsters: Monster[] = [
     abilities: ['Slept'],
     exp: 620,
     img: sprites.mage,
+    level: 5,
   },
   {
     name: 'Rotting Corpse',
@@ -225,6 +240,7 @@ const monsters: Monster[] = [
     abilities: ['Paralyze'],
     exp: 680,
     img: sprites.rottingCorpse,
+    level: 2,
   },
   {
     name: 'Vorpal Bunny',
@@ -239,6 +255,7 @@ const monsters: Monster[] = [
     abilities: ['Autokill, Run'],
     exp: 735,
     img: sprites.vorpalBunny,
+    level: 1,
   },
   {
     name: 'Wererat',
@@ -253,6 +270,7 @@ const monsters: Monster[] = [
     abilities: ['Slept'],
     exp: 755,
     img: sprites.wererat,
+    level: 2,
   },
   {
     name: 'Coyote',
@@ -267,6 +285,7 @@ const monsters: Monster[] = [
     abilities: ['Run'],
     exp: 780,
     img: sprites.coyote,
+    level: 1,
   },
   {
     name: 'Mage, Arch',
@@ -281,6 +300,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 790,
     img: sprites.mage,
+    level: 5,
   },
   {
     name: 'Giant Toad',
@@ -295,6 +315,7 @@ const monsters: Monster[] = [
     abilities: ['Poison', 'Run'],
     exp: 795,
     img: sprites.giantToad,
+    level: 1,
   },
   {
     name: 'Samurai, Lvl 3',
@@ -309,6 +330,7 @@ const monsters: Monster[] = [
     abilities: ['Run'],
     exp: 795,
     img: sprites.samurai,
+    level: 3,
   },
   {
     name: 'Highwayman',
@@ -323,6 +345,7 @@ const monsters: Monster[] = [
     abilities: ['Autokill', 'Slept', 'Run'],
     exp: 840,
     img: sprites.rogue,
+    level: 0,
   },
   {
     name: 'Priestess',
@@ -337,6 +360,7 @@ const monsters: Monster[] = [
     abilities: ['Slept'],
     exp: 870,
     img: sprites.priestess,
+    level: 2,
   },
   {
     name: 'Shade',
@@ -351,6 +375,7 @@ const monsters: Monster[] = [
     abilities: ['LvlDrain'],
     exp: 875,
     img: sprites.shade,
+    level: 3,
   },
   {
     name: 'Creeping Coin',
@@ -365,6 +390,7 @@ const monsters: Monster[] = [
     abilities: ['Help', 'Breath'],
     exp: 920,
     img: sprites.creepingCoin,
+    level: 2,
   },
   {
     name: 'Thief, Master',
@@ -379,6 +405,7 @@ const monsters: Monster[] = [
     abilities: ['Slept', 'Run'],
     exp: 960,
     img: sprites.thief,
+    level: 5,
   },
   {
     name: 'Swordsman',
@@ -393,6 +420,7 @@ const monsters: Monster[] = [
     abilities: ['Slept'],
     exp: 960,
     img: sprites.swordsman,
+    level: 3,
   },
   {
     name: 'Ogre',
@@ -407,6 +435,7 @@ const monsters: Monster[] = [
     abilities: ['Slept', 'Run'],
     exp: 960,
     img: sprites.ogre,
+    level: 2,
   },
   {
     name: 'Spider, Giant',
@@ -421,6 +450,7 @@ const monsters: Monster[] = [
     abilities: ['Poison'],
     exp: 960,
     img: sprites.spider,
+    level: 4,
   },
   {
     name: 'Werewolf',
@@ -435,6 +465,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 975,
     img: sprites.werewolf,
+    level: 3,
   },
   {
     name: 'Priest, Lvl 3',
@@ -449,6 +480,7 @@ const monsters: Monster[] = [
     abilities: ['Poison, Slept, Run'],
     exp: 990,
     img: sprites.priest,
+    level: 3,
   },
   {
     name: 'Mage, Lvl 7',
@@ -463,6 +495,7 @@ const monsters: Monster[] = [
     abilities: ['Slept'],
     exp: 100,
     img: sprites.mage,
+    level: 7,
   },
   {
     name: 'Ninja, Lvl 8',
@@ -477,6 +510,7 @@ const monsters: Monster[] = [
     abilities: ['Autokill'],
     exp: 102,
     img: sprites.ninja,
+    level: 8,
   },
   {
     name: 'Medusalizard',
@@ -491,6 +525,7 @@ const monsters: Monster[] = [
     abilities: ['Stone'],
     exp: 104,
     img: sprites.meduzalizard,
+    level: 4,
   },
   {
     name: 'Grave Mist',
@@ -505,6 +540,7 @@ const monsters: Monster[] = [
     abilities: ['Paralyze'],
     exp: 108,
     img: sprites.graveMist,
+    level: 3,
   },
   {
     name: 'Attack Dog',
@@ -519,6 +555,7 @@ const monsters: Monster[] = [
     abilities: ['Slept, Run'],
     exp: 112,
     img: sprites.graveMist,
+    level: 3,
   },
   {
     name: 'Boring Beetle',
@@ -533,6 +570,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 112,
     img: sprites.boringBeetle,
+    level: 2,
   },
   {
     name: 'Bishop',
@@ -547,6 +585,7 @@ const monsters: Monster[] = [
     abilities: ['Slept'],
     exp: 113,
     img: sprites.bishop,
+    level: 3,
   },
   {
     name: 'Thief, Master',
@@ -561,6 +600,7 @@ const monsters: Monster[] = [
     abilities: ['Run'],
     exp: 114,
     img: sprites.thief,
+    level: 5,
   },
   {
     name: 'Daimyo, Minor',
@@ -575,6 +615,7 @@ const monsters: Monster[] = [
     abilities: ['Slept', 'Help'],
     exp: 120,
     img: sprites.daimyo,
+    level: 3,
   },
   {
     name: 'Priest, Lvl 5',
@@ -589,6 +630,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 122,
     img: sprites.priest,
+    level: 5,
   },
   {
     name: 'Thief, Lvl 7',
@@ -603,6 +645,7 @@ const monsters: Monster[] = [
     abilities: ['Run'],
     exp: 122,
     img: sprites.thief,
+    level: 7,
   },
   {
     name: 'Gaze Hound',
@@ -617,6 +660,7 @@ const monsters: Monster[] = [
     abilities: ['Paralyze', 'Run'],
     exp: 123,
     img: sprites.gazeHound,
+    level: 5,
   },
   {
     name: 'Mage, Lvl 7',
@@ -631,6 +675,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 124,
     img: sprites.mage,
+    level: 7,
   },
   {
     name: 'Spirit',
@@ -645,6 +690,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 124,
     img: sprites.spirit,
+    level: 4,
   },
   {
     name: 'Dragon Fly',
@@ -659,6 +705,7 @@ const monsters: Monster[] = [
     abilities: ['Slept', 'Breath'],
     exp: 127,
     img: sprites.dragonfly,
+    level: 2,
   },
   {
     name: 'Ninja, Master',
@@ -673,6 +720,7 @@ const monsters: Monster[] = [
     abilities: ['Autokill'],
     exp: 128,
     img: sprites.ninja,
+    level: 7,
   },
   {
     name: 'Were Bear',
@@ -687,6 +735,7 @@ const monsters: Monster[] = [
     abilities: ['Paralyze', 'Run'],
     exp: 132,
     img: sprites.werebear,
+    level: 2,
   },
   {
     name: 'Ninja, Lvl 3',
@@ -701,6 +750,7 @@ const monsters: Monster[] = [
     abilities: ['Poison', 'Autokill'],
     exp: 136,
     img: sprites.ninja,
+    level: 3,
   },
   {
     name: 'Mage, Lvl 10',
@@ -715,6 +765,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 140,
     img: sprites.mage,
+    level: 10,
   },
   {
     name: 'Weretiger',
@@ -729,6 +780,7 @@ const monsters: Monster[] = [
     abilities: ['Paralyze', 'Slept'],
     exp: 140,
     img: sprites.weretiger,
+    level: 4,
   },
   {
     name: 'Killer Wolf',
@@ -743,6 +795,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 146,
     img: sprites.killerWolf,
+    level: 4,
   },
   {
     name: 'Nightstalker',
@@ -757,6 +810,7 @@ const monsters: Monster[] = [
     abilities: ['LvlDrain'],
     exp: 147,
     img: sprites.nightstalker,
+    level: 6,
   },
   {
     name: 'Ninja, Lvl 6',
@@ -771,6 +825,7 @@ const monsters: Monster[] = [
     abilities: ['Autokill'],
     exp: 152,
     img: sprites.ninja,
+    level: 6,
   },
   {
     name: 'Wyvern',
@@ -785,6 +840,7 @@ const monsters: Monster[] = [
     abilities: ['Poison'],
     exp: 154,
     img: sprites.wyvern,
+    level: 6,
   },
   {
     name: 'Hatamoto',
@@ -799,6 +855,7 @@ const monsters: Monster[] = [
     abilities: ['Autokill'],
     exp: 160,
     img: sprites.samurai,
+    level: 8,
   },
   {
     name: 'Ninja, High',
@@ -813,6 +870,7 @@ const monsters: Monster[] = [
     abilities: ['Autokill'],
     exp: 160,
     img: sprites.ninja,
+    level: 0,
   },
   {
     name: 'Thief',
@@ -827,6 +885,7 @@ const monsters: Monster[] = [
     abilities: ['Run'],
     exp: 164,
     img: sprites.thief,
+    level: 7,
   },
   {
     name: 'Priest, Lvl 8',
@@ -841,6 +900,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 172,
     img: sprites.priest,
+    level: 8,
   },
   {
     name: 'Troll',
@@ -855,6 +915,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 172,
     img: sprites.troll,
+    level: 5,
   },
   {
     name: 'Ogre Lord',
@@ -869,6 +930,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 179,
     img: sprites.ogreLord,
+    level: 5,
   },
   {
     name: 'Fighter, Lvl 7',
@@ -883,6 +945,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 190,
     img: sprites.fighter,
+    level: 7,
   },
   {
     name: 'Fighter, Lvl 10',
@@ -897,6 +960,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 190,
     img: sprites.fighter,
+    level: 10,
   },
   {
     name: 'Thief, Master',
@@ -911,6 +975,7 @@ const monsters: Monster[] = [
     abilities: ['Run'],
     exp: 193,
     img: sprites.thief,
+    level: 5,
   },
   {
     name: 'Bishop, Lvl 8',
@@ -925,6 +990,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 206,
     img: sprites.bishop,
+    level: 8,
   },
   {
     name: 'Dragon, Gas',
@@ -939,6 +1005,7 @@ const monsters: Monster[] = [
     abilities: ['None', 'Breath'],
     exp: 207,
     img: sprites.gasDragon,
+    level: 2,
   },
   {
     name: 'Giant, Fire',
@@ -953,6 +1020,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 211,
     img: sprites.fireGiant,
+    level: 7,
   },
   {
     name: 'Fighter, Lvl 8',
@@ -967,6 +1035,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 214,
     img: sprites.fighter,
+    level: 8,
   },
   {
     name: 'Priest, High',
@@ -981,6 +1050,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 216,
     img: sprites.priest,
+    level: 5,
   },
   {
     name: 'Lifestealer',
@@ -995,6 +1065,7 @@ const monsters: Monster[] = [
     abilities: ['LvlDrain'],
     exp: 224,
     img: sprites.lifestealer,
+    level: 5,
   },
   {
     name: 'Dragon Puppy',
@@ -1009,6 +1080,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 228,
     img: sprites.dragonPuppy,
+    level: 3,
   },
   {
     name: 'Daimyo, Major',
@@ -1023,6 +1095,7 @@ const monsters: Monster[] = [
     abilities: ['Help'],
     exp: 234,
     img: sprites.daimyo,
+    level: 5,
   },
   {
     name: 'Samurai, Champ',
@@ -1037,6 +1110,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 239,
     img: sprites.samurai,
+    level: 5,
   },
   {
     name: 'Wizard, High',
@@ -1051,6 +1125,7 @@ const monsters: Monster[] = [
     abilities: ['Slept'],
     exp: 239,
     img: sprites.mage,
+    level: 8,
   },
   {
     name: 'Thief, Lvl 4',
@@ -1065,6 +1140,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 239,
     img: sprites.thief,
+    level: 4,
   },
   {
     name: 'Gargoyle',
@@ -1079,6 +1155,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 243,
     img: sprites.gargoyle,
+    level: 3,
   },
   {
     name: 'Gorgon',
@@ -1093,6 +1170,7 @@ const monsters: Monster[] = [
     abilities: ['Breath'],
     exp: 292,
     img: sprites.gorgon,
+    level: 7,
   },
   {
     name: 'High Master',
@@ -1107,6 +1185,7 @@ const monsters: Monster[] = [
     abilities: ['Autokill'],
     exp: 300,
     img: sprites.ninja,
+    level: 9,
   },
   {
     name: 'Mage, Arch',
@@ -1121,6 +1200,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 316,
     img: sprites.mage,
+    level: 9,
   },
   {
     name: 'Bleeb',
@@ -1135,6 +1215,7 @@ const monsters: Monster[] = [
     abilities: ['Run', 'Help'],
     exp: 330,
     img: sprites.bleeb,
+    level: 7,
   },
   {
     name: 'Priest, High',
@@ -1149,6 +1230,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 330,
     img: sprites.priest,
+    level: 8,
   },
   {
     name: 'Vampire',
@@ -1163,6 +1245,7 @@ const monsters: Monster[] = [
     abilities: ['Paralyze', 'LvlDrain'],
     exp: 333,
     img: sprites.vampire,
+    level: 8,
   },
   {
     name: 'Chimera',
@@ -1177,6 +1260,7 @@ const monsters: Monster[] = [
     abilities: ['Breath'],
     exp: 351,
     img: sprites.chimera,
+    level: 6,
   },
   {
     name: 'Raver Lord',
@@ -1191,6 +1275,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 415,
     img: sprites.raverLord,
+    level: 9,
   },
   {
     name: "Murphy's Ghost",
@@ -1205,6 +1290,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 445,
     img: sprites.murphysGhost,
+    level: 3,
   },
   {
     name: 'Dragon, Fire',
@@ -1219,6 +1305,7 @@ const monsters: Monster[] = [
     abilities: ['Breath'],
     exp: 500,
     img: sprites.fireDragon,
+    level: 8,
   },
   {
     name: 'Demon, Lesser',
@@ -1233,6 +1320,7 @@ const monsters: Monster[] = [
     abilities: ['Help, LvlDrain'],
     exp: 510,
     img: sprites.lesserDemon,
+    level: 6,
   },
   {
     name: 'Dragon Zombie',
@@ -1247,6 +1335,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 520,
     img: sprites.zombieDragon,
+    level: 8,
   },
   {
     name: 'Vampire Lord',
@@ -1261,6 +1350,7 @@ const monsters: Monster[] = [
     abilities: ['Paralyze'],
     exp: 732,
     img: sprites.vampireLord,
+    level: 9,
   },
   {
     name: 'Maelific',
@@ -1275,6 +1365,7 @@ const monsters: Monster[] = [
     abilities: ['Poison, Paralyze'],
     exp: 746,
     img: sprites.maelific,
+    level: 9,
   },
   {
     name: 'Flack',
@@ -1289,6 +1380,7 @@ const monsters: Monster[] = [
     abilities: ['Stone', 'Poison', 'Paralyze', 'Autokill'],
     exp: 920,
     img: sprites.flack,
+    level: 9,
   },
   {
     name: 'W E R D N A',
@@ -1303,6 +1395,7 @@ const monsters: Monster[] = [
     abilities: ['Stone', 'Poison', 'Paralyze', 'LvlDrain', 'Autokill'],
     exp: 158,
     img: sprites.werdna,
+    level: -4,
   },
   {
     name: 'Giant, Earth',
@@ -1317,6 +1410,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 204,
     img: sprites.earthGiant,
+    level: 6,
   },
   {
     name: 'Giant, Poison',
@@ -1331,6 +1425,7 @@ const monsters: Monster[] = [
     abilities: ['Breath'],
     exp: 408,
     img: sprites.poisonGiant,
+    level: 8,
   },
   {
     name: 'Giant, Frost',
@@ -1345,6 +1440,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 408,
     img: sprites.frostGiant,
+    level: 8,
   },
   {
     name: "Will O' Wisp",
@@ -1359,6 +1455,7 @@ const monsters: Monster[] = [
     abilities: ['None'],
     exp: 428,
     img: sprites.willowisp,
+    level: 7,
   },
   {
     name: 'Demon, Greater',
@@ -1373,6 +1470,7 @@ const monsters: Monster[] = [
     abilities: ['Poison', 'Help', 'Paralyze', 'LvlDrain'],
     exp: 440,
     img: sprites.greaterDemon,
+    level: 8,
   },
 ];
 
