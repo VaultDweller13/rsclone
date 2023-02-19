@@ -154,13 +154,27 @@
       .items-wrap {
         text-align: center;
         width: 50%;
+        display: flex;
+        flex-direction: column;
         .items-block {
-          min-height: 116px;
+          flex-grow: 1;
         }
         .items-block#equipment {
           justify-content: space-around;
           display: flex;
           flex-direction: column;
+        }
+        .items-block#inventory {
+          display: flex;
+          flex-direction: column;
+          .button-wrap {
+            margin-top: auto;
+            #prev,
+            #next {
+              padding: 0 2px 2px;
+              text-align: center;
+            }
+          }
         }
       }
     }

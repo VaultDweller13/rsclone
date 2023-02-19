@@ -19,14 +19,14 @@ const testGrognak = new Character(
   classes.fighter,
   'good'
 );
-testGrognak.addToInventory(weapons[0]);
-testGrognak.addToInventory(weapons[0]);
-testGrognak.addToInventory(weapons[0]);
-testGrognak.addToInventory(weapons[0]);
-testGrognak.addToInventory(weapons[0]);
-testGrognak.addToInventory(weapons[0]);
-testGrognak.addToInventory(weapons[0]);
-testGrognak.addToInventory(armor[0]);
+testGrognak.addToInventory(weapons[7]);
+testGrognak.addToInventory(weapons[8]);
+testGrognak.addToInventory(weapons[9]);
+testGrognak.addToInventory(weapons[10]);
+testGrognak.addToInventory(weapons[11]);
+testGrognak.addToInventory(weapons[12]);
+testGrognak.addToInventory(weapons[13]);
+testGrognak.addToInventory(armor[14]);
 testGrognak.equip(weapons[2]);
 party.add(testGrognak);
 const tavern = new Party(20, false);

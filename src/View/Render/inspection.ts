@@ -1,12 +1,19 @@
 import Character from '../../model/characters/character';
-import { createElement, getParty } from './common';
+import { createElement, getParty, warning } from './common';
 import { confirm } from './castle/characterCreator';
 
+let currentPage = 1;
 
-function renderInventory(page: number, character: Character, inventoryBlock: HTMLElement){
+let charInfo = (character: Character): HTMLElement[] => [createElement('div', character.name)];
+
+function renderInventory(
+  page: number,
+  character: Character,
+  inventoryBlock: HTMLElement
+) {
   const inventory = character.getInventory();
-  if (Math.ceil(inventory.length / 5) >= page && page > 0){
-    inventory.slice((page-1) * 5, page * 5).forEach((item) => {
+  if (Math.ceil(inventory.length / 4) >= page && page > 0) {
+    inventory.slice((page - 1) * 4, page * 4).forEach((item) => {
       const itemBlock = createElement('div', item.name, 'item');
       itemBlock.classList.add('button');
       itemBlock.textContent = item.name;
@@ -15,7 +22,28 @@ function renderInventory(page: number, character: Character, inventoryBlock: HTM
   }
 }
 
-function charInfo(character: Character): HTMLElement[] {
+function inspect(character: Character) {
+  if (getParty()){
+    getParty().remove();
+  }
+  const view = document.getElementById('view') as HTMLElement;
+  view.classList.add('flex');
+  const charTable = createElement('div', 'char-table', 'block');
+  const cancelButton = createElement('button', 'cancel', 'block button');
+  view.style.backgroundImage = '';
+  view.innerHTML = '';
+  cancelButton.textContent = 'leave';
+  cancelButton.addEventListener('click', () => {
+    confirm.func();
+  });
+  view.appendChild(charTable);
+  charInfo(character).forEach((block) => {
+    charTable.append(block);
+  });
+  view.appendChild(cancelButton);
+}
+
+charInfo = (character: Character): HTMLElement[] => {
   const basicInfo = createElement('div', '', 'flex-around');
   basicInfo.style.display = 'flex';
   basicInfo.style.justifyContent = 'space-between';
@@ -83,6 +111,16 @@ function charInfo(character: Character): HTMLElement[] {
     if (item) {
       itemBlock.classList.add('button');
       itemBlock.textContent = item.name;
+      itemBlock.addEventListener('click', () => {
+        if (character.getInventory().length === 8){
+          warning('inventory is full');
+        }
+        else {
+          character.addToInventory(item);
+          character.unequip(item.type)
+          inspect(character);
+        }
+      })
     } else {
       itemBlock.textContent = `--${itemType}--`;
     }
@@ -91,36 +129,59 @@ function charInfo(character: Character): HTMLElement[] {
   equipmentWrap.append(equipmentName);
   equipmentWrap.append(equipment);
   changeItemsBlock.append(equipmentWrap);
-  const inventoryWrap = createElement('div', 'equipment', 'items-wrap');
+  const inventoryWrap = createElement('div', 'inventory-wrap', 'items-wrap');
   const inventoryName = createElement('div', 'inventory-name');
   inventoryName.textContent = 'Inventory';
   inventoryWrap.append(inventoryName);
   const inventory = createElement('div', 'inventory', 'items-block block');
   inventoryWrap.append(inventory);
   changeItemsBlock.append(inventoryWrap);
-  renderInventory(1, character, inventory);
-  console.log(character.getInventory(), character.equipment);
+  renderInventory(currentPage, character, inventory);
+  const inventoryItems = inventory.children;
+  console.log(inventory.children)
+  console.log(inventoryItems);
+  if (inventoryItems) {
+    Array.from(inventoryItems).forEach((itemBlock, index) => {
+      itemBlock.setAttribute('name', `${index}, ${character.getInventory()[index + (currentPage - 1)*4].name}`);
+      itemBlock.addEventListener('click', () => {
+        const item = character.getInventory()[index + (currentPage - 1)*4];
+        console.log(item.name);
+        if (
+          !item.alignment.includes(character.alignment) ||
+          !item.class.includes(character.class.name)
+        ) {
+          warning("can't equip this item");
+        } else {
+          const preequippedItem = character.equipment.get(item.type);
+          character.equip(item);
+          character.removeFromInventory(index + (currentPage - 1)*4);
+          if (preequippedItem) {
+            character.addToInventory(preequippedItem);
+          }
+          inspect(character);
+        }
+      });
+    });
+    if (character.getInventory().length > 4) {
+      const buttonsWrap = createElement('div', '', 'button-wrap');
+      const nextButton = createElement('button', 'next', 'button block');
+      nextButton.addEventListener('click', () => {
+        currentPage = 2;
+        inspect(character);
+      });
+      nextButton.textContent = '→';
+      const prevButton = createElement('button', 'next', 'button block');
+      prevButton.addEventListener('click', () => {
+        currentPage = 1;
+        inspect(character);
+      });
+      prevButton.textContent = '←';
+      inventory.append(buttonsWrap);
+      buttonsWrap.append(prevButton);
+      buttonsWrap.append(nextButton);
+    }
+  }
   return [basicInfo, secondaryInfo, statsInfo, changeItemsBlock];
-}
-
-
-function inspect(character: Character) {
-  getParty().remove();
-  const view = document.getElementById('view') as HTMLElement;
-  view.classList.add('flex');
-  const charTable = createElement('div', 'char-table', 'block');
-  const cancelButton = createElement('button', 'cancel', 'block button');
-  view.style.backgroundImage = '';
-  view.innerHTML = '';
-  cancelButton.textContent = 'leave';
-  cancelButton.addEventListener('click', () => {
-    confirm.func();
-  });
-  view.appendChild(charTable);
-  charInfo(character).forEach((block) => {
-    charTable.append(block);
-  });
-  view.appendChild(cancelButton);
-}
+};
 
 export default inspect;
