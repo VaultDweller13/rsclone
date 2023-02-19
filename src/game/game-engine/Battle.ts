@@ -20,13 +20,11 @@ export default class Battle {
 
   target: {
     enemy: Monster;
-    img: HTMLImageElement;
     amount: number;
     isDead: boolean;
   } | null = null;
   enemies: {
     enemy: Monster;
-    img: HTMLImageElement;
     amount: number;
     isDead: boolean;
   }[] = [];
@@ -47,13 +45,7 @@ export default class Battle {
       isDead: boolean;
     }[]
   ) => {
-    this.enemies = enemies.map((enemy) => {
-      const img = new Image();
-      img.src = enemy.enemy.img;
-
-      return { ...enemy, img };
-    });
-
+    this.enemies = enemies;
     [this.target] = this.enemies;
   };
 
@@ -75,7 +67,7 @@ export default class Battle {
     this.ctx.roundRect(this.MARGIN, this.MARGIN, this.TARGET_SIZE, this.TARGET_SIZE, this.CORNER_RADIUS);
 
     this.drawMonster(
-      this.target.img,
+      this.target.enemy.img,
       this.MARGIN + this.PADDING,
       this.MARGIN + this.PADDING,
       this.TARGET_SIZE - this.PADDING * 2,
@@ -122,7 +114,7 @@ export default class Battle {
       this.ctx.stroke();
 
       this.drawMonster(
-        this.enemies[i].img,
+        this.enemies[i].enemy.img,
         x + this.PADDING,
         y + this.PADDING,
         this.REST_SIZE - this.PADDING * 2,
