@@ -6,6 +6,7 @@ import {
   MiniMap,
   Controls,
   GameLoop,
+  Battle,
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
   // Choose one of the texture options
@@ -15,7 +16,6 @@ import {
 } from '../game-engine';
 
 // import sprites from '../../model/data/monsterSprites';
-import Battle from '../game-engine/Battle';
 
 export default function initGame() {
   const canvas = document.createElement('canvas');
