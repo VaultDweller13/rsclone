@@ -20,11 +20,13 @@ export default class Battle {
 
   target: {
     enemy: Monster;
+    img: HTMLImageElement;
     amount: number;
     isDead: boolean;
   } | null = null;
   enemies: {
     enemy: Monster;
+    img: HTMLImageElement;
     amount: number;
     isDead: boolean;
   }[] = [];
@@ -39,14 +41,19 @@ export default class Battle {
   }
 
   defineEnemies = (
-    enemies: {
+    newEnemies: {
       enemy: Monster;
       amount: number;
       isDead: boolean;
     }[]
   ) => {
-    this.enemies = enemies;
-    [this.target] = enemies;
+    if (this.enemies.length !== 0) this.enemies.length = 0;
+    newEnemies.forEach((s) => {
+      const img = new Image();
+      img.src = s.enemy.img;
+      this.enemies.push({ enemy: s.enemy, img, amount: s.amount, isDead: s.isDead });
+    });
+    [this.target] = this.enemies;
   };
 
   render = () => {
@@ -67,12 +74,13 @@ export default class Battle {
     this.ctx.roundRect(this.MARGIN, this.MARGIN, this.TARGET_SIZE, this.TARGET_SIZE, this.CORNER_RADIUS);
 
     this.drawMonster(
-      this.target.enemy,
+      this.target.img,
       this.MARGIN + this.PADDING,
       this.MARGIN + this.PADDING,
       this.TARGET_SIZE - this.PADDING * 2,
       this.TARGET_SIZE - this.PADDING * 2
     );
+    this.ctx.stroke();
   };
 
   private drawInfoBox = () => {
@@ -113,7 +121,7 @@ export default class Battle {
       this.ctx.stroke();
 
       this.drawMonster(
-        this.enemies[i].enemy,
+        this.enemies[i].img,
         x + this.PADDING,
         y + this.PADDING,
         this.REST_SIZE - this.PADDING * 2,
@@ -130,17 +138,12 @@ export default class Battle {
 
         this.ctx.moveTo(x + this.REST_SIZE - this.PADDING, y + this.PADDING);
         this.ctx.lineTo(x + this.PADDING, y + this.REST_SIZE - this.PADDING);
-
         this.ctx.stroke();
       }
     }
   };
 
-  private drawMonster(monster: Monster, dx: number, dy: number, dw: number, dh: number) {
-    const img = new Image();
-    img.src = monster.img;
-
-    this.ctx.stroke();
+  private drawMonster(img: HTMLImageElement, dx: number, dy: number, dw: number, dh: number) {
     this.ctx.drawImage(img, 0, 0, img.width, img.height, dx, dy, dw, dh);
   }
 }
