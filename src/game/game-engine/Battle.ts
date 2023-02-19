@@ -41,18 +41,19 @@ export default class Battle {
   }
 
   defineEnemies = (
-    newEnemies: {
+    enemies: {
       enemy: Monster;
       amount: number;
       isDead: boolean;
     }[]
   ) => {
-    if (this.enemies.length !== 0) this.enemies.length = 0;
-    newEnemies.forEach((s) => {
+    this.enemies = enemies.map((enemy) => {
       const img = new Image();
-      img.src = s.enemy.img;
-      this.enemies.push({ enemy: s.enemy, img, amount: s.amount, isDead: s.isDead });
+      img.src = enemy.enemy.img;
+
+      return { ...enemy, img };
     });
+
     [this.target] = this.enemies;
   };
 
@@ -144,6 +145,6 @@ export default class Battle {
   };
 
   private drawMonster(img: HTMLImageElement, dx: number, dy: number, dw: number, dh: number) {
-    this.ctx.drawImage(img, 0, 0, img.width, img.height, dx, dy, dw, dh);
+    img.addEventListener('load', () => this.ctx.drawImage(img, 0, 0, img.width, img.height, dx, dy, dw, dh));
   }
 }
