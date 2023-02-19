@@ -38,10 +38,9 @@ type KeyboardKeyCode =
   | 'у'
   | 'ф'
   | 'ы'
-  | 'в'
-  | 'Shift';
+  | 'в';
 
-type KeyboardKeyAlias = 'left' | 'right' | 'forward' | 'backward' | 'camera-left' | 'camera-right' | 'open-door';
+type KeyboardKeyAlias = 'left' | 'right' | 'forward' | 'backward' | 'camera-left' | 'camera-right';
 
 type ControlMode = 'continuous' | 'discrete';
 

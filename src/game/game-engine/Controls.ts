@@ -16,7 +16,6 @@ export default class Controls {
     ы: 'backward',
     ф: 'left',
     в: 'right',
-    Shift: 'open-door',
   };
 
   readonly states: Record<KeyboardKeyAlias, boolean> = {
@@ -26,7 +25,6 @@ export default class Controls {
     right: false,
     forward: false,
     backward: false,
-    'open-door': false,
   };
 
   hasAccess = true;

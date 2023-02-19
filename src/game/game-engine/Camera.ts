@@ -15,12 +15,14 @@ export default class Camera {
   private readonly DISCRETE_MOVE_MAX_STEPS = 7;
   private readonly ROTATE_SPEED_RATE = 0.7;
   private readonly MOVE_SPEED_RATE = 2;
-  private readonly DOOR_DISTANCE = 1;
+  private readonly BLOCK_DISTANCE = 0.6;
 
   private moveId = 0;
   private canMove = true;
   private targetDirection = 0;
   private moveSteps = 0;
+  private isPossibleToMove = true;
+  private stateKey: null | KeyboardKeyAlias = null;
 
   position: Coordinates;
   direction: number;
@@ -61,14 +63,17 @@ export default class Camera {
   };
 
   private updateOnDiscreteMode = (map: GameMap): void => {
-    const stateKey = Object.keys(this.controls.states).find((key) => this.controls.states[key as KeyboardKeyAlias]);
-    if (stateKey && stateKey !== 'open-door') {
+    this.stateKey =
+      (Object.keys(this.controls.states).find(
+        (key) => this.controls.states[key as KeyboardKeyAlias]
+      ) as KeyboardKeyAlias) ?? null;
+    if (this.stateKey) {
       this.canMove = false;
 
       let callback: (() => void) | null = null;
       let predicator: (() => boolean) | null = null;
 
-      switch (stateKey) {
+      switch (this.stateKey) {
         case 'camera-left':
           callback = this.getRotateCallback(true);
           this.defineTargetDirection(true);
@@ -99,10 +104,7 @@ export default class Camera {
           this.canMove = true;
       }
 
-      if (callback && predicator) this.executeDiscreteMovement(callback, predicator, stateKey as KeyboardKeyAlias);
-    } else if (stateKey === 'open-door') {
-      this.openDoor(map);
-      this.finishMovement(stateKey);
+      if (callback && predicator) this.executeDiscreteMovement(callback, predicator);
     }
   };
 
@@ -111,17 +113,27 @@ export default class Camera {
   };
 
   private move = (distance: number, map: GameMap, isStrafe = false): void => {
-    const dx = Math.cos(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) * distance;
-    const dy = Math.sin(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) * distance;
+    const { possibleBlock } = this.getBlock(distance, map, isStrafe);
 
-    if (map.getMapValue(this.position.x + dx * this.CAMERA_CLOSENESS_RATE, this.position.y) <= 0) this.position.x += dx;
+    if (possibleBlock === 0) {
+      const dx = Math.cos(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) * distance;
+      const dy = Math.sin(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) * distance;
 
-    if (map.getMapValue(this.position.x, this.position.y + dy * this.CAMERA_CLOSENESS_RATE) <= 0) this.position.y += dy;
+      if (map.getMapValue(this.position.x + dx * this.CAMERA_CLOSENESS_RATE, this.position.y) <= 0)
+        this.position.x += dx;
+      if (map.getMapValue(this.position.x, this.position.y + dy * this.CAMERA_CLOSENESS_RATE) <= 0)
+        this.position.y += dy;
+    } else if (possibleBlock === 4) {
+      this.isPossibleToMove = false;
+      this.openDoor(map);
+    } else {
+      this.isPossibleToMove = false;
+    }
   };
 
-  private openDoor = (map: GameMap) => {
-    const dx = Math.cos(this.direction) * this.DOOR_DISTANCE;
-    const dy = Math.sin(this.direction) * this.DOOR_DISTANCE;
+  private openDoor = (map: GameMap): void => {
+    const dx = Math.cos(this.direction) * this.BLOCK_DISTANCE;
+    const dy = Math.sin(this.direction) * this.BLOCK_DISTANCE;
 
     if (map.getMapValue(this.position.x + dx, this.position.y) === 4)
       map.changeMapValue(this.position.x + dx, this.position.y, 0);
@@ -130,7 +142,25 @@ export default class Camera {
       map.changeMapValue(this.position.x, this.position.y + dy, 0);
   };
 
-  private executeDiscreteMovement = (callback: () => void, predicator: () => boolean, stateKey: KeyboardKeyAlias) => {
+  private getBlock = (distance: number, map: GameMap, isStrafe = false) => {
+    const dx =
+      Math.cos(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) *
+      this.BLOCK_DISTANCE *
+      (distance / Math.abs(distance));
+    const dy =
+      Math.sin(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) *
+      this.BLOCK_DISTANCE *
+      (distance / Math.abs(distance));
+
+    const onX = map.getMapValue(this.position.x + dx, this.position.y);
+    const onY = map.getMapValue(this.position.x, this.position.y + dy);
+
+    return onX > onY
+      ? { possibleBlock: onX, x: this.position.x + dx, y: this.position.y }
+      : { possibleBlock: onY, x: this.position.x, y: this.position.y + dy };
+  };
+
+  private executeDiscreteMovement = (callback: () => void, predicator: () => boolean) => {
     const discreteMovement = () => {
       if (predicator()) {
         callback();
@@ -138,19 +168,21 @@ export default class Camera {
       } else {
         this.direction = this.targetDirection;
         this.position = this.centralizePosition(this.position);
-        this.moveSteps = 0;
         cancelAnimationFrame(this.moveId);
-        this.moveId = 0;
-        this.finishMovement(stateKey);
+        this.finishMovement();
       }
     };
 
-    if (this.controls.states[stateKey]) requestAnimationFrame(discreteMovement);
+    if (this.stateKey && this.controls.states[this.stateKey]) requestAnimationFrame(discreteMovement);
   };
 
-  private finishMovement = (stateKey: KeyboardKeyAlias) => {
-    this.controls.states[stateKey] = false;
+  private finishMovement = () => {
+    if (this.stateKey) this.controls.states[this.stateKey] = false;
+    this.moveSteps = 0;
     this.canMove = true;
+    this.moveId = 0;
+    this.stateKey = null;
+    this.isPossibleToMove = true;
   };
 
   private getRotatePredicator = () => () =>
@@ -158,7 +190,7 @@ export default class Camera {
 
   private getMovePredicator = () => () => {
     this.moveSteps += 1;
-    return this.moveSteps < this.DISCRETE_MOVE_MAX_STEPS;
+    return this.moveSteps < this.DISCRETE_MOVE_MAX_STEPS && this.isPossibleToMove;
   };
 
   private defineTargetDirection = (isCounterclockwise: boolean) => {
