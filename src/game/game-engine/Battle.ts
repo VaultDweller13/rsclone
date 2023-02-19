@@ -64,13 +64,7 @@ export default class Battle {
     this.ctx.beginPath();
     this.ctx.strokeStyle = this.STROKE_COLOR;
     this.ctx.lineWidth = this.STROKE_WIDTH;
-    this.ctx.roundRect(
-      this.MARGIN,
-      this.MARGIN,
-      this.TARGET_SIZE,
-      this.TARGET_SIZE,
-      this.CORNER_RADIUS
-    );
+    this.ctx.roundRect(this.MARGIN, this.MARGIN, this.TARGET_SIZE, this.TARGET_SIZE, this.CORNER_RADIUS);
 
     this.drawMonster(
       this.target.enemy,
@@ -88,13 +82,7 @@ export default class Battle {
     this.ctx.beginPath();
     this.ctx.strokeStyle = this.STROKE_COLOR;
     this.ctx.lineWidth = this.STROKE_WIDTH;
-    this.ctx.roundRect(
-      x,
-      y,
-      this.INFO_BOX_WIDTH,
-      this.INFO_BOX_HEIGHT,
-      this.CORNER_RADIUS
-    );
+    this.ctx.roundRect(x, y, this.INFO_BOX_WIDTH, this.INFO_BOX_HEIGHT, this.CORNER_RADIUS);
 
     const textX = this.TARGET_SIZE + this.MARGIN * 5;
     let textY = this.INFO_BOX_HEIGHT / 2 + this.MARGIN * 2;
@@ -105,13 +93,7 @@ export default class Battle {
 
     y = this.MARGIN * 2 + this.INFO_BOX_HEIGHT;
 
-    this.ctx.roundRect(
-      x,
-      y,
-      this.INFO_BOX_WIDTH,
-      this.INFO_BOX_HEIGHT,
-      this.CORNER_RADIUS
-    );
+    this.ctx.roundRect(x, y, this.INFO_BOX_WIDTH, this.INFO_BOX_HEIGHT, this.CORNER_RADIUS);
 
     textY = this.INFO_BOX_HEIGHT * 1.5 + this.MARGIN * 3;
     this.ctx.fillText(`Remain: ${this.target?.amount as number}`, textX, textY);
@@ -122,19 +104,12 @@ export default class Battle {
     for (let i = 0; i < this.enemies.length; i += 1) {
       const x = this.MARGIN + (this.REST_SIZE + this.MARGIN) * i;
       const y =
-        (this.HEIGHT - (this.TARGET_SIZE + this.MARGIN) - this.REST_SIZE) / 2 +
-        (this.TARGET_SIZE + this.MARGIN);
+        (this.HEIGHT - (this.TARGET_SIZE + this.MARGIN) - this.REST_SIZE) / 2 + (this.TARGET_SIZE + this.MARGIN);
 
       this.ctx.beginPath();
       this.ctx.strokeStyle = this.STROKE_COLOR;
       this.ctx.lineWidth = this.STROKE_WIDTH;
-      this.ctx.roundRect(
-        x,
-        y,
-        this.REST_SIZE,
-        this.REST_SIZE,
-        this.CORNER_RADIUS
-      );
+      this.ctx.roundRect(x, y, this.REST_SIZE, this.REST_SIZE, this.CORNER_RADIUS);
       this.ctx.stroke();
 
       this.drawMonster(
@@ -151,10 +126,7 @@ export default class Battle {
         this.ctx.lineWidth = this.STROKE_WIDTH;
 
         this.ctx.moveTo(x + this.PADDING, y + this.PADDING);
-        this.ctx.lineTo(
-          x + this.REST_SIZE - this.PADDING,
-          y + this.REST_SIZE - this.PADDING
-        );
+        this.ctx.lineTo(x + this.REST_SIZE - this.PADDING, y + this.REST_SIZE - this.PADDING);
 
         this.ctx.moveTo(x + this.REST_SIZE - this.PADDING, y + this.PADDING);
         this.ctx.lineTo(x + this.PADDING, y + this.REST_SIZE - this.PADDING);
@@ -164,13 +136,7 @@ export default class Battle {
     }
   };
 
-  private drawMonster(
-    monster: Monster,
-    dx: number,
-    dy: number,
-    dw: number,
-    dh: number
-  ) {
+  private drawMonster(monster: Monster, dx: number, dy: number, dw: number, dh: number) {
     const img = new Image();
     img.src = monster.img;
 

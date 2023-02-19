@@ -10,13 +10,13 @@ export default class Logic {
     this.battle = battle;
   }
 
-  ifEncounter() {
+  private ifEncounter() {
     const roll = getFromRange(0, 100);
     console.log({ roll });
     return roll < 10;
   }
 
-  startBattle() {
+  private startBattle() {
     const group = {
       enemy: new Monster(monsters[0]),
       amount: 5,
@@ -24,6 +24,7 @@ export default class Logic {
     };
 
     this.battle.defineEnemies([group]);
+    this.battle.render();
   }
 
   events() {
