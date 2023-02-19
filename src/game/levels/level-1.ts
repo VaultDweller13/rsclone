@@ -75,7 +75,7 @@ export default function initGame() {
   const controls = new Controls('discrete');
   const battle = new Battle(ctx);
 
-  const logic = new Logic(battle);
+  const logic = new Logic();
   const player = new Camera(startPosition, controls);
 
   const game = new GameLoop(ctx, raycaster, map, miniMap, player, battle, logic);

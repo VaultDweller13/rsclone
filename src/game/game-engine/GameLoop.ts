@@ -30,12 +30,14 @@ export default class GameLoop {
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
       this.raycaster.render(this.player, this.map);
       this.miniMap.render(this.ctx, this.player.position);
-      if (this.player.isMoved /* && this.logic.ifEncounter() */) {
-        console.log('moved');
-        // TODO uncomment lines below and add pridicator method of logic field with (&&) after pause method add executor method of logic field
-        // this.pause();
-        // this.logic.startBattle()
+      if (this.player.isMoved) {
         this.player.changeMoveState(false);
+        console.log('moved');
+        if (this.logic.ifEncounter()) {
+          this.pause();
+          this.battle.defineEnemies(this.logic.getEnemies());
+          this.battle.render();
+        }
       }
     };
   };
@@ -53,7 +55,7 @@ export default class GameLoop {
     const seconds = (time - this.lastTime) / 1000;
     this.lastTime = time;
     if (seconds < 0.2 && this.callback) this.callback(seconds);
-    this.loopId = requestAnimationFrame(this.frame);
+    if (!this.isPaused) this.loopId = requestAnimationFrame(this.frame);
   };
 
   stop = () => {
