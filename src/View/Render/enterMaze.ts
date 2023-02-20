@@ -1,5 +1,5 @@
 import { createElement, getMain } from './common';
-import initGame from '../../game/levels/level-1';
+import initFirstLevel from '../../game/levels/level-1';
 
 function enterMaze() {
   const block = createElement('div', '', 'block');
@@ -9,7 +9,7 @@ function enterMaze() {
   getMain().append(block);
   button.addEventListener('click', () => {
     getMain().innerHTML = '';
-    initGame();
+    initFirstLevel();
   });
 }
 
