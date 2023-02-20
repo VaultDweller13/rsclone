@@ -2,7 +2,7 @@ import { createChoice, createLayer, createElement, resetPage, warning, selectCha
 import castle from '../../Assets/castle.jpg';
 import { createCharacter } from './characterCreator';
 import changeParty from './changeParty';
-import initFirstLevel from '../../../game/levels/level-1';
+import initFirstLevel from '../../../game/run';
 import { party } from '../partyInitializer';
 import Character from '../../../model/characters/character';
 import inspect from '../inspection';

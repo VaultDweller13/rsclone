@@ -1,5 +1,6 @@
 import Controls from './Controls';
 import GameMap from './GameMap';
+import { Coordinates, KeyboardKeyAlias, Position } from './utils/types';
 
 export default class Camera {
   private readonly CAMERA_CLOSENESS_RATE = 6;

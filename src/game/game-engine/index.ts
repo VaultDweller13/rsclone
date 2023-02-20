@@ -8,5 +8,5 @@ export { default as Raycaster } from './Raycaster';
 export { default as Texture } from './Texture';
 export { default as GameLoop } from './GameLoop';
 export { default as Battle } from './Battle';
-export { option1, option2, option3 } from './utils/textures';
+export { default as levels } from './utils/levels';
 export { ctx, injectCanvasToDocument } from './utils/canvas';

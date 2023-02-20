@@ -1,4 +1,5 @@
 import GameMap from './GameMap';
+import { Coordinates } from './utils/types';
 
 export default class MiniMap {
   private readonly MINI_MAP_CELL_WIDTH = 4;

@@ -1,5 +1,6 @@
 import GameMap from './GameMap';
 import Player from './Camera';
+import { RayOrigin, TextureAlias } from './utils/types';
 
 export default class Raycaster {
   private readonly RANGE_TO_CAST = 10;
@@ -20,12 +21,7 @@ export default class Raycaster {
     };
   };
 
-  private drawTextureStripe(
-    column: number,
-    ray: Required<RayOrigin>[],
-    angle: number,
-    map: GameMap
-  ): void {
+  private drawTextureStripe(column: number, ray: Required<RayOrigin>[], angle: number, map: GameMap): void {
     const left = column;
     let hit = 0;
 
@@ -49,17 +45,7 @@ export default class Raycaster {
       const wall = this.project(angle, step.distance);
 
       this.ctx.globalAlpha = 1;
-      this.ctx.drawImage(
-        texture.img,
-        textureX,
-        0,
-        1,
-        texture.height,
-        left,
-        wall.top,
-        1,
-        wall.height
-      );
+      this.ctx.drawImage(texture.img, textureX, 0, 1, texture.height, left, wall.top, 1, wall.height);
 
       this.ctx.fillStyle = this.SHADING_COLOR;
       this.ctx.globalAlpha = Math.max(step.distance / this.lightRange, 0);

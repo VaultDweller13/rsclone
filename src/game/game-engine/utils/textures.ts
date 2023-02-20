@@ -1,4 +1,5 @@
 import Texture from '../Texture';
+import { TextureName } from './types';
 
 import wall1 from '../assets/option-1/wall-1.jpg';
 // import entry1 from '../assets/option-1/entry-door-1.png';
