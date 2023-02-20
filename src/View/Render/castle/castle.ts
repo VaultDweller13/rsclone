@@ -1,15 +1,8 @@
-import {
-  createChoice,
-  createLayer,
-  createElement,
-  resetPage,
-  warning,
-  selectCharacter,
-} from '../common';
+import { createChoice, createLayer, createElement, resetPage, warning, selectCharacter } from '../common';
 import castle from '../../Assets/castle.jpg';
 import { createCharacter } from './characterCreator';
 import changeParty from './changeParty';
-import initGame from '../../../game/levels/level-1';
+import initFirstLevel from '../../../game/levels/level-1';
 import { party } from '../partyInitializer';
 import Character from '../../../model/characters/character';
 import inspect from '../inspection';
@@ -72,9 +65,7 @@ implementCastle = () => {
     );
   });
   document.getElementById('inn')?.addEventListener('click', () => {
-    view.append(
-      createLayer(1, createChoice('inn-choice', [{ id: 'rest', name: 'rest' }]))
-    );
+    view.append(createLayer(1, createChoice('inn-choice', [{ id: 'rest', name: 'rest' }])));
   });
   document.getElementById('trade-post')?.addEventListener('click', () => {
     view.append(
@@ -90,12 +81,7 @@ implementCastle = () => {
     );
   });
   document.getElementById('temple')?.addEventListener('click', () => {
-    view.append(
-      createLayer(
-        1,
-        createChoice('temple-choice', [{ id: 'heal', name: 'Heal / Revive' }])
-      )
-    );
+    view.append(createLayer(1, createChoice('temple-choice', [{ id: 'heal', name: 'Heal / Revive' }])));
   });
   document.getElementById('enter-maze')?.addEventListener('click', () => {
     if (party.getParty().length > 0) {
@@ -107,7 +93,7 @@ implementCastle = () => {
       if (!document.getElementById('view')?.classList.contains('maze')) {
         document.getElementById('view')?.classList.add('maze');
       }
-      initGame();
+      initFirstLevel();
     } else {
       warning('You cannot enter maze without a party');
     }
