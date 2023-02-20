@@ -13,7 +13,7 @@ export default class Monster {
   resistances: string[];
   abilities: string[];
   exp: number;
-  img: string;
+  img: HTMLImageElement;
   status: Status;
 
   constructor(monster: MonsterData) {
@@ -27,7 +27,8 @@ export default class Monster {
     this.resistances = monster.resistances;
     this.abilities = monster.abilities;
     this.exp = monster.exp;
-    this.img = monster.img;
+    this.img = new Image();
+    this.img.src = monster.img;
     this.status = 'OK';
   }
 

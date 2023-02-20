@@ -1,3 +1,4 @@
+import Logic from '../../model/game/logic';
 import {
   Raycaster,
   GameMap,
@@ -5,6 +6,7 @@ import {
   MiniMap,
   Controls,
   GameLoop,
+  Battle,
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
   // Choose one of the texture options
@@ -14,7 +16,6 @@ import {
 } from '../game-engine';
 
 // import sprites from '../../model/data/monsterSprites';
-import Battle from '../game-engine/Battle';
 
 export default function initGame() {
   const canvas = document.createElement('canvas');
@@ -72,12 +73,13 @@ export default function initGame() {
   const map = new GameMap(mapArr, option3);
   const miniMap = new MiniMap(map);
   const controls = new Controls('discrete');
-  const player = new Camera(startPosition, controls);
   const battle = new Battle(ctx);
 
-  const game = new GameLoop(ctx, raycaster, map, miniMap, player, battle);
+  const logic = new Logic();
+  const player = new Camera(startPosition, controls);
 
-  game.init();
+  const game = new GameLoop(ctx, raycaster, map, miniMap, player, battle, logic);
+
   game.start();
 
   return game;

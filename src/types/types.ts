@@ -1,37 +1,14 @@
 import Character from '../model/characters/character';
 
-export type Stat =
-  | 'strength'
-  | 'intelligence'
-  | 'piety'
-  | 'vitality'
-  | 'agility'
-  | 'luck';
+export type Stat = 'strength' | 'intelligence' | 'piety' | 'vitality' | 'agility' | 'luck';
 
-export type Status =
-  | 'OK'
-  | 'AFRAID'
-  | 'ASLEEP'
-  | 'PLYZE'
-  | 'STONED'
-  | 'DEAD'
-  | 'ASHES'
-  | 'LOST'
-  | 'MUTED';
+export type Status = 'OK' | 'AFRAID' | 'ASLEEP' | 'PLYZE' | 'STONED' | 'DEAD' | 'ASHES' | 'LOST' | 'MUTED';
 
 export type Alignment = 'good' | 'neutral' | 'evil';
 
 export type Race = 'human' | 'dwarf' | 'elf' | 'gnome' | 'hobbit';
 
-export type ClassName =
-  | 'fighter'
-  | 'priest'
-  | 'mage'
-  | 'thief'
-  | 'bishop'
-  | 'samurai'
-  | 'lord'
-  | 'ninja';
+export type ClassName = 'fighter' | 'priest' | 'mage' | 'thief' | 'bishop' | 'samurai' | 'lord' | 'ninja';
 
 export type Class = {
   name: ClassName;
@@ -40,14 +17,7 @@ export type Class = {
   hitDice: number;
 };
 
-export type ItemTypes =
-  | 'weapon'
-  | 'shield'
-  | 'armor'
-  | 'helmet'
-  | 'gauntlet'
-  | 'accessory'
-  | 'expendable';
+export type ItemTypes = 'weapon' | 'shield' | 'armor' | 'helmet' | 'gauntlet' | 'accessory' | 'expendable';
 
 export type Item = {
   name: string;
