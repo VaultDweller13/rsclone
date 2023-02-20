@@ -23,7 +23,7 @@ import type { Alignment, Stat, Race, Class } from '../../../types/types';
 let newCharacter = {
   name: '',
   race: '',
-  alignment: '' as Alignment,
+  alignment: 'good' as Alignment,
   class: '',
   bonus: 0,
   stats: {
