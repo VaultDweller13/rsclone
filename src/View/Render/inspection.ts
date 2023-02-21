@@ -6,11 +6,7 @@ let currentPage = 1;
 
 let charInfo = (character: Character): HTMLElement[] => [createElement('div', character.name)];
 
-function renderInventory(
-  page: number,
-  character: Character,
-  inventoryBlock: HTMLElement
-) {
+function renderInventory(page: number, character: Character, inventoryBlock: HTMLElement) {
   const inventory = character.getInventory();
   if (Math.ceil(inventory.length / 4) >= page && page > 0) {
     inventory.slice((page - 1) * 4, page * 4).forEach((item) => {
@@ -23,7 +19,7 @@ function renderInventory(
 }
 
 function inspect(character: Character) {
-  if (getParty()){
+  if (getParty()) {
     getParty().remove();
   }
   const view = document.getElementById('view') as HTMLElement;
@@ -50,9 +46,9 @@ charInfo = (character: Character): HTMLElement[] => {
   basicInfo.innerHTML = `
   <div class='basic-content'>${character.name}</div>
   <div class='basic-content'>Level ${character.level}</div>
-  <div class='basic-content'>${String(
-    character.alignment
-  ).toUpperCase()}-${String(character.class.name).toUpperCase()}</div>
+  <div class='basic-content'>${String(character.alignment).toUpperCase()}-${String(
+    character.class.name
+  ).toUpperCase()}</div>
   <div class='basic-content'>${String(character.race).toUpperCase()}</div>
   `;
   const secondaryInfo = createElement('div', '', 'flex-around');
@@ -112,15 +108,14 @@ charInfo = (character: Character): HTMLElement[] => {
       itemBlock.classList.add('button');
       itemBlock.textContent = item.name;
       itemBlock.addEventListener('click', () => {
-        if (character.getInventory().length === 8){
+        if (character.getInventory().length === 8) {
           warning('inventory is full');
-        }
-        else {
+        } else {
           character.addToInventory(item);
-          character.unequip(item.type)
+          character.unequip(item.type);
           inspect(character);
         }
-      })
+      });
     } else {
       itemBlock.textContent = `--${itemType}--`;
     }
@@ -138,23 +133,20 @@ charInfo = (character: Character): HTMLElement[] => {
   changeItemsBlock.append(inventoryWrap);
   renderInventory(currentPage, character, inventory);
   const inventoryItems = inventory.children;
-  console.log(inventory.children)
+  console.log(inventory.children);
   console.log(inventoryItems);
   if (inventoryItems) {
     Array.from(inventoryItems).forEach((itemBlock, index) => {
-      itemBlock.setAttribute('name', `${index}, ${character.getInventory()[index + (currentPage - 1)*4].name}`);
+      itemBlock.setAttribute('name', `${index}, ${character.getInventory()[index + (currentPage - 1) * 4].name}`);
       itemBlock.addEventListener('click', () => {
-        const item = character.getInventory()[index + (currentPage - 1)*4];
+        const item = character.getInventory()[index + (currentPage - 1) * 4];
         console.log(item.name);
-        if (
-          !item.alignment.includes(character.alignment) ||
-          !item.class.includes(character.class.name)
-        ) {
+        if (!item.alignment.includes(character.alignment) || !item.class.includes(character.class.name)) {
           warning("can't equip this item");
         } else {
           const preequippedItem = character.equipment.get(item.type);
           character.equip(item);
-          character.removeFromInventory(index + (currentPage - 1)*4);
+          character.removeFromInventory(index + (currentPage - 1) * 4);
           if (preequippedItem) {
             character.addToInventory(preequippedItem);
           }

@@ -14,7 +14,7 @@ export default class Character {
   luck: number;
   class: Class;
   level: number;
-  exp: number;
+  #exp: number;
   #hp: number;
   #maxHp: number;
   status: Status;
@@ -43,7 +43,7 @@ export default class Character {
 
     this.class = charClass;
     this.level = level;
-    this.exp = 0;
+    this.#exp = 0;
 
     this.#maxHp = this.#getStartHp();
     this.#hp = this.#maxHp;
@@ -146,6 +146,14 @@ export default class Character {
 
   run() {
     // runs from battle
+  }
+
+  addExp(value: number) {
+    this.#exp += value;
+  }
+
+  get exp() {
+    return this.#exp;
   }
 
   /** Returns the amount of exp needed for the next level */

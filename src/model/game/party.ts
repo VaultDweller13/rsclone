@@ -26,12 +26,7 @@ export default class Party {
   }
 
   public canBeAdded(character: Character) {
-    if (
-      this.#check &&
-      this.#arr.some(
-        (char) => ![char.alignment, 'neutral'].includes(character.alignment)
-      )
-    ) {
+    if (this.#check && this.#arr.some((char) => ![char.alignment, 'neutral'].includes(character.alignment))) {
       return false;
     }
 
@@ -51,5 +46,13 @@ export default class Party {
 
   public getGold() {
     return this.#gold;
+  }
+
+  /** Splits experience points between active party members */
+  public splitExp(value: number) {
+    const characters = this.getParty().filter((char) => char.status === 'OK');
+    const expPerChar = Math.ceil(value / characters.length);
+
+    characters.forEach((char) => char.addExp(expPerChar));
   }
 }
