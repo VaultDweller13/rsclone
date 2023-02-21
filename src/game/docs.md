@@ -1,4 +1,4 @@
-Map width and height should be equal, so map array length === width _ height === width _ width
+Map width and height should be equal, so map array length === width X height === width X width
 
 Each type of textures in map represented by alias number
 1: wall

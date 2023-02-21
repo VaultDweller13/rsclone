@@ -1,21 +1,17 @@
+import { ControlMode, KeyboardKeyAlias, KeyboardKeyCode } from './utils/types';
+
 export default class Controls {
   private readonly codes: Record<KeyboardKeyCode, KeyboardKeyAlias> = {
     ArrowLeft: 'camera-left',
     ArrowRight: 'camera-right',
     ArrowUp: 'forward',
     ArrowDown: 'backward',
-    q: 'camera-left',
-    e: 'camera-right',
-    w: 'forward',
-    s: 'backward',
-    a: 'left',
-    d: 'right',
-    й: 'camera-left',
-    у: 'camera-right',
-    ц: 'forward',
-    ы: 'backward',
-    ф: 'left',
-    в: 'right',
+    KeyA: 'left',
+    KeyD: 'right',
+    KeyQ: 'camera-left',
+    KeyE: 'camera-right',
+    KeyW: 'forward',
+    KeyS: 'backward',
   };
 
   readonly states: Record<KeyboardKeyAlias, boolean> = {
@@ -43,19 +39,23 @@ export default class Controls {
   };
 
   private handleKeysOnContinuousMode = (val: boolean, e: KeyboardEvent) => {
-    if (this.hasAccess && Object.keys(this.codes).includes(e.key)) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (this.hasAccess && Object.keys(this.codes).includes(e.code)) {
       const state = this.codes[e.key as KeyboardKeyCode];
       this.states[state] = val;
     }
   };
 
   private handleKeysOnDiscreteMode = (e: KeyboardEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (
       this.hasAccess &&
-      Object.keys(this.codes).includes(e.key) &&
+      Object.keys(this.codes).includes(e.code) &&
       Object.values(this.states).every((value: boolean) => !value)
     ) {
-      const state = this.codes[e.key as KeyboardKeyCode];
+      const state = this.codes[e.code as KeyboardKeyCode];
       this.states[state] = true;
     }
   };

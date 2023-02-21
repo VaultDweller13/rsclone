@@ -1,14 +1,16 @@
-type Position = {
+import Texture from '../Texture';
+
+export type Position = {
   x: number;
   y: number;
   direction?: number;
 };
 
-type Coordinates = Required<Pick<Position, 'x' | 'y'>>;
+export type Coordinates = Required<Pick<Position, 'x' | 'y'>>;
 
-type Axis = 'x' | 'y' | 'both';
+export type Axis = 'x' | 'y' | 'both';
 
-type Ray = {
+export type Ray = {
   x?: number;
   y?: number;
   deltaDistance?: number;
@@ -19,31 +21,34 @@ type Ray = {
   onAxis?: Axis;
 };
 
-type RayStep = Pick<Ray, 'x' | 'y' | 'deltaDistance' | 'axis'>;
-type RayOrigin = Pick<Ray, 'offset' | 'distance' | 'cell' | 'axis' | 'onAxis'>;
+export type RayStep = Pick<Ray, 'x' | 'y' | 'deltaDistance' | 'axis'>;
+export type RayOrigin = Pick<Ray, 'offset' | 'distance' | 'cell' | 'axis' | 'onAxis'>;
 
-type KeyboardKeyCode =
+export type KeyboardKeyCode =
   | 'ArrowLeft'
   | 'ArrowRight'
   | 'ArrowUp'
   | 'ArrowDown'
-  | 'q'
-  | 'e'
-  | 'w'
-  | 's'
-  | 'a'
-  | 'd'
-  | 'й'
-  | 'ц'
-  | 'у'
-  | 'ф'
-  | 'ы'
-  | 'в';
+  | 'KeyA'
+  | 'KeyD'
+  | 'KeyQ'
+  | 'KeyE'
+  | 'KeyW'
+  | 'KeyS';
 
-type KeyboardKeyAlias = 'left' | 'right' | 'forward' | 'backward' | 'camera-left' | 'camera-right';
+export type KeyboardKeyAlias = 'left' | 'right' | 'forward' | 'backward' | 'camera-left' | 'camera-right';
 
-type ControlMode = 'continuous' | 'discrete';
+export type ControlMode = 'continuous' | 'discrete';
 
-type TextureName = 'wall' | 'entry' | 'exit' | 'closedDoor' | 'openDoorVertical' | 'openDoorHorizontal';
+export type TextureName = 'wall' | 'entry' | 'exit' | 'closedDoor' | 'openDoorVertical' | 'openDoorHorizontal';
 
-type TextureAlias = 1 | 2 | 3 | 4 | 5 | 6;
+export type TextureAlias = 1 | 2 | 3 | 4 | 5 | 6;
+
+export type Level = {
+  id: number;
+  name: string;
+  map: number[];
+  startPosition: Required<Position>;
+  lightRange: number;
+  textures: Record<TextureName, Texture>;
+};

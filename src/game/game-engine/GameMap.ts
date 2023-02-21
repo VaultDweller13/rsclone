@@ -1,4 +1,5 @@
 import Texture from './Texture';
+import { Axis, Position, Ray, RayOrigin, RayStep, TextureAlias, TextureName } from './utils/types';
 
 export default class GameMap {
   readonly textureMapping: Record<TextureAlias, TextureName> = {
