@@ -111,6 +111,7 @@ export default class GameLoop {
       this.map = new GameMap(this.level.map, this.level.textures);
       this.miniMap = new MiniMap(this.map);
       this.player = new Camera(this.level.startPosition, this.controls);
+      this.infoBoard.updateGreetState();
       this.start();
     } else {
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);

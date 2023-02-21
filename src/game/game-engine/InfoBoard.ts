@@ -71,6 +71,7 @@ export default class InfoBoard {
     this.ctx.fillText(`Press Tab to show keys info`, 100, this.HEIGHT - 25);
     this.ctx.stroke();
 
+    this.ctx.globalAlpha = 1;
     if (this.duration === 0) {
       this.isGreeted = true;
       this.duration = this.GREETING_DURATION;
@@ -122,5 +123,9 @@ export default class InfoBoard {
       this.HEIGHT / 2
     );
     this.ctx.stroke();
+  };
+
+  updateGreetState = () => {
+    this.isGreeted = !this.isGreeted;
   };
 }

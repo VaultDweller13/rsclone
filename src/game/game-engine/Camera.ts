@@ -200,7 +200,7 @@ export default class Camera {
   };
 
   private getRotatePredicator = () => () =>
-    Math.abs(this.targetDirection - this.direction) >= 2 * this.DISCRETE_ROTATE_ANGLE_PER_FRAME;
+    Math.abs(this.targetDirection - this.direction) >= 3 * this.DISCRETE_ROTATE_ANGLE_PER_FRAME;
 
   private getMovePredicator = () => () => {
     this.moveSteps += 1;

@@ -6,6 +6,8 @@ export default class MiniMap {
   private readonly MINI_MAP_EMPTY_BLOCK_COLOR = 'white';
   private readonly MINI_MAP_NOT_EMPTY_BLOCK_COLOR = 'black';
   private readonly MINI_MAP_PLAYER_COLOR = 'red';
+  private readonly MINI_MAP_DOOR_COLOR = 'green';
+  private readonly MINI_MAP_ENTRY_COLOR = 'yellow';
   private readonly target = document.createElement('canvas');
   private readonly ctx = this.target.getContext('2d') as CanvasRenderingContext2D;
 
@@ -25,25 +27,23 @@ export default class MiniMap {
 
     for (let y = 0; y < this.height; y += 1) {
       for (let x = 0; x < this.width; x += 1) {
-        if (map.mapArr[(this.height - y - 1) * map.width + (this.width - x - 1)] === 0) {
-          this.ctx.fillStyle = this.MINI_MAP_EMPTY_BLOCK_COLOR;
-          this.ctx.fillRect(
-            x * this.MINI_MAP_CELL_WIDTH,
-            y * this.MINI_MAP_CELL_WIDTH,
-            this.MINI_MAP_CELL_WIDTH,
-            this.MINI_MAP_CELL_WIDTH
-          );
-        } else {
-          this.ctx.fillStyle = this.MINI_MAP_NOT_EMPTY_BLOCK_COLOR;
-          this.ctx.fillRect(
-            x * this.MINI_MAP_CELL_WIDTH,
-            y * this.MINI_MAP_CELL_WIDTH,
-            this.MINI_MAP_CELL_WIDTH,
-            this.MINI_MAP_CELL_WIDTH
-          );
-        }
+        const mapValue = map.mapArr[(this.height - y - 1) * map.width + (this.width - x - 1)];
+        if (mapValue === 0) this.drawBlock(x, y, this.MINI_MAP_EMPTY_BLOCK_COLOR);
+        else if (mapValue === 4) this.drawBlock(x, y, this.MINI_MAP_DOOR_COLOR);
+        else if (mapValue === 2) this.drawBlock(x, y, this.MINI_MAP_ENTRY_COLOR);
+        else this.drawBlock(x, y, this.MINI_MAP_NOT_EMPTY_BLOCK_COLOR);
       }
     }
+  };
+
+  drawBlock = (x: number, y: number, color: string) => {
+    this.ctx.fillStyle = color;
+    this.ctx.fillRect(
+      x * this.MINI_MAP_CELL_WIDTH,
+      y * this.MINI_MAP_CELL_WIDTH,
+      this.MINI_MAP_CELL_WIDTH,
+      this.MINI_MAP_CELL_WIDTH
+    );
   };
 
   render = (ctx: CanvasRenderingContext2D, playerPos: Coordinates): void => {
