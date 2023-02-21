@@ -69,6 +69,7 @@ const mapLevel3 = [
 
 export default [
   {
+    id: 1,
     name: 'B1F',
     map: mapLevel1,
     startPosition: {
@@ -80,17 +81,19 @@ export default [
     textures: option2,
   },
   {
+    id: 2,
     name: 'B2F',
     map: mapLevel2,
     startPosition: {
-      x: 8,
-      y: 9,
+      x: 7,
+      y: 8,
       direction: Math.PI / 3,
     },
     lightRange: 7,
     textures: option1,
   },
   {
+    id: 3,
     name: 'B3F',
     map: mapLevel3,
     startPosition: {

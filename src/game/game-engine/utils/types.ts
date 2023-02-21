@@ -45,6 +45,7 @@ export type TextureName = 'wall' | 'entry' | 'exit' | 'closedDoor' | 'openDoorVe
 export type TextureAlias = 1 | 2 | 3 | 4 | 5 | 6;
 
 export type Level = {
+  id: number;
   name: string;
   map: number[];
   startPosition: Required<Position>;

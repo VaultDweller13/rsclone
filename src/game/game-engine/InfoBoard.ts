@@ -35,6 +35,8 @@ export default class InfoBoard {
   }
 
   private onKeys = (e: KeyboardEvent, state = true) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (e.code === 'Tab') this.isTab = state;
   };
 
@@ -77,6 +79,10 @@ export default class InfoBoard {
 
   showKeyBoardInfo = () => {
     this.isGreeted = true;
+    this.ctx.globalAlpha = 0.3;
+    this.ctx.fillStyle = this.BACKGROUND_COLOR;
+    this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT);
+
     this.ctx.globalAlpha = 1;
     this.ctx.drawImage(this.arrowKeys, 0, 0, this.arrowKeys.width, this.arrowKeys.height, 50, 50, 100, 100);
     this.ctx.drawImage(this.qweasdKeys, 0, 0, this.arrowKeys.width, this.arrowKeys.height, 50, 120, 100, 100);
@@ -95,12 +101,26 @@ export default class InfoBoard {
     this.ctx.font = this.FONT_REGULAR;
     this.ctx.fillStyle = this.FONT_COLOR;
     this.ctx.textAlign = 'left';
-    this.ctx.fillText('Left, Q - camera rotation to the left', 170, 100);
-    this.ctx.fillText('Right, E - camera rotation to the right', 170, 130);
-    this.ctx.fillText('Up, W - forward', 170, 160);
-    this.ctx.fillText('Down, S - backward', 170, 190);
-    this.ctx.fillText('A - strafe left', 170, 220);
-    this.ctx.fillText('D - strafe right', 170, 250);
+    this.ctx.fillText('Left, Q - camera rotation to the left', 170, 80);
+    this.ctx.fillText('Right, E - camera rotation to the right', 170, 110);
+    this.ctx.fillText('Up, W - forward', 170, 140);
+    this.ctx.fillText('Down, S - backward', 170, 170);
+    this.ctx.fillText('A - strafe left', 170, 200);
+    this.ctx.fillText('D - strafe right', 170, 230);
+    this.ctx.fillText('Enter - to submit', 170, 260);
+    this.ctx.stroke();
+  };
+
+  showOfferToLeave = (toUpward: boolean) => {
+    this.ctx.globalAlpha = 1;
+    this.ctx.font = this.FONT_REGULAR;
+    this.ctx.fillStyle = this.FONT_COLOR;
+    this.ctx.textAlign = 'center';
+    this.ctx.fillText(
+      `${toUpward ? 'Press Enter to go up?' : 'Press Enter to go down?'}`,
+      this.WIDTH / 2,
+      this.HEIGHT / 2
+    );
     this.ctx.stroke();
   };
 }

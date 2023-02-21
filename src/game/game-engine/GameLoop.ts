@@ -28,9 +28,9 @@ export default class GameLoop {
     public ctx: CanvasRenderingContext2D,
     public levels: Level[],
     public controlMode: ControlMode,
-    whichLevel: number
+    levelId: number
   ) {
-    this.level = levels[whichLevel - 1];
+    this.level = levels.find((level) => level.id === levelId) ?? levels[0];
     this.raycaster = new Raycaster(ctx, this.level.lightRange);
     this.map = new GameMap(this.level.map, this.level.textures);
     this.miniMap = new MiniMap(this.map);
@@ -40,6 +40,7 @@ export default class GameLoop {
     this.logic = new Logic();
     this.infoBoard = new InfoBoard(ctx);
 
+    document.addEventListener('keydown', (e) => this.onKeys(e), false);
     this.init();
   }
 
@@ -51,6 +52,8 @@ export default class GameLoop {
       this.miniMap.render(this.ctx, this.player.position);
       if (this.infoBoard.isTab) this.infoBoard.showKeyBoardInfo();
       if (!this.infoBoard.isGreeted) this.infoBoard.showLevel(this.level.name);
+      if (this.player.inFront === 2) this.infoBoard.showOfferToLeave(true);
+      else if (this.player.inFront === 3) this.infoBoard.showOfferToLeave(false);
       // if (this.player.isMoved) {
       //   this.player.changeMoveState(false);
       //   console.log('moved');
@@ -61,6 +64,15 @@ export default class GameLoop {
       //   }
       // }
     };
+  };
+
+  private onKeys = (e: KeyboardEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.code === 'Enter') {
+      if (this.player.inFront === 2) this.updateGameParameters(this.level.id - 1);
+      else if (this.player.inFront === 3) this.updateGameParameters(this.level.id + 1);
+    }
   };
 
   start = () => {
@@ -88,5 +100,20 @@ export default class GameLoop {
     this.isPaused = !this.isPaused;
     this.player.controls.changeAccessibility(false);
     this.stop();
+  };
+
+  updateGameParameters = (newLevelId: number) => {
+    this.stop();
+    const newLevel = this.levels.find((level) => level.id === newLevelId);
+    if (newLevel) {
+      this.level = newLevel;
+      this.raycaster = new Raycaster(this.ctx, this.level.lightRange);
+      this.map = new GameMap(this.level.map, this.level.textures);
+      this.miniMap = new MiniMap(this.map);
+      this.player = new Camera(this.level.startPosition, this.controls);
+      this.start();
+    } else {
+      this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    }
   };
 }
