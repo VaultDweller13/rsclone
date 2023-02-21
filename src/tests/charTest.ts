@@ -14,13 +14,7 @@ const stats = (str = 18, int = 18, pie = 18, vit = 18, agi = 18, luc = 18) => ({
   luck: luc,
 });
 
-const fighter = new Character(
-  'Grognak',
-  'human',
-  stats(),
-  classes.fighter,
-  'good'
-);
+const fighter = new Character('Grognak', 'human', stats(), classes.fighter, 'good');
 
 console.log(fighter);
 // console.log(fighter.getAC());
@@ -57,6 +51,12 @@ console.log(fighter);
 // fighter.equip(helm as Item);
 // console.log(fighter.equipment);
 // console.log(fighter.getAC());
+console.log(fighter.exp);
+console.log(fighter.nextExp);
+fighter.exp = 1500;
+fighter.level = 20;
+console.log(fighter.exp);
+console.log(fighter.nextExp);
 
 function showMonster(monster: MonsterData) {
   const container = document.createElement('div');

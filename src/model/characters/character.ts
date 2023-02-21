@@ -1,13 +1,5 @@
-import type {
-  Race,
-  Class,
-  Status,
-  Alignment,
-  Item,
-  Equipment,
-  Stat,
-  ItemTypes,
-} from '../../types/types';
+import type { Race, Class, Status, Alignment, Item, Equipment, Stat, ItemTypes } from '../../types/types';
+import levels from '../data/levels';
 
 export default class Character {
   public name: string;
@@ -153,5 +145,13 @@ export default class Character {
 
   run() {
     // runs from battle
+  }
+
+  /** Returns the amount of exp needed for the next level */
+  get nextExp() {
+    const expChart = levels[this.class.name];
+    const lvl = this.level + 1 < expChart.length ? this.level + 1 : expChart.length - 1;
+
+    return expChart[lvl];
   }
 }
