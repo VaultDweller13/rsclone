@@ -5,7 +5,7 @@ import classes from '../model/data/classes';
 import monsters from '../model/data/monsters';
 import type { MonsterData } from '../types/types';
 
-const stats = (str = 18, int = 18, pie = 18, vit = 18, agi = 18, luc = 18) => ({
+const stats = (str = 11, int = 10, pie = 10, vit = 15, agi = 10, luc = 10) => ({
   strength: str,
   intelligence: int,
   piety: pie,
@@ -49,14 +49,17 @@ console.log(fighter);
 // console.log(party.getParty());
 // fighter.equip(armor as Item);
 // fighter.equip(helm as Item);
-// console.log(fighter.equipment);
-// console.log(fighter.getAC());
-console.log(fighter.exp);
-console.log(fighter.nextExp);
-fighter.exp = 1500;
-fighter.level = 20;
-console.log(fighter.exp);
-console.log(fighter.nextExp);
+// // console.log(fighter.equipment);
+// // console.log(fighter.getAC());
+// console.log(fighter.exp);
+// console.log(fighter.nextExp);
+// fighter.exp = 1500;
+// console.log(fighter.getMaxHP());
+// fighter.levelUp();
+// console.log(fighter.getMaxHP());
+
+// console.log(fighter.exp);
+// console.log(fighter.nextExp);
 
 function showMonster(monster: MonsterData) {
   const container = document.createElement('div');

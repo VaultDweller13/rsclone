@@ -1,4 +1,5 @@
 import type { Race, Class, Status, Alignment, Item, Equipment, Stat, ItemTypes } from '../../types/types';
+import getFromRange from '../../types/utils';
 import levels from '../data/levels';
 
 export default class Character {
@@ -76,7 +77,7 @@ export default class Character {
     let hp = this.#getStartHp();
 
     for (let i = 0; i < this.level - 1; i += 1) {
-      hp += Math.floor(Math.random() * this.class.hitDice + 1) + vitMod;
+      hp += getFromRange(1, this.class.hitDice) + vitMod;
     }
 
     this.#maxHp = this.#maxHp >= hp ? (this.#maxHp += 1) : hp;
@@ -153,5 +154,35 @@ export default class Character {
     const lvl = this.level + 1 < expChart.length ? this.level + 1 : expChart.length - 1;
 
     return expChart[lvl];
+  }
+
+  levelUp() {
+    if (this.exp < this.nextExp) return;
+
+    const stats = ['strength', 'intelligence', 'piety', 'vitality', 'agility', 'luck'] as const;
+
+    this.level += 1;
+    stats.forEach((stat) => this.#changeStat(stat));
+    this.#rollMaxHp();
+  }
+
+  #changeStat(stat: Stat) {
+    const d100 = () => getFromRange(0, 99);
+    const changeProb = 74;
+    const decreaseProb = (this.age / 130) * 100;
+    const decreaseSaveProb = (5 / 6) * 100;
+
+    if (d100() > changeProb) return;
+
+    if (d100() < decreaseProb) {
+      if (this[stat] === 18 && d100() < decreaseSaveProb) return;
+
+      this[stat] -= 1;
+      return;
+    }
+
+    if (this[stat] < 18) {
+      this[stat] += 1;
+    }
   }
 }
