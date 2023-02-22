@@ -22,6 +22,7 @@ export default class Character {
   alignment: Alignment;
   #inventory: Item[];
   equipment: Equipment;
+  #message: string;
 
   constructor(
     name: string,
@@ -54,6 +55,8 @@ export default class Character {
 
     this.#inventory = [];
     this.equipment = this.#initEquipment();
+
+    this.#message = '';
   }
 
   public setHp(value = this.#maxHp) {
@@ -165,13 +168,22 @@ export default class Character {
   }
 
   levelUp() {
-    if (this.nextExp) return;
+    this.#message = '';
+
+    if (this.nextExp) {
+      this.#message = `You need ${this.nextExp} more EXP to make the next level`;
+      return;
+    }
 
     const stats = ['strength', 'intelligence', 'piety', 'vitality', 'agility', 'luck'] as const;
+    const oldHp = this.getMaxHP();
+
+    this.#message += `You made the next level!\n\n`;
 
     this.level += 1;
     stats.forEach((stat) => this.#changeStat(stat));
     this.#rollMaxHp();
+    this.#message += `You gained ${this.getMaxHP() - oldHp} Hit Points\n`;
     this.#nextExp += levels[this.class.name][this.level + 1];
   }
 
@@ -187,11 +199,18 @@ export default class Character {
       if (this[stat] === 18 && d100() < decreaseSaveProb) return;
 
       this[stat] -= 1;
+      this.#message += `You lost ${stat}\n`;
       return;
     }
 
     if (this[stat] < 18) {
       this[stat] += 1;
+      this.#message += `You gained ${stat}\n`;
     }
+  }
+
+  /** Returns message if last character action provided one */
+  get message() {
+    return this.#message;
   }
 }

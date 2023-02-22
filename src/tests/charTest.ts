@@ -60,11 +60,15 @@ console.log(fighter);
 // console.log('exp:', fighter.exp);
 // console.log('next:', fighter.nextExp);
 // fighter.levelUp();
+// console.log(fighter.message);
 // console.log('exp:', fighter.exp);
 // console.log('next:', fighter.nextExp);
 // fighter.levelUp();
+// console.log(fighter.message);
 // console.log('exp:', fighter.exp);
 // console.log('next:', fighter.nextExp);
+// fighter.levelUp();
+// console.log(fighter.message);
 
 function showMonster(monster: MonsterData) {
   const container = document.createElement('div');
