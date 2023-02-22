@@ -167,7 +167,7 @@ export default class Character {
     return this.#nextExp > 0 ? this.#nextExp : 0;
   }
 
-  levelUp() {
+  #levelUp() {
     this.#message = '';
 
     if (this.nextExp) {
@@ -207,6 +207,13 @@ export default class Character {
       this[stat] += 1;
       this.#message += `You gained ${stat}\n`;
     }
+  }
+
+  rest(full = false) {
+    if (full) this.setHp();
+
+    this.#levelUp();
+    // To do: reset spells
   }
 
   /** Returns message if last character action provided one */
