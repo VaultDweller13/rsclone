@@ -12,6 +12,7 @@ const shields: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Large Shield',
@@ -24,6 +25,7 @@ const shields: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Iron Shield',
@@ -36,6 +38,7 @@ const shields: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Shield of Support',
@@ -48,6 +51,7 @@ const shields: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Shield of Evil',
@@ -60,6 +64,7 @@ const shields: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Shield of Defense',
@@ -72,6 +77,7 @@ const shields: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Screwy Shield',
@@ -84,6 +90,7 @@ const shields: Item[] = [
     cursed: true,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Shield of Nothing',
@@ -96,6 +103,7 @@ const shields: Item[] = [
     cursed: true,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
 ];
 

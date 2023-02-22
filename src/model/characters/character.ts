@@ -1,6 +1,7 @@
 import type { Race, Class, Status, Alignment, Item, Equipment, Stat, ItemTypes } from '../../types/types';
 import getFromRange from '../../types/utils';
 import levels from '../data/levels';
+import Monster from './monster';
 
 export default class Character {
   public name: string;
@@ -141,8 +142,8 @@ export default class Character {
     return map;
   }
 
-  attack() {
-    // attacks target
+  attack(group: Monster[]) {
+    const hitCalcMod = this.#getHitCalcMod();
   }
 
   parry() {
@@ -151,6 +152,18 @@ export default class Character {
 
   run() {
     // runs from battle
+  }
+
+  #getHitCalcMod() {
+    const classMod = ['mage', 'thief', 'bishop'].includes(this.class.name)
+      ? Math.floor(this.level / 5)
+      : Math.floor(this.level / 3) + 2;
+    const wpnMod = [...this.equipment.values()].reduce((sum, item) => sum + (item?.hitBonus || 0), 0);
+    let strMod = 0;
+    if (this.strength > 15) strMod = this.strength - 15;
+    if (this.strength < 6) strMod = 6 - this.strength;
+
+    return classMod + strMod + wpnMod;
   }
 
   addExp(value: number) {
