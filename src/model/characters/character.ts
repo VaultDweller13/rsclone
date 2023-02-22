@@ -15,6 +15,7 @@ export default class Character {
   class: Class;
   level: number;
   #exp: number;
+  #nextExp: number;
   #hp: number;
   #maxHp: number;
   status: Status;
@@ -44,6 +45,7 @@ export default class Character {
     this.class = charClass;
     this.level = level;
     this.#exp = 0;
+    this.#nextExp = levels[this.class.name][this.level + 1];
 
     this.#maxHp = this.#getStartHp();
     this.#hp = this.#maxHp;
@@ -150,28 +152,27 @@ export default class Character {
 
   addExp(value: number) {
     this.#exp += value;
+    this.#nextExp -= value;
   }
 
   get exp() {
     return this.#exp;
   }
 
-  /** Returns the amount of exp needed for the next level */
+  /** Returns the amount of exp needed to the next level */
   get nextExp() {
-    const expChart = levels[this.class.name];
-    const lvl = this.level + 1 < expChart.length ? this.level + 1 : expChart.length - 1;
-
-    return expChart[lvl];
+    return this.#nextExp > 0 ? this.#nextExp : 0;
   }
 
   levelUp() {
-    if (this.exp < this.nextExp) return;
+    if (this.nextExp) return;
 
     const stats = ['strength', 'intelligence', 'piety', 'vitality', 'agility', 'luck'] as const;
 
     this.level += 1;
     stats.forEach((stat) => this.#changeStat(stat));
     this.#rollMaxHp();
+    this.#nextExp += levels[this.class.name][this.level + 1];
   }
 
   #changeStat(stat: Stat) {

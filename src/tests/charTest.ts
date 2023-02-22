@@ -53,13 +53,18 @@ console.log(fighter);
 // // console.log(fighter.getAC());
 // console.log(fighter.exp);
 // console.log(fighter.nextExp);
-// fighter.exp = 1500;
+// fighter.addExp(3650);
 // console.log(fighter.getMaxHP());
-// fighter.levelUp();
 // console.log(fighter.getMaxHP());
 
-// console.log(fighter.exp);
-// console.log(fighter.nextExp);
+// console.log('exp:', fighter.exp);
+// console.log('next:', fighter.nextExp);
+// fighter.levelUp();
+// console.log('exp:', fighter.exp);
+// console.log('next:', fighter.nextExp);
+// fighter.levelUp();
+// console.log('exp:', fighter.exp);
+// console.log('next:', fighter.nextExp);
 
 function showMonster(monster: MonsterData) {
   const container = document.createElement('div');
