@@ -5,7 +5,7 @@ import classes from '../model/data/classes';
 import monsters from '../model/data/monsters';
 import type { MonsterData } from '../types/types';
 
-const stats = (str = 18, int = 18, pie = 18, vit = 18, agi = 18, luc = 18) => ({
+const stats = (str = 11, int = 10, pie = 10, vit = 15, agi = 10, luc = 10) => ({
   strength: str,
   intelligence: int,
   piety: pie,
@@ -14,13 +14,7 @@ const stats = (str = 18, int = 18, pie = 18, vit = 18, agi = 18, luc = 18) => ({
   luck: luc,
 });
 
-const fighter = new Character(
-  'Grognak',
-  'human',
-  stats(),
-  classes.fighter,
-  'good'
-);
+const fighter = new Character('Grognak', 'human', stats(), classes.fighter, 'good');
 
 console.log(fighter);
 // console.log(fighter.getAC());
@@ -55,8 +49,26 @@ console.log(fighter);
 // console.log(party.getParty());
 // fighter.equip(armor as Item);
 // fighter.equip(helm as Item);
-// console.log(fighter.equipment);
-// console.log(fighter.getAC());
+// // console.log(fighter.equipment);
+// // console.log(fighter.getAC());
+// console.log(fighter.exp);
+// console.log(fighter.nextExp);
+// fighter.addExp(3650);
+// console.log(fighter.getMaxHP());
+// console.log(fighter.getMaxHP());
+
+// console.log('exp:', fighter.exp);
+// console.log('next:', fighter.nextExp);
+// fighter.levelUp();
+// console.log(fighter.message);
+// console.log('exp:', fighter.exp);
+// console.log('next:', fighter.nextExp);
+// fighter.levelUp();
+// console.log(fighter.message);
+// console.log('exp:', fighter.exp);
+// console.log('next:', fighter.nextExp);
+// fighter.levelUp();
+// console.log(fighter.message);
 
 function showMonster(monster: MonsterData) {
   const container = document.createElement('div');

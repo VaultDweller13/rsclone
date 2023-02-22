@@ -1,13 +1,6 @@
-import type {
-  Race,
-  Class,
-  Status,
-  Alignment,
-  Item,
-  Equipment,
-  Stat,
-  ItemTypes,
-} from '../../types/types';
+import type { Race, Class, Status, Alignment, Item, Equipment, Stat, ItemTypes } from '../../types/types';
+import getFromRange from '../../types/utils';
+import levels from '../data/levels';
 
 export default class Character {
   public name: string;
@@ -21,13 +14,15 @@ export default class Character {
   luck: number;
   class: Class;
   level: number;
-  exp: number;
+  #exp: number;
+  #nextExp: number;
   #hp: number;
   #maxHp: number;
   status: Status;
   alignment: Alignment;
   #inventory: Item[];
   equipment: Equipment;
+  #message: string;
 
   constructor(
     name: string,
@@ -50,7 +45,8 @@ export default class Character {
 
     this.class = charClass;
     this.level = level;
-    this.exp = 0;
+    this.#exp = 0;
+    this.#nextExp = levels[this.class.name][this.level + 1];
 
     this.#maxHp = this.#getStartHp();
     this.#hp = this.#maxHp;
@@ -59,6 +55,8 @@ export default class Character {
 
     this.#inventory = [];
     this.equipment = this.#initEquipment();
+
+    this.#message = '';
   }
 
   public setHp(value = this.#maxHp) {
@@ -84,7 +82,7 @@ export default class Character {
     let hp = this.#getStartHp();
 
     for (let i = 0; i < this.level - 1; i += 1) {
-      hp += Math.floor(Math.random() * this.class.hitDice + 1) + vitMod;
+      hp += getFromRange(1, this.class.hitDice) + vitMod;
     }
 
     this.#maxHp = this.#maxHp >= hp ? (this.#maxHp += 1) : hp;
@@ -153,5 +151,73 @@ export default class Character {
 
   run() {
     // runs from battle
+  }
+
+  addExp(value: number) {
+    this.#exp += value;
+    this.#nextExp -= value;
+  }
+
+  get exp() {
+    return this.#exp;
+  }
+
+  /** Returns the amount of exp needed to the next level */
+  get nextExp() {
+    return this.#nextExp > 0 ? this.#nextExp : 0;
+  }
+
+  #levelUp() {
+    this.#message = '';
+
+    if (this.nextExp) {
+      this.#message = `You need ${this.nextExp} more EXP to make the next level`;
+      return;
+    }
+
+    const stats = ['strength', 'intelligence', 'piety', 'vitality', 'agility', 'luck'] as const;
+    const oldHp = this.getMaxHP();
+
+    this.#message += `You made the next level!\n\n`;
+
+    this.level += 1;
+    stats.forEach((stat) => this.#changeStat(stat));
+    this.#rollMaxHp();
+    this.#message += `You gained ${this.getMaxHP() - oldHp} Hit Points\n`;
+    this.#nextExp += levels[this.class.name][this.level + 1];
+  }
+
+  #changeStat(stat: Stat) {
+    const d100 = () => getFromRange(0, 99);
+    const changeProb = 74;
+    const decreaseProb = (this.age / 130) * 100;
+    const decreaseSaveProb = (5 / 6) * 100;
+
+    if (d100() > changeProb) return;
+
+    if (d100() < decreaseProb) {
+      if (this[stat] === 18 && d100() < decreaseSaveProb) return;
+
+      this[stat] -= 1;
+      this.#message += `You lost ${stat}\n`;
+      return;
+    }
+
+    if (this[stat] < 18) {
+      this[stat] += 1;
+      this.#message += `You gained ${stat}\n`;
+    }
+  }
+
+  rest(full = false) {
+    if (full) this.setHp();
+
+    this.#levelUp();
+    // To do: reset spells
+  }
+
+  /** Returns message if last character action provided one */
+  get message() {
+    return this.#message;
   }
 }
