@@ -81,7 +81,7 @@ function renderParty() {
               (character) =>
                 `
           <div class="prty-chr" id="dummy-name">
-            <div class="chr-name chr-param">${character.name} ${character.exp > character.nextExp ? '⇧':''}</div>
+            <div class="chr-name chr-param">${character.name} ${!character.nextExp ? '⇧' : ''}</div>
             <div class="chr-class chr-param">${character.alignment.slice(0, 1).toUpperCase()}-${character.class.name
                   .slice(0, 3)
                   .toUpperCase()}-${character.race.slice(0, 3).toUpperCase()}</div>
@@ -141,15 +141,24 @@ function selectCharacter(func: (char: Character) => void): HTMLElement {
   return selectBlock;
 }
 
-function createMessage(message: string, func: () => void) {
-  const messageWrap = createElement('div', '', 'message block pop-up');
+function createMessage(message: string, func = () =>{}) {
+  const messageWrap = createElement('div', 'message', 'block pop-up center');
   const messageBlock = createElement('div', '');
   messageBlock.textContent = message;
   const okButton = createElement('button', '', 'block button');
   okButton.addEventListener('click', () => {
     func();
+    let layerParent: null | undefined | HTMLElement = okButton.parentElement;
+    for (let i = 0; i < 3; i += 1) {
+      if (!layerParent?.classList.contains('layer')) {
+        layerParent = layerParent?.parentElement;
+      } else {
+        layerParent.remove();
+      }
+    }
     messageWrap.remove();
   });
+  okButton.textContent = 'ok';
   messageWrap.append(messageBlock);
   messageWrap.append(okButton);
   return messageWrap;
@@ -165,5 +174,5 @@ export {
   resetPage,
   renderParty,
   selectCharacter,
-  createMessage
+  createMessage,
 };

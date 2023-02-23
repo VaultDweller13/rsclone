@@ -1,4 +1,12 @@
-import { createChoice, createLayer, createElement, resetPage, warning, selectCharacter } from '../common';
+import {
+  createChoice,
+  createLayer,
+  createElement,
+  resetPage,
+  warning,
+  selectCharacter,
+  createMessage,
+} from '../common';
 import castle from '../../Assets/castle.jpg';
 import { createCharacter } from './characterCreator';
 import changeParty from './changeParty';
@@ -65,7 +73,59 @@ implementCastle = () => {
     );
   });
   document.getElementById('inn')?.addEventListener('click', () => {
-    view.append(createLayer(1, createChoice('inn-choice', [{ id: 'rest', name: 'rest' }])));
+    view.append(
+      createLayer(
+        1,
+        createChoice('inn-choice', [
+          {
+            id: 'rest',
+            name: 'rest',
+            func: () => {
+              document.getElementById('inn-choice')?.replaceWith(
+                selectCharacter((character) => {
+                  const goldValue = party.getGold();
+                  const restChoice = createChoice('rest-choice', [
+                    {
+                      id: 'stable',
+                      name: 'Stable [free]',
+                      func: () => {
+                        console.log(character.exp, character.nextExp);
+                        character.rest();
+                        restChoice.replaceWith(createMessage(character.message));
+                      },
+                    },
+                    {
+                      id: '',
+                      name: 'Royal suite [500 Gold]',
+                      func: () => {
+                        party.changeGold(-500);
+                        if (goldValue && goldValue >= 500) {
+                          character.rest();
+                          restChoice.replaceWith(createMessage(character.message));
+                        }
+                      },
+                    },
+                    {
+                      id: 'cancel',
+                      name: 'Leave',
+                      func: () => {
+                        enterCastle();
+                      }
+                    }
+                  ]);
+                  const goldBlock = createElement('div', 'gold');
+                  if (goldValue) {
+                    goldBlock.textContent = `Gold: ${goldValue}`;
+                  }
+                  restChoice.firstChild?.before(goldBlock);
+                  document.getElementById('select')?.replaceWith(restChoice);
+                })
+              );
+            },
+          },
+        ])
+      )
+    );
   });
   document.getElementById('trade-post')?.addEventListener('click', () => {
     view.append(
