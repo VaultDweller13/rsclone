@@ -6,6 +6,7 @@ import {
   warning,
   selectCharacter,
   createMessage,
+  renderParty,
 } from '../common';
 import castle from '../../Assets/castle.jpg';
 import { createCharacter } from './characterCreator';
@@ -92,6 +93,7 @@ implementCastle = () => {
                         console.log(character.exp, character.nextExp);
                         character.rest();
                         restChoice.replaceWith(createMessage(character.message));
+                        renderParty();
                       },
                     },
                     {
@@ -102,6 +104,7 @@ implementCastle = () => {
                         if (goldValue && goldValue >= 500) {
                           character.rest();
                           restChoice.replaceWith(createMessage(character.message));
+                          renderParty();
                         }
                       },
                     },
