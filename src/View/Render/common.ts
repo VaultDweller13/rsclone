@@ -13,10 +13,7 @@ function createElement(tag: string, id: string, elClass?: string): HTMLElement {
   return newEl;
 }
 
-function createChoice(
-  choiceId: string,
-  buttonsDesc: ChoiceButton[]
-): HTMLElement {
+function createChoice(choiceId: string, buttonsDesc: ChoiceButton[]): HTMLElement {
   const choice = createElement('div', choiceId, 'block pop-up center');
   buttonsDesc.forEach((el) => {
     const newButton = createElement('button', el.id, 'button');
@@ -84,20 +81,14 @@ function renderParty() {
               (character) =>
                 `
           <div class="prty-chr" id="dummy-name">
-            <div class="chr-name chr-param">${character.name}</div>
-            <div class="chr-class chr-param">${character.alignment
-              .slice(0, 1)
-              .toUpperCase()}-${character.class.name
+            <div class="chr-name chr-param">${character.name} ${!character.nextExp ? '⇧' : ''}</div>
+            <div class="chr-class chr-param">${character.alignment.slice(0, 1).toUpperCase()}-${character.class.name
                   .slice(0, 3)
-                  .toUpperCase()}-${character.race
-                  .slice(0, 3)
-                  .toUpperCase()}</div>
+                  .toUpperCase()}-${character.race.slice(0, 3).toUpperCase()}</div>
             <div class="chr-ac chr-param">${character.getAC()}</div>
             <div class="chr-hp chr-param">${character.getHp()}</div>
             <div class="chr-status chr-param">${
-              character.status === 'OK'
-                ? character.getMaxHP()
-                : character.status
+              character.status === 'OK' ? character.getMaxHP() : character.status
             }</div>
           </div>
             `
@@ -130,8 +121,7 @@ function selectCharacter(func: (char: Character) => void): HTMLElement {
   const cancelButton = createElement('button', 'cancel', 'block button');
   cancelButton.textContent = 'cancel';
   cancelButton.addEventListener('click', () => {
-    let layerParent: null | undefined | HTMLElement =
-      cancelButton.parentElement;
+    let layerParent: null | undefined | HTMLElement = cancelButton.parentElement;
     for (let i = 0; i < 3; i += 1) {
       if (!layerParent?.classList.contains('layer')) {
         layerParent = layerParent?.parentElement;
@@ -151,6 +141,29 @@ function selectCharacter(func: (char: Character) => void): HTMLElement {
   return selectBlock;
 }
 
+function createMessage(message: string, func = () => {}) {
+  const messageWrap = createElement('div', 'message', 'block pop-up center');
+  const messageBlock = createElement('div', 'message-text');
+  messageBlock.textContent = message;
+  const okButton = createElement('button', '', 'block button');
+  okButton.addEventListener('click', () => {
+    func();
+    let layerParent: null | undefined | HTMLElement = okButton.parentElement;
+    for (let i = 0; i < 3; i += 1) {
+      if (!layerParent?.classList.contains('layer')) {
+        layerParent = layerParent?.parentElement;
+      } else {
+        layerParent.remove();
+      }
+    }
+    messageWrap.remove();
+  });
+  okButton.textContent = 'ok';
+  messageWrap.append(messageBlock);
+  messageWrap.append(okButton);
+  return messageWrap;
+}
+
 export {
   createChoice,
   createElement,
@@ -161,4 +174,5 @@ export {
   resetPage,
   renderParty,
   selectCharacter,
+  createMessage,
 };
