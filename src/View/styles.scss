@@ -195,6 +195,10 @@
     padding: 0;
     max-height: 60%;
   }
+  #message-text {
+    white-space: pre;
+    text-align: left;
+  }
   .prty,
   .tavern {
     flex-grow: 1;

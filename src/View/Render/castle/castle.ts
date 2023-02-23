@@ -113,8 +113,8 @@ implementCastle = () => {
                       name: 'Leave',
                       func: () => {
                         enterCastle();
-                      }
-                    }
+                      },
+                    },
                   ]);
                   const goldBlock = createElement('div', 'gold');
                   if (goldValue) {

@@ -141,9 +141,9 @@ function selectCharacter(func: (char: Character) => void): HTMLElement {
   return selectBlock;
 }
 
-function createMessage(message: string, func = () =>{}) {
+function createMessage(message: string, func = () => {}) {
   const messageWrap = createElement('div', 'message', 'block pop-up center');
-  const messageBlock = createElement('div', '');
+  const messageBlock = createElement('div', 'message-text');
   messageBlock.textContent = message;
   const okButton = createElement('button', '', 'block button');
   okButton.addEventListener('click', () => {

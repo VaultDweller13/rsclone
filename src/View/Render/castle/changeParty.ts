@@ -112,16 +112,12 @@ renderTaverners = (page: number) => {
       const charBlock = createElement('div', character.name, 'prty-chr');
       charBlock.innerHTML = `
       <div class="chr-name chr-param">${character.name}</div>
-      <div class="chr-class chr-param">${character.alignment
-        .slice(0, 1)
-        .toUpperCase()}-${character.class.name
+      <div class="chr-class chr-param">${character.alignment.slice(0, 1).toUpperCase()}-${character.class.name
         .slice(0, 3)
         .toUpperCase()}-${character.race.slice(0, 3).toUpperCase()}</div>
        <div class="chr-ac chr-param">${character.getAC()}</div>
       <div class="chr-hp chr-param">${character.getHp()}</div>
-      <div class="chr-status chr-param">${
-        character.status === 'OK' ? character.getMaxHP() : character.status
-      }</div>
+      <div class="chr-status chr-param">${character.status === 'OK' ? character.getMaxHP() : character.status}</div>
       `;
       charBlock.addEventListener('click', () => {
         document.getElementById('view')?.append(
@@ -170,16 +166,12 @@ renderPartyforTavern = () => {
       const charBlock = createElement('div', character.name, 'prty-chr');
       charBlock.innerHTML = `
       <div class="chr-name chr-param">${character.name}</div>
-      <div class="chr-class chr-param">${character.alignment
-        .slice(0, 1)
-        .toUpperCase()}-${character.class.name
+      <div class="chr-class chr-param">${character.alignment.slice(0, 1).toUpperCase()}-${character.class.name
         .slice(0, 3)
         .toUpperCase()}-${character.race.slice(0, 3).toUpperCase()}</div>
        <div class="chr-ac chr-param">${character.getAC()}</div>
       <div class="chr-hp chr-param">${character.getHp()}</div>
-      <div class="chr-status chr-param">${
-        character.status === 'OK' ? character.getMaxHP() : character.status
-      }</div>
+      <div class="chr-status chr-param">${character.status === 'OK' ? character.getMaxHP() : character.status}</div>
       `;
       charBlock.addEventListener('click', () => {
         addFromParty(character, index);
