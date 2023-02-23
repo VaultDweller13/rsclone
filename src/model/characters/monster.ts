@@ -1,6 +1,6 @@
 import type { MonsterData, Status } from '../../types/types';
-import getFromRange from '../../types/utils';
-import Character from './character';
+import { getFromRange, clamp } from '../../types/utils';
+import type Character from './character';
 
 export default class Monster {
   name: string;
@@ -37,12 +37,10 @@ export default class Monster {
     if (['ASLEEP', 'STONED', 'PLYZE', 'AFRAID'].includes(this.status)) return;
 
     const damage = getFromRange(this.damageMin, this.damageMax);
+    const hitChance = (this.level + target.getAC()) * 5;
+    const hit = clamp(hitChance, 5, 95) > getFromRange(0, 99);
 
-    let hitChance = (this.level + target.getAC()) * 5;
-    hitChance = hitChance < 5 ? 5 : hitChance;
-    hitChance = hitChance > 95 ? 95 : hitChance;
-
-    if (hitChance < getFromRange(0, 100)) return;
+    if (!hit) return;
 
     target.setHp(target.getHp() - damage);
   }

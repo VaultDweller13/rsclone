@@ -1,7 +1,7 @@
 import type { Race, Class, Status, Alignment, Item, Equipment, Stat, ItemTypes } from '../../types/types';
-import getFromRange from '../../types/utils';
+import { getFromRange, clamp } from '../../types/utils';
 import levels from '../data/levels';
-import Monster from './monster';
+import type Monster from './monster';
 
 export default class Character {
   public name: string;
@@ -105,21 +105,21 @@ export default class Character {
     return samMod * this.class.hitDice + vitMod;
   }
 
-  addToInventory(item: Item) {
+  public addToInventory(item: Item) {
     if (this.#inventory.length < 8) this.#inventory.push(item);
   }
 
-  removeFromInventory(index: number) {
+  public removeFromInventory(index: number) {
     if (index >= 0 && index < 8) return this.#inventory.splice(index, 1);
 
     return undefined;
   }
 
-  getInventory() {
+  public getInventory() {
     return this.#inventory;
   }
 
-  equip(item: Item) {
+  public equip(item: Item) {
     if (!this.equipment.has(item.type)) return;
     if (!item.alignment.includes(this.alignment)) return;
     if (!item.class.includes(this.class.name)) return;
@@ -127,7 +127,7 @@ export default class Character {
     this.equipment.set(item.type, item);
   }
 
-  unequip(slot: ItemTypes) {
+  public unequip(slot: ItemTypes) {
     if (this.equipment.has(slot)) this.equipment.set(slot, null);
   }
 
@@ -142,28 +142,63 @@ export default class Character {
     return map;
   }
 
-  attack(group: Monster[]) {
-    const hitCalcMod = this.#getHitCalcMod();
+  public attack(group: Monster[]) {
+    const target = group[0];
+    const hitChance = (this.#getHitCalcMod() + target.AC + 3) * 5;
+    const swings = this.#getSwingsCount();
+
+    for (let i = 0; i < swings; i += 1) {
+      if (target.HP <= 0) return;
+
+      const hit = clamp(hitChance, 5, 95) > getFromRange(0, 99);
+      const damage = hit ? this.#rollDamage() : 0;
+
+      target.HP -= damage;
+    }
   }
 
-  parry() {
+  public parry() {
     // defends
   }
 
-  run() {
-    // runs from battle
+  public run() {
+    return true;
+  }
+
+  #rollDamage() {
+    let strMod = 0;
+    if (this.strength > 15) strMod = this.strength - 15;
+    if (this.strength < 6) strMod = 6 - this.strength;
+
+    let damage = 2 * (getFromRange(1, 2) + strMod);
+
+    if (this.equipment.has('weapon')) {
+      const weapon = this.equipment.get('weapon') as Item;
+
+      damage = getFromRange(weapon.damageMin, weapon.damageMax) + strMod;
+    }
+
+    return damage;
   }
 
   #getHitCalcMod() {
+    const wpnMod = [...this.equipment.values()].reduce((sum, item) => sum + (item?.hitBonus || 0), 0);
     const classMod = ['mage', 'thief', 'bishop'].includes(this.class.name)
       ? Math.floor(this.level / 5)
       : Math.floor(this.level / 3) + 2;
-    const wpnMod = [...this.equipment.values()].reduce((sum, item) => sum + (item?.hitBonus || 0), 0);
+
     let strMod = 0;
     if (this.strength > 15) strMod = this.strength - 15;
     if (this.strength < 6) strMod = 6 - this.strength;
 
     return classMod + strMod + wpnMod;
+  }
+
+  #getSwingsCount() {
+    if (['fighter', 'lord', 'samurai'].includes(this.class.name)) return Math.floor(this.level / 5) + 1;
+    if (this.class.name === 'ninja') return Math.floor(this.level / 5) + 2;
+
+    return 1;
   }
 
   addExp(value: number) {
