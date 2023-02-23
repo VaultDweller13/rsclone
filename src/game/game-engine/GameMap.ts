@@ -25,6 +25,9 @@ export default class GameMap {
     return this.mapArr[this.getIndex({ column, row })];
   };
 
+  changeMapValue = (x: number, y: number, newValue: number) =>
+    this.mapArr.splice(this.getIndex(this.getRowColumn(x, y)), 1, newValue);
+
   private getIndex = ({ column, row }: { column: number; row: number }): number => row * this.width + column;
 
   private getRowColumn = (x: number, y: number): { column: number; row: number } => ({
@@ -58,18 +61,18 @@ export default class GameMap {
 
     const stepY: Required<RayStep> = this.step(cos, sin, origin.y, origin.x, true);
 
-    const nextRay =
+    const nextStep =
       stepX.deltaDistance < stepY.deltaDistance
         ? this.inspect(stepX, 1, 0, origin.distance, stepX.y, cos, sin)
         : this.inspect(stepY, 0, 1, origin.distance, stepY.x, cos, sin);
 
-    if (nextRay.distance > range) return [origin];
-    return [origin].concat(this.getCollisionPoints(nextRay, sin, cos, range));
+    if (nextStep.distance > range) return [origin];
+    return [origin].concat(this.getCollisionPoints(nextStep, sin, cos, range));
   };
 
-  private step = (start: number, end: number, x: number, y: number, inverted?: boolean): Required<RayStep> => {
-    const dx = end > 0 ? Math.floor(x + 1) - x : Math.ceil(x - 1) - x;
-    const dy = dx * (start / end);
+  private step = (opposite: number, adjacent: number, x: number, y: number, inverted = false): Required<RayStep> => {
+    const dx = adjacent > 0 ? Math.floor(x + 1) - x : Math.ceil(x - 1) - x;
+    const dy = dx * (opposite / adjacent);
 
     return {
       x: inverted ? y + dy : x + dx,
@@ -83,7 +86,7 @@ export default class GameMap {
     step: Required<RayStep>,
     shiftX: number,
     shiftY: number,
-    nextRayDistance: number,
+    sumDistance: number,
     stepOffset: number,
     cos: number,
     sin: number
@@ -100,12 +103,10 @@ export default class GameMap {
     if (cell === 6) {
       onAxis = 'x';
     }
-    const distance = nextRayDistance + Math.sqrt(step.deltaDistance);
+    const distance = sumDistance + Math.sqrt(step.deltaDistance);
 
     const offset = stepOffset - Math.floor(stepOffset);
+
     return { ...step, cell, distance, offset, onAxis };
   };
-
-  changeMapValue = (x: number, y: number, newValue: number) =>
-    this.mapArr.splice(this.getIndex(this.getRowColumn(x, y)), 1, newValue);
 }

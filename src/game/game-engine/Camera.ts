@@ -45,6 +45,7 @@ export default class Camera {
         y: startPosition.y,
       });
       this.direction = 0;
+      this.targetDirection = this.direction;
     } else {
       this.position = startPosition;
       this.direction = startPosition.direction;
