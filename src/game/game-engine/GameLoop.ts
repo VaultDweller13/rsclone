@@ -7,6 +7,7 @@ import { ControlMode, Level } from './utils/types';
 import Controls from './Controls';
 import Camera from './Camera';
 import InfoBoard from './InfoBoard';
+import BattleUI from '../../View/Render/battleUI/battleUI';
 
 export default class GameLoop {
   raycaster: Raycaster;
@@ -54,15 +55,15 @@ export default class GameLoop {
       if (!this.infoBoard.isGreeted) this.infoBoard.showLevel(this.level.name);
       if (this.player.inFront === 2) this.infoBoard.showOfferToLeave(true);
       else if (this.player.inFront === 3) this.infoBoard.showOfferToLeave(false);
-      // if (this.player.isMoved) {
-      //   this.player.changeMoveState(false);
-      //   console.log('moved');
-      //   if (this.logic.ifEncounter()) {
-      //     this.pause();
-      //     this.battle.defineEnemies(this.logic.getEnemies());
-      //     this.battle.render();
-      //   }
-      // }
+      if (this.player.isMoved) {
+        this.player.changeMoveState(false);
+        if (this.logic.ifEncounter()) {
+          this.pause();
+          const ui = new BattleUI(this.logic.getEnemies(), () => this.start());
+          const el = document.querySelector('.game') as HTMLElement;
+          el.append(ui.element);
+        }
+      }
     };
   };
 

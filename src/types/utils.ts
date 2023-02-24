@@ -15,3 +15,12 @@ export function clamp(value: number, min: number, max: number) {
 
   return result;
 }
+
+/** Returns specified HTMLElement with optional classList and textContent */
+export function createElement(tag: string, classList?: string, text?: string) {
+  const el = document.createElement(tag);
+  if (classList) el.classList.add(...classList.split(' '));
+  if (text) el.textContent = text;
+
+  return el;
+}

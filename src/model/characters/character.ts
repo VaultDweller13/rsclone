@@ -24,6 +24,7 @@ export default class Character {
   #inventory: Item[];
   equipment: Equipment;
   #message: string;
+  #parrying: boolean;
 
   constructor(
     name: string,
@@ -58,6 +59,7 @@ export default class Character {
     this.equipment = this.#initEquipment();
 
     this.#message = '';
+    this.#parrying = false;
   }
 
   public setHp(value = this.#maxHp) {
@@ -74,8 +76,9 @@ export default class Character {
 
   public getAC() {
     const equipment = [...this.equipment.values()];
+    const parryBonus = this.#parrying ? -2 : 0;
 
-    return equipment.reduce((AC, item) => AC - (item?.AC || 0), 10);
+    return equipment.reduce((AC, item) => AC - (item?.AC || 0), 10) + parryBonus;
   }
 
   #rollMaxHp(): void {
@@ -142,8 +145,9 @@ export default class Character {
     return map;
   }
 
-  public attack(group: Monster[]) {
-    const target = group[0];
+  public attack(enemy: Monster) {
+    this.#parrying = false;
+    const target = enemy;
     const hitChance = (this.#getHitCalcMod() + target.AC + 3) * 5;
     const swings = this.#getSwingsCount();
 
@@ -155,14 +159,29 @@ export default class Character {
 
       target.HP -= damage;
     }
+
+    console.log(`${this.name} attacks`);
   }
 
   public parry() {
-    // defends
+    this.#parrying = true;
   }
 
   public run() {
+    this.#parrying = false;
     return true;
+  }
+
+  public useItem() {
+    this.#parrying = false;
+  }
+
+  public cast() {
+    this.#parrying = false;
+  }
+
+  public dispell() {
+    this.#parrying = false;
   }
 
   #rollDamage() {
@@ -172,7 +191,7 @@ export default class Character {
 
     let damage = 2 * (getFromRange(1, 2) + strMod);
 
-    if (this.equipment.has('weapon')) {
+    if (this.equipment.get('weapon')) {
       const weapon = this.equipment.get('weapon') as Item;
 
       damage = getFromRange(weapon.damageMin, weapon.damageMax) + strMod;
