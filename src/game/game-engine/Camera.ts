@@ -16,7 +16,7 @@ export default class Camera {
   private readonly DISCRETE_MOVE_MAX_STEPS = 7;
   private readonly ROTATE_SPEED_RATE = 0.7;
   private readonly MOVE_SPEED_RATE = 2;
-  private readonly DISTANCE_TO_BLOCK = 0.7;
+  private readonly DISTANCE_TO_BLOCK = 0.51;
 
   private moveId = 0;
   private canMove = true;

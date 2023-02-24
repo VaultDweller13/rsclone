@@ -97,12 +97,13 @@ export default class GameMap {
     const cell = index < 0 || index >= this.mapArr.length ? -1 : this.mapArr[index];
 
     let onAxis: Axis = 'both';
-    if (cell === 5) {
+    if (cell === 5 || cell === 7) {
       onAxis = 'y';
     }
-    if (cell === 6) {
+    if (cell === 6 || cell === 8) {
       onAxis = 'x';
     }
+
     const distance = sumDistance + Math.sqrt(step.deltaDistance);
 
     const offset = stepOffset - Math.floor(stepOffset);

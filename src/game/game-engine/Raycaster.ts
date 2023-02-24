@@ -7,7 +7,7 @@ export default class Raycaster {
   private readonly FOV = Math.PI / 3;
   private readonly PERSPECTIVE_RATIO = 0.75;
   private readonly SHADING_COLOR = 'black';
-
+  counter = 0;
   constructor(public ctx: CanvasRenderingContext2D, public lightRange: number) {}
 
   render = (player: Player, map: GameMap): void => {
@@ -22,7 +22,7 @@ export default class Raycaster {
     for (let col = 0; col < width; col += 1) {
       const angle = this.FOV * (col / width - 0.5);
       const ray = map.cast(player.position, player.direction + angle, this.RANGE_TO_CAST);
-      this.drawTextureStripe(col, ray, angle, map /* , player.direction + angle */);
+      this.drawTextureStripe(col, ray, angle, map, player.direction + angle);
     }
     this.ctx.restore();
   };
@@ -31,8 +31,8 @@ export default class Raycaster {
     column: number,
     ray: Required<RayOrigin>[],
     angle: number,
-    map: GameMap
-    // absoluteAngle: number
+    map: GameMap,
+    absoluteAngle: number
   ): void {
     const left = column;
     let hit = 0;
@@ -42,13 +42,16 @@ export default class Raycaster {
     if (hit < ray.length) {
       const step = ray[hit];
       let textureAlias = step.cell;
-      // if (step.cell === 5 && absoluteAngle < 1.5 * Math.PI && absoluteAngle > Math.PI / 2) textureAlias = 6;
-      // if (step.cell === 6 && absoluteAngle > 0 && absoluteAngle < Math.PI) textureAlias = 5;
+
+      if (step.cell === 7 && absoluteAngle <= 1.5 * Math.PI && absoluteAngle >= Math.PI / 2) textureAlias = 6;
+      if (step.cell === 8 && absoluteAngle >= 0 && absoluteAngle <= Math.PI) textureAlias = 5;
 
       if (
         !Object.keys(map.textureMapping).find((alias) => +alias === textureAlias) ||
         (step.cell === 5 && step.axis !== step.onAxis) ||
-        (step.cell === 6 && step.axis !== step.onAxis)
+        (step.cell === 6 && step.axis !== step.onAxis) ||
+        (step.cell === 7 && step.axis !== step.onAxis) ||
+        (step.cell === 8 && step.axis !== step.onAxis)
       ) {
         textureAlias = 1;
       }
