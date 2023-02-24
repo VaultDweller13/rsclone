@@ -11,11 +11,11 @@ export default class Camera {
   private readonly DISCRETE_ROTATE_ANGLE_90 = Math.PI / 2;
   private readonly DISCRETE_ROTATE_ANGLE_180 = Math.PI;
   private readonly DISCRETE_ROTATE_ANGLE_270 = 1.5 * Math.PI;
-  private readonly DISCRETE_ROTATE_ANGLE_PER_FRAME = Math.PI / 36;
+  private readonly DISCRETE_ROTATE_ANGLE_PER_FRAME = Math.PI / 45;
   private readonly DISCRETE_ROTATE_ANGLE_PER_FRAME_LIMITER = 2.5;
 
   private readonly DISCRETE_MOVE_DISTANCE_PER_FRAME = 0.1;
-  private readonly DISCRETE_MOVE_MAX_STEPS = 8;
+  private readonly DISCRETE_MOVE_MAX_STEPS = 9;
   private readonly ROTATE_SPEED_RATE = 0.7;
   private readonly MOVE_SPEED_RATE = 2;
   private readonly DISTANCE_TO_BLOCK = 0.51;
