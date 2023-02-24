@@ -54,15 +54,15 @@ export default class GameLoop {
       if (!this.infoBoard.isGreeted) this.infoBoard.showLevel(this.level.name);
       if (this.player.inFront === 2) this.infoBoard.showOfferToLeave(true);
       else if (this.player.inFront === 3) this.infoBoard.showOfferToLeave(false);
-      // if (this.player.isMoved) {
-      //   this.player.changeMoveState(false);
-      //   console.log('moved');
-      //   if (this.logic.ifEncounter()) {
-      //     this.pause();
-      //     this.battle.defineEnemies(this.logic.getEnemies());
-      //     this.battle.render();
-      //   }
-      // }
+      if (this.player.isMoved) {
+        this.player.changeMoveState(false);
+        console.log('moved');
+        // if (this.logic.ifEncounter()) {
+        //   this.pause();
+        //   this.battle.defineEnemies(this.logic.getEnemies());
+        //   this.battle.render();
+        // }
+      }
     };
   };
 
