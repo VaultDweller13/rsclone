@@ -13,20 +13,12 @@
 }
 
 .battleUI {
-  // @include border;
-
   position: absolute;
   z-index: 1000;
   width: 100%;
   height: 100%;
-  // box-sizing: border-box;
 
-  // margin: 0 0 0 5px;
-  padding: 10px 5px;
-
-  // background-color: #000000;
-
-  font-size: large;
+  font-size: 32px;
 
   &_enemy {
     @include border;
@@ -38,7 +30,6 @@
   }
 
   &_img {
-    // display: block;
     width: 300px;
 
     margin: 0 auto;
@@ -51,13 +42,8 @@
 
   &_menu {
     @include border;
-    // position: absolute;
-    // right: 0;
-    // top: 50%;
-    // transform: translateY(-50%);
     width: 20%;
     height: max-content;
-    // margin-left: auto;
     padding: 0 5px 10px;
 
     background-color: #000000;
