@@ -1,5 +1,4 @@
 .main {
-  margin-top: 100px;
   display: flex;
   justify-content: center;
   .block {
@@ -14,10 +13,20 @@
     display: none;
   }
   .button {
+    align-self: flex-start;
+
     background-color: #000000;
     font-weight: 800;
     border: none;
   }
+
+  .button-start {
+    margin-top: 10vh;
+    padding: 5px 15px;
+    border: 3px solid #ffffff;
+    border-radius: 5px;
+  }
+
   .block.button {
     border: 3px solid #ffffff;
     width: fit-content;
@@ -39,25 +48,6 @@
   }
 }
 
-.footer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  .link {
-    text-decoration: none;
-  }
-  .link:hover {
-    color: #f6f606;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  #rs-image {
-    min-width: 100px;
-    width: 10vw;
-    max-width: 120px;
-  }
-}
 .game {
   border-radius: 5px;
   padding: 10px 5px;
@@ -196,9 +186,9 @@
     padding: 0;
     max-height: 75%;
   }
-    .maze#view ~ .prty{
-      flex-grow: 1;
-    }
+  .maze#view ~ .prty {
+    flex-grow: 1;
+  }
   #message-text {
     white-space: pre;
     text-align: left;
@@ -243,7 +233,7 @@
   }
   .prty {
     max-height: 36%;
-    flex-basis:content;
+    flex-basis: content;
     .prty-body {
       position: relative;
       top: -15px;
@@ -267,5 +257,40 @@
   }
   .tavern {
     height: 90%;
+  }
+}
+
+.footer-left {
+  margin-top: auto;
+
+  #rs-image {
+    min-width: 100px;
+    width: 10vw;
+    max-width: 120px;
+  }
+}
+
+.footer-right {
+  margin-top: auto;
+  padding-left: 5px;
+  padding-bottom: 10px;
+
+  #github-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #year {
+    color: #7f7f7f;
+  }
+
+  .link {
+    text-decoration: none;
+    color: #7f7f7f;
+
+    &:hover {
+      color: #ffffff;
+    }
   }
 }
