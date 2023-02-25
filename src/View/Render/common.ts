@@ -43,6 +43,9 @@ function createLayer(layerNum: number, layerContent: HTMLElement): HTMLElement {
   newLayer.addEventListener('click', (event) => {
     const target = event.target as HTMLElement;
     if (target.classList.contains('layer')) {
+      Array.from(newLayer.children).forEach((element) => {
+        element.remove();
+      });
       newLayer.remove();
     }
   });
@@ -116,6 +119,7 @@ function resetPage() {
 }
 
 function selectCharacter(func: (char: Character) => void): HTMLElement {
+  renderParty();
   const selectBlock = createElement('div', 'select', 'pop-up block center');
   selectBlock.textContent = 'please, select character';
   const cancelButton = createElement('button', 'cancel', 'block button');

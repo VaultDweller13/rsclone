@@ -15,6 +15,7 @@ import initFirstLevel from '../../../game/run';
 import { party } from '../partyInitializer';
 import Character from '../../../model/characters/character';
 import inspect from '../inspection';
+import createSellBlock from './tradePostSell';
 
 function renderCastle() {
   resetPage();
@@ -65,7 +66,7 @@ implementCastle = () => {
             },
           },
           {
-            id: 'inspect',
+            id: 'create-character',
             name: 'create character',
             func: () => createCharacter(),
           },
@@ -84,6 +85,7 @@ implementCastle = () => {
             func: () => {
               document.getElementById('inn-choice')?.replaceWith(
                 selectCharacter((character) => {
+                  console.log('rest');
                   const goldValue = party.getGold();
                   const restChoice = createChoice('rest-choice', [
                     {
@@ -136,7 +138,21 @@ implementCastle = () => {
         1,
         createChoice('trade-choice', [
           { id: 'buy', name: 'buy' },
-          { id: 'sell', name: 'sell' },
+          {
+            id: 'sell',
+            name: 'sell',
+            func: () => {
+              document.getElementById('trade-choice')?.replaceWith(
+                selectCharacter((character) => {
+                  console.log('sell');
+                  const sellBlock = createSellBlock(character);
+                  if (sellBlock) {
+                    document.getElementById('select')?.replaceWith(sellBlock);
+                  }
+                })
+              );
+            },
+          },
           { id: 'uncurse', name: 'remove curse' },
           { id: 'identify', name: 'identify' },
         ])
