@@ -21,7 +21,7 @@ export default class MiniMap {
     this.load(map);
   }
 
-  load = (map: GameMap): void => {
+  private load = (map: GameMap): void => {
     this.target.width = this.width * this.MINI_MAP_CELL_WIDTH;
     this.target.height = this.height * this.MINI_MAP_CELL_WIDTH;
 
@@ -36,7 +36,7 @@ export default class MiniMap {
     }
   };
 
-  drawBlock = (x: number, y: number, color: string) => {
+  private drawBlock = (x: number, y: number, color: string) => {
     this.ctx.fillStyle = color;
     this.ctx.fillRect(
       x * this.MINI_MAP_CELL_WIDTH,

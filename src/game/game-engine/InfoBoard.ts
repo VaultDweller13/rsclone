@@ -51,7 +51,6 @@ export default class InfoBoard {
     this.ctx.fillStyle = this.FONT_COLOR;
     this.ctx.textAlign = 'center';
     this.ctx.fillText(`Level ${levelName}`, this.WIDTH / 2, this.HEIGHT / 2);
-
     this.ctx.stroke();
 
     this.ctx.drawImage(
@@ -72,6 +71,7 @@ export default class InfoBoard {
     this.ctx.stroke();
 
     this.ctx.globalAlpha = 1;
+
     if (this.duration === 0) {
       this.isGreeted = true;
       this.duration = this.GREETING_DURATION;
@@ -80,23 +80,24 @@ export default class InfoBoard {
 
   showKeyBoardInfo = () => {
     this.isGreeted = true;
+
     this.ctx.globalAlpha = 0.3;
     this.ctx.fillStyle = this.BACKGROUND_COLOR;
     this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT);
 
     this.ctx.globalAlpha = 1;
     this.ctx.drawImage(this.arrowKeys, 0, 0, this.arrowKeys.width, this.arrowKeys.height, 50, 50, 100, 100);
-    this.ctx.drawImage(this.qweasdKeys, 0, 0, this.arrowKeys.width, this.arrowKeys.height, 50, 120, 100, 100);
+    this.ctx.drawImage(this.qweasdKeys, 0, 0, this.qweasdKeys.width, this.qweasdKeys.height, 50, 120, 100, 100);
     this.ctx.drawImage(
       this.enterKey,
       0,
       0,
-      this.arrowKeys.width,
-      this.arrowKeys.height,
+      this.enterKey.width,
+      this.enterKey.height,
       70,
       210,
-      this.arrowKeys.width / 3,
-      this.arrowKeys.height / 3
+      this.enterKey.width / 3,
+      this.enterKey.height / 3
     );
 
     this.ctx.font = this.FONT_REGULAR;
@@ -114,6 +115,7 @@ export default class InfoBoard {
 
   showOfferToLeave = (toUpward: boolean) => {
     this.ctx.globalAlpha = 1;
+
     this.ctx.font = this.FONT_REGULAR;
     this.ctx.fillStyle = this.FONT_COLOR;
     this.ctx.textAlign = 'center';
