@@ -1,4 +1,4 @@
-import getFromRange from '../types/utils';
+import { getFromRange } from '../types/utils';
 
 describe('getFromRange(min, max) should return number between min & max, inclusive', () => {
   it('0 to 99', () => {

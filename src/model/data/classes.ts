@@ -1,14 +1,14 @@
-import type { ClassName, Alignment } from '../../types/types';
+import type { Class } from '../../types/types';
 
 export default {
   fighter: {
-    name: 'fighter' as ClassName,
+    name: 'fighter',
     stats: {
       strength: 11,
     },
-    alignment: ['good', 'neutral', 'evil'] as Alignment[],
+    alignment: ['good', 'neutral', 'evil'],
     hitDice: 10,
-  },
+  } as Class,
   mage: {
     name: 'mage',
     stats: {
@@ -16,7 +16,7 @@ export default {
     },
     alignment: ['good', 'neutral', 'evil'],
     hitDice: 4,
-  },
+  } as Class,
   priest: {
     name: 'priest',
     stats: {

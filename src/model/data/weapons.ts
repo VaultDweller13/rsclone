@@ -12,6 +12,7 @@ const weapons: Item[] = [
     class: ['fighter', 'mage', 'thief', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Staff',
@@ -21,18 +22,10 @@ const weapons: Item[] = [
     damageMax: 5,
     AC: 0,
     effect: '',
-    class: [
-      'fighter',
-      'priest',
-      'thief',
-      'mage',
-      'bishop',
-      'samurai',
-      'lord',
-      'ninja',
-    ],
+    class: ['fighter', 'priest', 'thief', 'mage', 'bishop', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Short Sword',
@@ -45,6 +38,7 @@ const weapons: Item[] = [
     class: ['fighter', 'thief', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Long Sword',
@@ -57,6 +51,7 @@ const weapons: Item[] = [
     class: ['fighter', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Anointed Mace',
@@ -69,6 +64,7 @@ const weapons: Item[] = [
     class: ['fighter', 'priest', 'bishop', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Anointed Flail',
@@ -81,6 +77,7 @@ const weapons: Item[] = [
     class: ['fighter', 'priest', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Staff +2 / Studly Staff',
@@ -90,18 +87,10 @@ const weapons: Item[] = [
     damageMax: 6,
     AC: 0,
     effect: '',
-    class: [
-      'fighter',
-      'priest',
-      'thief',
-      'mage',
-      'bishop',
-      'samurai',
-      'lord',
-      'ninja',
-    ],
+    class: ['fighter', 'priest', 'thief', 'mage', 'bishop', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Staff of Mogref / Rod of Iron',
@@ -114,6 +103,7 @@ const weapons: Item[] = [
     class: ['mage', 'bishop'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Short Sword +2 / Epee of Exelence',
@@ -126,6 +116,7 @@ const weapons: Item[] = [
     class: ['fighter', 'thief', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Mace +2 / Mace of Power',
@@ -138,6 +129,7 @@ const weapons: Item[] = [
     class: ['fighter', 'priest', 'bishop', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Long Sword +2 / Sword of Slashing',
@@ -150,6 +142,7 @@ const weapons: Item[] = [
     class: ['fighter', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Short Sword -2 / Epee of Disaster',
@@ -162,6 +155,7 @@ const weapons: Item[] = [
     class: ['fighter', 'thief', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: true,
+    hitBonus: 0,
   },
   {
     name: 'Dagger +2 / Dagger of Slicing',
@@ -174,6 +168,7 @@ const weapons: Item[] = [
     class: ['fighter', 'thief', 'mage', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Mace Pro Poison / Mace of Snakes',
@@ -186,6 +181,7 @@ const weapons: Item[] = [
     class: ['fighter', 'priest', 'bishop', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Mage Masher',
@@ -198,6 +194,7 @@ const weapons: Item[] = [
     class: ['fighter', 'thief', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Long Sword +1 / Sword of Slicing',
@@ -210,6 +207,7 @@ const weapons: Item[] = [
     class: ['fighter', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Were Slayer',
@@ -222,6 +220,7 @@ const weapons: Item[] = [
     class: ['fighter', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Dragon Slayer',
@@ -234,6 +233,7 @@ const weapons: Item[] = [
     class: ['fighter', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Mace +1 / Mace of Pounding',
@@ -246,6 +246,7 @@ const weapons: Item[] = [
     class: ['fighter', 'priest', 'bishop', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Staff of Montino / Rod of Silence',
@@ -255,18 +256,10 @@ const weapons: Item[] = [
     damageMax: 6,
     AC: 0,
     effect: 'Casts MONTINO',
-    class: [
-      'fighter',
-      'priest',
-      'thief',
-      'mage',
-      'bishop',
-      'samurai',
-      'lord',
-      'ninja',
-    ],
+    class: ['fighter', 'priest', 'thief', 'mage', 'bishop', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Short Sword +1 / Blade of Bitting',
@@ -279,6 +272,7 @@ const weapons: Item[] = [
     class: ['fighter', 'thief', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Blade Cusinart',
@@ -291,6 +285,7 @@ const weapons: Item[] = [
     class: ['fighter', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Dagger of Speed',
@@ -303,6 +298,7 @@ const weapons: Item[] = [
     class: ['mage', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Evil Sword +3 / Saber of Evil',
@@ -315,6 +311,7 @@ const weapons: Item[] = [
     class: ['fighter', 'samurai', 'lord', 'ninja'],
     alignment: ['evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Evil S-Sword +3 / Soul Slayer',
@@ -327,6 +324,7 @@ const weapons: Item[] = [
     class: ['fighter', 'thief', 'samurai', 'lord', 'ninja'],
     alignment: ['evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Thieves Dagger',
@@ -339,6 +337,7 @@ const weapons: Item[] = [
     class: ['thief', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Shuriken',
@@ -351,6 +350,7 @@ const weapons: Item[] = [
     class: ['ninja'],
     alignment: ['evil'],
     cursed: false,
+    hitBonus: 0,
   },
   {
     name: 'Muramasa Blade',
@@ -363,6 +363,7 @@ const weapons: Item[] = [
     class: ['samurai'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
+    hitBonus: 0,
   },
 
   {
@@ -376,6 +377,7 @@ const weapons: Item[] = [
     class: ['fighter', 'thief', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: true,
+    hitBonus: 0,
   },
   {
     name: 'Sword of Swishes',
@@ -388,6 +390,7 @@ const weapons: Item[] = [
     class: ['fighter', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: true,
+    hitBonus: 0,
   },
   {
     name: 'Mace of Misfortune',
@@ -400,6 +403,7 @@ const weapons: Item[] = [
     class: ['fighter', 'priest', 'bishop', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: true,
+    hitBonus: 0,
   },
 
   {
@@ -413,6 +417,7 @@ const weapons: Item[] = [
     class: ['fighter', 'priest', 'bishop', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: true,
+    hitBonus: 0,
   },
   {
     name: 'Staff -2 / Bent Staff',
@@ -422,18 +427,10 @@ const weapons: Item[] = [
     damageMax: 4,
     AC: 0,
     effect: '',
-    class: [
-      'fighter',
-      'priest',
-      'thief',
-      'mage',
-      'bishop',
-      'samurai',
-      'lord',
-      'ninja',
-    ],
+    class: ['fighter', 'priest', 'thief', 'mage', 'bishop', 'samurai', 'lord', 'ninja'],
     alignment: ['good', 'neutral', 'evil'],
     cursed: true,
+    hitBonus: 0,
   },
 ];
 

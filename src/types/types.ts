@@ -30,6 +30,7 @@ export type Item = {
   damageMin: number;
   damageMax: number;
   AC: number;
+  hitBonus: number;
 };
 
 export type Equipment = Map<ItemTypes, Item | null>;

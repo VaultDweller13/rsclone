@@ -19,6 +19,22 @@ const testGrognak = new Character(
   classes.fighter,
   'good'
 );
+
+const testMage = new Character(
+  'Mage',
+  'elf',
+  {
+    strength: 6,
+    intelligence: 17,
+    piety: 12,
+    vitality: 12,
+    agility: 10,
+    luck: 10,
+  },
+  classes.mage,
+  'good'
+);
+
 testGrognak.addToInventory(weapons[7]);
 testGrognak.addToInventory(weapons[8]);
 testGrognak.addToInventory(weapons[9]);
@@ -31,6 +47,7 @@ testGrognak.equip(weapons[2]);
 testGrognak.addExp(1000);
 party.add(testGrognak);
 party.changeGold(2345);
+party.add(testMage);
 const tavern = new Party(20, false);
 
 // added for testing purpose

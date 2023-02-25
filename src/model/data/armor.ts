@@ -6,21 +6,13 @@ const armor: Item[] = [
     cost: 15,
     AC: 1,
     effect: '',
-    class: [
-      'fighter',
-      'priest',
-      'thief',
-      'mage',
-      'bishop',
-      'samurai',
-      'lord',
-      'ninja',
-    ],
+    class: ['fighter', 'priest', 'thief', 'mage', 'bishop', 'samurai', 'lord', 'ninja'],
     type: 'armor',
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Leather Armor',
@@ -33,6 +25,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Chain Mail',
@@ -45,6 +38,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Breast Plate',
@@ -57,6 +51,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Plate Mail',
@@ -69,6 +64,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Shiny Chain',
@@ -81,6 +77,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Padded Leather',
@@ -93,6 +90,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Sturdy Plate',
@@ -105,6 +103,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Body Armor',
@@ -117,6 +116,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Treated Leather',
@@ -129,6 +129,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Elven Chain',
@@ -141,6 +142,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: '1st Class Plate',
@@ -153,6 +155,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Chain of Evil',
@@ -165,6 +168,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Neutral Plate',
@@ -177,6 +181,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Breastplate of Boons',
@@ -189,6 +194,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Armor of Heroes',
@@ -201,6 +207,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Armor of Freon',
@@ -213,6 +220,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Armor of Evil',
@@ -225,6 +233,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Armor of Lords',
@@ -237,6 +246,7 @@ const armor: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Leather -1',
@@ -249,6 +259,7 @@ const armor: Item[] = [
     cursed: true,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Rotten Leather',
@@ -261,6 +272,7 @@ const armor: Item[] = [
     cursed: true,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Chain -1',
@@ -273,6 +285,7 @@ const armor: Item[] = [
     cursed: true,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Corroded Chain',
@@ -285,6 +298,7 @@ const armor: Item[] = [
     cursed: true,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Breastplate -1',
@@ -297,6 +311,7 @@ const armor: Item[] = [
     cursed: true,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Broken Breastplate',
@@ -309,6 +324,7 @@ const armor: Item[] = [
     cursed: true,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Leather of Loss',
@@ -321,27 +337,20 @@ const armor: Item[] = [
     cursed: true,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Cursed Robe',
     AC: -2,
     cost: 8000,
     effect: '',
-    class: [
-      'fighter',
-      'priest',
-      'thief',
-      'mage',
-      'bishop',
-      'samurai',
-      'lord',
-      'ninja',
-    ],
+    class: ['fighter', 'priest', 'thief', 'mage', 'bishop', 'samurai', 'lord', 'ninja'],
     type: 'armor',
     alignment: ['good', 'neutral', 'evil'],
     cursed: true,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
 ];
 

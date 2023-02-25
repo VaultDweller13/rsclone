@@ -12,6 +12,7 @@ const helmets: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Helm of Hardiness',
@@ -24,6 +25,7 @@ const helmets: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Helm of Evil',
@@ -36,27 +38,20 @@ const helmets: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Diadem of Malor',
     cost: 25000,
     AC: 2,
     effect: 'Casts MALOR',
-    class: [
-      'fighter',
-      'priest',
-      'thief',
-      'mage',
-      'bishop',
-      'samurai',
-      'lord',
-      'ninja',
-    ],
+    class: ['fighter', 'priest', 'thief', 'mage', 'bishop', 'samurai', 'lord', 'ninja'],
     type: 'helmet',
     alignment: ['good', 'neutral', 'evil'],
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Helm of Hangovers',
@@ -69,6 +64,7 @@ const helmets: Item[] = [
     cursed: true,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
 ];
 

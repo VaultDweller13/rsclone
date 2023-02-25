@@ -1,4 +1,4 @@
-import getFromRange from '../../types/utils';
+import { getFromRange } from '../../types/utils';
 import Monster from '../characters/monster';
 import monsters from '../data/monsters';
 
@@ -10,12 +10,19 @@ export default class Logic {
   }
 
   public getEnemies() {
-    const group = {
-      enemy: new Monster(monsters[0]),
-      amount: 5,
-      isDead: false,
-    };
+    const group = [
+      {
+        enemy: new Monster(monsters[0]),
+        amount: 5,
+        isDead: false,
+      },
+      {
+        enemy: new Monster(monsters[1]),
+        amount: 4,
+        isDead: false,
+      },
+    ];
 
-    return [group];
+    return group;
   }
 }

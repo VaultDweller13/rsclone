@@ -12,6 +12,7 @@ const gauntlets: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
   {
     name: 'Silver Gloves',
@@ -24,6 +25,7 @@ const gauntlets: Item[] = [
     cursed: false,
     damageMin: 0,
     damageMax: 0,
+    hitBonus: 0,
   },
 ];
 
