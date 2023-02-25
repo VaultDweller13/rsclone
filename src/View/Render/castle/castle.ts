@@ -30,7 +30,7 @@ function renderCastle() {
   <button class="button" id="enter-maze">Enter maze</button>
   `;
   const view = document.getElementById('view') as HTMLElement;
-  if (view.classList.contains('')) view.style.backgroundImage = `url(${castle as string})`;
+  view.style.backgroundImage = `url(${castle as string})`;
   view.style.backgroundSize = '100% 100%';
   view.append(firstChoice);
 }
