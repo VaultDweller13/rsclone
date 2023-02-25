@@ -1,6 +1,7 @@
 import Character from '../../model/characters/character';
 import { createElement, getParty, warning } from './common';
 import { confirm } from './castle/characterCreator';
+import createItemTip from '../itemTip';
 
 let currentPage = 1;
 
@@ -12,7 +13,10 @@ function renderInventory(page: number, character: Character, inventoryBlock: HTM
     inventory.slice((page - 1) * 4, page * 4).forEach((item) => {
       const itemBlock = createElement('div', item.name, 'item');
       itemBlock.classList.add('button');
-      itemBlock.textContent = item.name;
+      itemBlock.append(createItemTip(item))
+      console.log(itemBlock.innerHTML);
+      itemBlock.append(document.createTextNode(item.name)) ;
+      console.log(itemBlock.innerHTML);
       inventoryBlock?.append(itemBlock);
     });
   }
@@ -106,7 +110,8 @@ charInfo = (character: Character): HTMLElement[] => {
     const itemBlock = createElement('div', itemType, 'item');
     if (item) {
       itemBlock.classList.add('button');
-      itemBlock.textContent = item.name;
+      itemBlock.append(createItemTip(item));
+      itemBlock.append(document.createTextNode(item.name));
       itemBlock.addEventListener('click', () => {
         if (character.getInventory().length === 8) {
           warning('inventory is full');

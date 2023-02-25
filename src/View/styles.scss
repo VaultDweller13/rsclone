@@ -154,6 +154,9 @@
           justify-content: space-around;
           display: flex;
           flex-direction: column;
+          .tooltip{
+            left: 5px;
+          }
         }
         .items-block#inventory {
           display: flex;
@@ -166,6 +169,22 @@
               text-align: center;
             }
           }
+          .tooltip{
+            right: 5px;
+          }
+        }
+        .item{
+          position: relative;
+          align-self: center;
+        }
+        .item .tooltip {
+            display: none;
+        }
+        .item:hover .tooltip {
+          display: block;
+          position: absolute;
+          bottom: 20px;
+          min-width: 270px
         }
       }
     }
