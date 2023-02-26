@@ -15,6 +15,7 @@ export default class Monster {
   exp: number;
   img: HTMLImageElement;
   status: Status;
+  #message: '';
 
   constructor(monster: MonsterData) {
     this.name = monster.name;
@@ -30,18 +31,45 @@ export default class Monster {
     this.img = new Image();
     this.img.src = monster.img;
     this.status = 'OK';
+    this.#message = '';
   }
 
   attack(target: Character) {
     if (['DEAD', 'ASHES', 'LOST'].includes(target.status)) return;
     if (['ASLEEP', 'STONED', 'PLYZE', 'AFRAID'].includes(this.status)) return;
+    if (this.HP <= 0) return;
 
-    const damage = getFromRange(this.damageMin, this.damageMax);
     const hitChance = (this.level + target.getAC()) * 5;
-    const hit = clamp(hitChance, 5, 95) > getFromRange(0, 99);
+    let totalDamage = 0;
+    let timesHit = 0;
 
-    if (!hit) return;
+    for (let i = 0; i < this.attacks; i += 1) {
+      const hit = clamp(hitChance, 5, 95) > getFromRange(0, 99);
 
-    target.setHp(target.getHp() - damage);
+      if (hit) {
+        timesHit += 1;
+        totalDamage += this.#rollDamage();
+      }
+    }
+
+    if (!timesHit) {
+      this.#message += `${this.name} attempts to attack ${target.name} and misses.`;
+      return;
+    }
+
+    const s = this.attacks > 1 ? 's' : '';
+    this.#message += `${this.name} attempts to attack ${target.name} and hits ${timesHit} time${s} for ${totalDamage}.`;
+
+    target.setHp(target.getHp() - totalDamage);
+  }
+
+  #rollDamage() {
+    return getFromRange(this.damageMin, this.damageMax);
+  }
+
+  get message() {
+    const message = this.#message;
+    this.#message = '';
+    return message;
   }
 }
