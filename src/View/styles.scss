@@ -154,7 +154,7 @@
           justify-content: space-around;
           display: flex;
           flex-direction: column;
-          .tooltip{
+          .tooltip {
             left: 5px;
           }
         }
@@ -169,24 +169,34 @@
               text-align: center;
             }
           }
-          .tooltip{
+          .tooltip {
             right: 5px;
           }
         }
-        .item{
+        .item {
           position: relative;
           align-self: center;
         }
-        .item .tooltip {
-            display: none;
-        }
-        .item:hover .tooltip {
-          display: block;
-          position: absolute;
-          bottom: 20px;
-          min-width: 270px
-        }
       }
+    }
+    .item {
+      position: relative;
+      align-self: center;
+    }
+    .item .tooltip {
+      display: none;
+    }
+    .item:hover .tooltip {
+      display: block;
+      position: absolute;
+      bottom: 20px;
+      min-width: 270px;
+    }
+    #shop{
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      align-items: center;
     }
   }
   .flex#view {
