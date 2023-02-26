@@ -1,13 +1,13 @@
 import GameMap from './GameMap';
 import MiniMap from './MiniMap';
 import Raycaster from './Raycaster';
-import Battle from './Battle';
-import Logic from '../../model/game/logic';
+// import Battle from './Battle';
+// import Logic from '../../model/game/logic';
 import { ControlMode, Level } from './utils/types';
 import Controls from './Controls';
 import Camera from './Camera';
 import InfoBoard from './InfoBoard';
-import BattleUI from '../../View/Render/battleUI/battleUI';
+import Battle from '../../model/game/battle/battle';
 import { confirm } from '../../View/Render/castle/characterCreator';
 
 export default class GameLoop {
@@ -17,7 +17,7 @@ export default class GameLoop {
   controls: Controls;
   battle: Battle;
   player: Camera;
-  logic: Logic;
+  // logic: Logic;
   infoBoard: InfoBoard;
   level: Level;
 
@@ -37,9 +37,9 @@ export default class GameLoop {
     this.map = new GameMap(this.level.map, this.level.textures);
     this.miniMap = new MiniMap(this.map);
     this.controls = new Controls(controlMode);
-    this.battle = new Battle(ctx);
+    this.battle = new Battle(() => this.start());
     this.player = new Camera(this.level.startPosition, this.controls);
-    this.logic = new Logic();
+    // this.logic = new Logic();
     this.infoBoard = new InfoBoard(ctx);
 
     document.addEventListener('keydown', (e) => this.onKeys(e), false);
@@ -58,11 +58,12 @@ export default class GameLoop {
       else if (this.player.inFront === 3) this.infoBoard.showOfferToLeave(false);
       if (this.player.isMoved) {
         this.player.changeMoveState(false);
-        if (this.logic.ifEncounter()) {
+        if (this.battle.ifEncounter()) {
           this.pause();
-          const ui = new BattleUI(this.logic.getEnemies(), () => this.start());
-          const el = document.querySelector('.game') as HTMLElement;
-          el.append(ui.element);
+          this.battle.start();
+          // const ui = new BattleUI(this.logic.getEnemies(), () => this.start());
+          // const el = document.querySelector('.game') as HTMLElement;
+          // el.append(ui.element);
         }
       }
     };

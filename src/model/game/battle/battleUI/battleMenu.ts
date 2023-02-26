@@ -1,5 +1,5 @@
-import type Character from '../../../model/characters/character';
-import { createElement } from '../../../types/utils';
+import type Character from '../../../characters/character';
+import { createElement } from '../../../../types/utils';
 import MenuWindow from './menuWindow';
 
 export default class BattleMenu extends MenuWindow {
@@ -39,23 +39,25 @@ export default class BattleMenu extends MenuWindow {
 
   setCharacter(character: Character, index: number) {
     this.el.innerHTML = '';
+    const options = [];
 
     const canCast = ['mage', 'priest', 'bishop', 'lord', 'samurai', 'ninja'].includes(character.class.name);
     const canDispell = ['priest', 'lord'].includes(character.class.name);
 
     this.options.name.textContent = character.name;
-    this.el.append(this.options.name);
+    options.push(this.options.name);
 
-    if (index < 3) this.el.append(this.options.fight);
+    if (index < 3) options.push(this.options.fight);
 
-    this.el.append(this.options.parry);
-    this.el.append(this.options.item);
+    options.push(this.options.parry, this.options.item);
 
-    if (canCast) this.el.append(this.options.cast);
-    if (canDispell) this.el.append(this.options.dispell);
+    if (canCast) options.push(this.options.cast);
+    if (canDispell) options.push(this.options.dispell);
 
-    this.el.append(this.options.run);
+    options.push(this.options.run);
 
-    if (index !== 0) this.el.append(this.options.back);
+    if (index !== 0) options.push(this.options.back);
+
+    this.el.append(...options);
   }
 }

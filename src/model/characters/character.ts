@@ -150,17 +150,28 @@ export default class Character {
     const target = enemy;
     const hitChance = (this.#getHitCalcMod() + target.AC + 3) * 5;
     const swings = this.#getSwingsCount();
+    let timesHit = 0;
+    let totalDamage = 0;
 
     for (let i = 0; i < swings; i += 1) {
-      if (target.HP <= 0) return;
-
       const hit = clamp(hitChance, 5, 95) > getFromRange(0, 99);
-      const damage = hit ? this.#rollDamage() : 0;
 
-      target.HP -= damage;
+      if (hit) {
+        timesHit += 1;
+        totalDamage += this.#rollDamage();
+      }
     }
 
-    console.log(`${this.name} attacks`);
+    if (!timesHit) {
+      this.#message += `${this.name} missed`;
+      // console.log(this.message);
+
+      return;
+    }
+
+    target.HP -= totalDamage;
+    this.#message += `${this.name} leaps at ${enemy.name} and hits ${timesHit} times for ${totalDamage}`;
+    // console.log(this.message);
   }
 
   public parry() {
@@ -285,6 +296,9 @@ export default class Character {
 
   /** Returns message if last character action provided one */
   get message() {
-    return this.#message;
+    const message = this.#message;
+    this.#message = '';
+
+    return message;
   }
 }

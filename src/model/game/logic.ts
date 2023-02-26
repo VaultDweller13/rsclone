@@ -4,7 +4,7 @@ import monsters from '../data/monsters';
 
 export default class Logic {
   public ifEncounter() {
-    const roll = getFromRange(0, 100);
+    const roll = getFromRange(0, 99);
     console.log({ roll });
     return roll < 10;
   }
