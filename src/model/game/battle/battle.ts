@@ -27,8 +27,13 @@ export default class Battle {
 
   start() {
     this.enemies = this.#getEnemies();
-    this.#showUI();
-    this.eventHandler.enemies = this.enemies;
+    this.UI.update();
+    this.UI.show();
+  }
+
+  finish() {
+    this.UI.hide();
+    this.exit();
   }
 
   public ifEncounter() {
@@ -38,7 +43,7 @@ export default class Battle {
   #getEnemies() {
     const group1 = [];
     const group2 = [];
-    for (let i = 0; i < 5; i += 1) {
+    for (let i = 0; i < 1; i += 1) {
       group1.push(new Monster(monsters[0]));
       group2.push(new Monster(monsters[1]));
     }
@@ -46,14 +51,14 @@ export default class Battle {
     return [group1, group2];
   }
 
-  #showUI() {
-    this.UI.init();
-  }
-
   #startRound() {
     this.commands.length = 0;
     this.eventHandler.reset();
     this.enemies = this.enemies.map((group) => group.filter((enemy) => enemy.HP > 0)).filter((group) => group.length);
+    if (!this.enemies.length) {
+      this.finish();
+      return;
+    }
     this.eventHandler.enemies = this.enemies;
     this.UI.setEnemies(this.enemies);
     this.UI.update();
@@ -74,6 +79,7 @@ export default class Battle {
 
   set enemies(enemies: MonsterGroup[]) {
     this.#enemies = enemies;
+    this.eventHandler.enemies = enemies;
     this.UI.setEnemies(enemies);
   }
 

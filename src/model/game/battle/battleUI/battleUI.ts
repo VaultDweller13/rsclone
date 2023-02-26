@@ -1,5 +1,5 @@
 import './style.scss';
-// import type Monster from '../../../characters/monster';
+import MenuWindow from './menuWindow';
 import { createElement } from '../../../../types/utils';
 import BattleMenu from './battleMenu';
 import { party } from '../../../../View/Render/partyInitializer';
@@ -7,9 +7,8 @@ import type Party from '../../party';
 import ConfirmMenu from './confirmMenu';
 import { MonsterGroup } from '../../../../types/types';
 
-export default class BattleUI {
+export default class BattleUI extends MenuWindow {
   game: HTMLElement;
-  element: HTMLElement;
   #infoBlock: HTMLElement;
   #middleBlock: HTMLElement;
   #enemies: MonsterGroup[];
@@ -18,21 +17,23 @@ export default class BattleUI {
   party: Party;
 
   constructor() {
+    super('div', 'battleUI invisible');
     this.game = document.querySelector('.game') as HTMLElement;
-    this.element = createElement('div', 'battleUI');
     this.#infoBlock = createElement('div', 'battleUI_info');
     this.#middleBlock = createElement('div', 'battleUI_middle');
     this.#enemies = [];
     this.menu = new BattleMenu();
     this.confirm = new ConfirmMenu();
     this.party = party;
+
+    this.#init();
   }
 
-  init() {
-    this.update();
+  #init() {
+    // this.update();
 
-    this.element.append(this.#infoBlock, this.#middleBlock, this.confirm.el);
-    this.game.append(this.element);
+    this.el.append(this.#infoBlock, this.#middleBlock, this.confirm.el);
+    this.game.append(this.el);
   }
 
   showMessage(message: string) {
