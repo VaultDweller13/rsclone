@@ -16,6 +16,7 @@ import { party } from '../partyInitializer';
 import Character from '../../../model/characters/character';
 import inspect from '../inspection';
 import createSellBlock from './tradePostSell';
+import createShop from './tradePostBuy';
 
 function renderCastle() {
   resetPage();
@@ -85,14 +86,12 @@ implementCastle = () => {
             func: () => {
               document.getElementById('inn-choice')?.replaceWith(
                 selectCharacter((character) => {
-                  console.log('rest');
                   const goldValue = party.getGold();
                   const restChoice = createChoice('rest-choice', [
                     {
                       id: 'stable',
                       name: 'Stable [free]',
                       func: () => {
-                        console.log(character.exp, character.nextExp);
                         character.rest();
                         restChoice.replaceWith(createMessage(character.message));
                         renderParty();
@@ -137,14 +136,20 @@ implementCastle = () => {
       createLayer(
         1,
         createChoice('trade-choice', [
-          { id: 'buy', name: 'buy' },
+          { id: 'buy', name: 'buy', func: () => {
+            document.getElementById('trade-choice')?.replaceWith(selectCharacter((character) => {
+              const buyBlock = createShop(character);
+              if (buyBlock) {
+                document.getElementById('select')?.replaceWith(buyBlock);
+              }
+            }))
+          }},
           {
             id: 'sell',
             name: 'sell',
             func: () => {
               document.getElementById('trade-choice')?.replaceWith(
                 selectCharacter((character) => {
-                  console.log('sell');
                   const sellBlock = createSellBlock(character);
                   if (sellBlock) {
                     document.getElementById('select')?.replaceWith(sellBlock);

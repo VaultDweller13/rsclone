@@ -139,7 +139,6 @@ function selectCharacter(func: (char: Character) => void): HTMLElement {
   characters.forEach((character, index) => {
     character.addEventListener('click', () => {
       func(party.getParty()[index]);
-      console.log(party.getParty()[index]);
     });
   });
   return selectBlock;
