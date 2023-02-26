@@ -4,6 +4,7 @@ import Monster from '../../characters/monster';
 import monsters from '../../data/monsters';
 import EventHandler from './handler';
 import { MonsterGroup } from '../../../types/types';
+import { renderParty } from '../../../View/Render/common';
 
 export default class Battle {
   exit: () => void;
@@ -52,6 +53,7 @@ export default class Battle {
   }
 
   #startRound() {
+    renderParty();
     this.commands.length = 0;
     this.eventHandler.reset();
     this.enemies = this.enemies.map((group) => group.filter((enemy) => enemy.HP > 0)).filter((group) => group.length);

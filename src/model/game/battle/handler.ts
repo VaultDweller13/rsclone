@@ -2,6 +2,7 @@ import type Character from '../../characters/character';
 import type BattleUI from './battleUI/battleUI';
 import { party } from '../../../View/Render/partyInitializer';
 import type { MonsterGroup } from '../../../types/types';
+import { getFromRange } from '../../../types/utils';
 
 export default class EventHandler {
   UI: BattleUI;
@@ -90,6 +91,8 @@ export default class EventHandler {
         menu.show();
       }
       if (target === fight) {
+        this.#enemyPhase();
+        console.log(this.#party.map((c) => `${c.name}: ${c.getHp()}`));
         confirm.hide();
         this.#startRound();
       }
@@ -113,6 +116,20 @@ export default class EventHandler {
   }
 
   reset() {
+    this.#party = this.#party.filter((char) => char.getHp() > 0);
     this.#charIndex = 0;
+  }
+
+  #enemyPhase() {
+    const showMessage = (message: string) => this.UI.showMessage(message);
+    const getTarget = () => this.#party[getFromRange(0, this.#party.length - 1)];
+    const monsters = this.enemies.flat().filter((monster) => monster.HP > 0);
+
+    monsters.forEach((monster) =>
+      this.commands.push(() => {
+        monster.attack(getTarget());
+        showMessage(monster.message);
+      })
+    );
   }
 }

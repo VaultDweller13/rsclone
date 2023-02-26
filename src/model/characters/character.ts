@@ -63,7 +63,8 @@ export default class Character {
   }
 
   public setHp(value = this.#maxHp) {
-    this.#hp = value > this.#maxHp ? this.#maxHp : value;
+    this.#hp = clamp(value, 0, this.#maxHp);
+    if (!this.#hp) this.status = 'DEAD';
   }
 
   public getHp() {
@@ -164,7 +165,6 @@ export default class Character {
 
     if (!timesHit) {
       this.#message += `${this.name} missed.`;
-
       return;
     }
 

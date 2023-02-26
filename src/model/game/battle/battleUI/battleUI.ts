@@ -55,10 +55,14 @@ export default class BattleUI extends MenuWindow {
   }
 
   setMiddleBlock(img: HTMLImageElement) {
+    const character = this.party.getParty().find((char) => char.status === 'OK');
+    if (!character) return;
+    const index = this.party.getParty().indexOf(character);
+
     this.#middleBlock.innerHTML = '';
 
     img.classList.add('battleUI_img');
-    this.menu.setCharacter(this.party.getParty()[0], 0);
+    this.menu.setCharacter(character, index);
     this.#middleBlock.append(img, this.menu.el);
   }
 
