@@ -1,4 +1,5 @@
-import Character from '../model/characters/character';
+import type Character from '../model/characters/character';
+import type Monster from '../model/characters/monster';
 
 export type Stat = 'strength' | 'intelligence' | 'piety' | 'vitality' | 'agility' | 'luck';
 
@@ -66,3 +67,5 @@ export type Spell = {
   type: 'battle' | 'maze' | 'any';
   cast: (target?: MonsterData[] | Character) => void;
 };
+
+export type MonsterGroup = { enemy: Monster; amount: number; isDead: boolean };
