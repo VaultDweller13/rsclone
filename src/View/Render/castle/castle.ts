@@ -45,6 +45,7 @@ function enterCastle() {
 
 implementCastle = () => {
   const view = document.getElementById('view') as HTMLElement;
+  view.classList.remove('maze');
   document.getElementById('tavern')?.addEventListener('click', () => {
     view.append(
       createLayer(
