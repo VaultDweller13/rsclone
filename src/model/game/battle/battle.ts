@@ -2,9 +2,6 @@ import BattleUI from './battleUI/battleUI';
 import { getFromRange } from '../../../types/utils';
 import Monster from '../../characters/monster';
 import monsters from '../../data/monsters';
-// import { party } from '../../../View/Render/partyInitializer';
-// import type Party from '../party';
-// import type Character from '../../characters/character';
 import EventHandler from './handler';
 import { MonsterGroup } from '../../../types/types';
 
@@ -35,9 +32,7 @@ export default class Battle {
   }
 
   public ifEncounter() {
-    const roll = getFromRange(0, 99);
-    console.log({ roll });
-    return roll < 10;
+    return getFromRange(0, 99) < 10;
   }
 
   #getEnemies() {
@@ -55,14 +50,10 @@ export default class Battle {
     this.UI.init();
   }
 
-  #getTarget() {
-    return {} as Monster;
-  }
-
   #startRound() {
     this.commands.length = 0;
     this.eventHandler.reset();
-    this.enemies = this.enemies.map((group) => group.filter((enemy) => enemy.HP > 0));
+    this.enemies = this.enemies.map((group) => group.filter((enemy) => enemy.HP > 0)).filter((group) => group.length);
     this.eventHandler.enemies = this.enemies;
     this.UI.setEnemies(this.enemies);
     this.UI.update();
