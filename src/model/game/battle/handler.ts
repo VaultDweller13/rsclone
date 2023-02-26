@@ -39,8 +39,10 @@ export default class EventHandler {
 
       if (target === fight) {
         command = () => {
-          character.attack(this.enemies[0][0]);
-          showMessage(character.message);
+          if (this.currentEnemy) {
+            character.attack(this.currentEnemy);
+            showMessage(character.message);
+          }
         };
       }
 
@@ -103,6 +105,10 @@ export default class EventHandler {
 
   set enemies(enemies: MonsterGroup[]) {
     this.#enemies = enemies;
+  }
+
+  get currentEnemy() {
+    return this.#enemies[0].find((enemy) => enemy.HP > 0);
   }
 
   reset() {

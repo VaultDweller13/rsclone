@@ -163,15 +163,16 @@ export default class Character {
     }
 
     if (!timesHit) {
-      this.#message += `${this.name} missed`;
-      // console.log(this.message);
+      this.#message += `${this.name} missed.`;
 
       return;
     }
 
     target.HP -= totalDamage;
-    this.#message += `${this.name} leaps at ${enemy.name} and hits ${timesHit} times for ${totalDamage}`;
-    // console.log(this.message);
+
+    const s = timesHit > 1 ? 's' : '';
+    this.#message += `${this.name} attacks ${enemy.name} and hits ${timesHit} time${s} for ${totalDamage}.`;
+    if (target.HP <= 0) this.#message += `\n${target.name} is killed.`;
   }
 
   public parry() {
