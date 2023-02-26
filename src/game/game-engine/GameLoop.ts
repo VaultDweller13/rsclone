@@ -8,6 +8,7 @@ import Controls from './Controls';
 import Camera from './Camera';
 import InfoBoard from './InfoBoard';
 import BattleUI from '../../View/Render/battleUI/battleUI';
+import { confirm } from '../../View/Render/castle/characterCreator';
 
 export default class GameLoop {
   raycaster: Raycaster;
@@ -116,6 +117,7 @@ export default class GameLoop {
       this.start();
     } else {
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      if (newLevelId === 0) confirm.func();
     }
   };
 }
