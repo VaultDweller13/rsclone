@@ -39,7 +39,7 @@ export default class EventHandler {
 
       if (target === fight) {
         command = () => {
-          character.attack(this.enemies[0].enemy);
+          character.attack(this.enemies[0][0]);
           showMessage(character.message);
         };
       }
@@ -103,5 +103,9 @@ export default class EventHandler {
 
   set enemies(enemies: MonsterGroup[]) {
     this.#enemies = enemies;
+  }
+
+  reset() {
+    this.#charIndex = 0;
   }
 }

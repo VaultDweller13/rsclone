@@ -1,5 +1,5 @@
 import './style.scss';
-import type Monster from '../../../characters/monster';
+// import type Monster from '../../../characters/monster';
 import { createElement } from '../../../../types/utils';
 import BattleMenu from './battleMenu';
 import { party } from '../../../../View/Render/partyInitializer';
@@ -8,42 +8,31 @@ import ConfirmMenu from './confirmMenu';
 import { MonsterGroup } from '../../../../types/types';
 
 export default class BattleUI {
+  game: HTMLElement;
   element: HTMLElement;
   #infoBlock: HTMLElement;
-  #enemies: { enemy: Monster; amount: number; isDead: boolean }[];
+  #middleBlock: HTMLElement;
+  #enemies: MonsterGroup[];
   menu: BattleMenu;
   confirm: ConfirmMenu;
   party: Party;
-  charIndex: number;
-  #stack: (() => void)[];
-  inBattle: boolean;
 
   constructor() {
+    this.game = document.querySelector('.game') as HTMLElement;
     this.element = createElement('div', 'battleUI');
     this.#infoBlock = createElement('div', 'battleUI_info');
+    this.#middleBlock = createElement('div', 'battleUI_middle');
     this.#enemies = [];
     this.menu = new BattleMenu();
     this.confirm = new ConfirmMenu();
     this.party = party;
-    this.charIndex = 0;
-    this.#stack = [];
-    this.inBattle = true;
   }
 
   init() {
-    this.menu.setCharacter(this.party.getParty()[this.charIndex], this.charIndex);
+    this.update();
 
-    this.#infoBlock.append(
-      ...this.#enemies.map((group) => createElement('p', 'enemy-group', `${group.amount} ${group.enemy.name}`))
-    );
-
-    const { img } = this.#enemies[0].enemy;
-    img.classList.add('battleUI_img');
-
-    const container = createElement('div', 'battleUI_middle');
-    container.append(img, this.menu.el);
-
-    this.element.append(this.#infoBlock, container, this.confirm.el);
+    this.element.append(this.#infoBlock, this.#middleBlock, this.confirm.el);
+    this.game.append(this.element);
   }
 
   showMessage(message: string) {
@@ -54,5 +43,26 @@ export default class BattleUI {
 
   setEnemies(enemies: MonsterGroup[]) {
     this.#enemies = enemies;
+  }
+
+  setInfoBlock() {
+    this.#infoBlock.innerHTML = '';
+
+    this.#infoBlock.append(
+      ...this.#enemies.map((group) => createElement('p', 'enemy-group', `${group.length} ${group[0].name}`))
+    );
+  }
+
+  setMiddleBlock(img: HTMLImageElement) {
+    this.#middleBlock.innerHTML = '';
+
+    img.classList.add('battleUI_img');
+    this.menu.setCharacter(this.party.getParty()[0], 0);
+    this.#middleBlock.append(img, this.menu.el);
+  }
+
+  update() {
+    this.setInfoBlock();
+    this.setMiddleBlock(this.#enemies[0][0].img);
   }
 }

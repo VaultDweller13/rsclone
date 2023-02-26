@@ -10,16 +10,14 @@ import { MonsterGroup } from '../../../types/types';
 
 export default class Battle {
   exit: () => void;
-  game: HTMLElement;
   UI: BattleUI;
   commands: (() => void)[];
   eventHandler: EventHandler;
-  enemies: MonsterGroup[];
+  #enemies: MonsterGroup[];
 
   constructor(callback: () => void) {
     this.UI = new BattleUI();
     this.exit = callback;
-    this.game = document.querySelector('.game') as HTMLElement;
     this.commands = [];
     this.eventHandler = new EventHandler(
       this.UI,
@@ -27,12 +25,12 @@ export default class Battle {
       () => this.exit(),
       () => this.#executeCommands()
     );
-    this.enemies = [];
+    this.#enemies = [];
   }
 
   start() {
-    this.#showUI();
     this.enemies = this.#getEnemies();
+    this.#showUI();
     this.eventHandler.enemies = this.enemies;
   }
 
@@ -43,26 +41,18 @@ export default class Battle {
   }
 
   #getEnemies() {
-    const group = [
-      {
-        enemy: new Monster(monsters[0]),
-        amount: 5,
-        isDead: false,
-      },
-      {
-        enemy: new Monster(monsters[1]),
-        amount: 4,
-        isDead: false,
-      },
-    ];
+    const group1 = [];
+    const group2 = [];
+    for (let i = 0; i < 5; i += 1) {
+      group1.push(new Monster(monsters[0]));
+      group2.push(new Monster(monsters[1]));
+    }
 
-    return group;
+    return [group1, group2];
   }
 
   #showUI() {
-    this.UI.setEnemies(this.enemies);
     this.UI.init();
-    this.game.append(this.UI.element);
   }
 
   #getTarget() {
@@ -70,7 +60,12 @@ export default class Battle {
   }
 
   #startRound() {
+    this.commands.length = 0;
+    this.eventHandler.reset();
+    this.enemies = this.enemies.map((group) => group.filter((enemy) => enemy.HP > 0));
+    this.eventHandler.enemies = this.enemies;
     this.UI.setEnemies(this.enemies);
+    this.UI.update();
   }
 
   #executeCommands() {
@@ -82,7 +77,16 @@ export default class Battle {
     );
 
     Promise.all(promises)
-      .then(() => console.log('ok'))
+      .then(() => setTimeout(() => this.#startRound(), 2000))
       .catch(() => {});
+  }
+
+  set enemies(enemies: MonsterGroup[]) {
+    this.#enemies = enemies;
+    this.UI.setEnemies(enemies);
+  }
+
+  get enemies() {
+    return this.#enemies;
   }
 }

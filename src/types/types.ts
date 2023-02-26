@@ -68,4 +68,6 @@ export type Spell = {
   cast: (target?: MonsterData[] | Character) => void;
 };
 
-export type MonsterGroup = { enemy: Monster; amount: number; isDead: boolean };
+// export type MonsterGroup = { enemy: Monster; amount: number; isDead: boolean };
+// export type MonsterGroup = { enemy: Monster[]; amount: number; isDead: boolean };
+export type MonsterGroup = Monster[];

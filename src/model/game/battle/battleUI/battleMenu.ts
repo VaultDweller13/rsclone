@@ -59,5 +59,6 @@ export default class BattleMenu extends MenuWindow {
     if (index !== 0) options.push(this.options.back);
 
     this.el.append(...options);
+    this.show();
   }
 }
