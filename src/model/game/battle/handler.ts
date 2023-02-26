@@ -58,6 +58,7 @@ export default class EventHandler {
       }
 
       if (target === back) {
+        this.commands.pop();
         this.#charIndex -= 1;
         menu.setCharacter(this.character, this.#charIndex);
 
@@ -83,7 +84,7 @@ export default class EventHandler {
       if (!(target instanceof HTMLElement)) return;
 
       if (target === back) {
-        this.#charIndex -= 1;
+        this.commands.pop();
         confirm.hide();
         menu.setCharacter(this.character, this.#charIndex);
         menu.show();

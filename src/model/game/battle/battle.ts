@@ -55,10 +55,12 @@ export default class Battle {
     this.commands.length = 0;
     this.eventHandler.reset();
     this.enemies = this.enemies.map((group) => group.filter((enemy) => enemy.HP > 0)).filter((group) => group.length);
+
     if (!this.enemies.length) {
       this.finish();
       return;
     }
+
     this.eventHandler.enemies = this.enemies;
     this.UI.setEnemies(this.enemies);
     this.UI.update();
