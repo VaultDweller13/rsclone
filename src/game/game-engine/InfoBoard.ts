@@ -8,7 +8,7 @@ export default class InfoBoard {
   private readonly FONT_REGULAR = '20px sans-serif';
   private readonly FONT = '60px sans-serif';
   private readonly FONT_COLOR = 'white';
-  private readonly GREETING_DURATION = 75;
+  private readonly GREETING_DURATION = 150;
   private readonly WIDTH: number;
   private readonly HEIGHT: number;
 

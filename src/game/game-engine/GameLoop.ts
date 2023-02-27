@@ -13,6 +13,7 @@ export default class GameLoop {
   map: GameMap;
   miniMap: MiniMap;
   controls: Controls;
+  battle: Battle;
   player: Camera;
   battle: Battle;
   infoBoard: InfoBoard;

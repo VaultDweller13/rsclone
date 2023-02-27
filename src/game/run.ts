@@ -1,6 +1,6 @@
 import { GameLoop, ctx, injectCanvasToDocument, levels } from './game-engine';
 
-export default function initGame() {
+export default function initFirstLevel() {
   if (!document.querySelector('#canvas')) injectCanvasToDocument();
 
   const game = new GameLoop(ctx, levels, 'discrete', 1);

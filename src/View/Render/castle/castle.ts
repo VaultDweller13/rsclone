@@ -11,7 +11,7 @@ import {
 import castle from '../../Assets/castle.jpg';
 import { createCharacter } from './characterCreator';
 import changeParty from './changeParty';
-import initGame from '../../../game/run';
+import initFirstLevel from '../../../game/run';
 import { party } from '../partyInitializer';
 import Character from '../../../model/characters/character';
 import inspect from '../inspection';
@@ -238,7 +238,7 @@ implementCastle = () => {
         document.getElementById('view')?.classList.add('maze');
       }
       mazeParty();
-      initGame();
+      initFirstLevel();
     } else {
       warning('You cannot enter maze without a party');
     }
