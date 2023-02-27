@@ -4,11 +4,13 @@
 import { getMain, createElement } from './common';
 import enterCastle from './castle/castle';
 import logo from '../Assets/rsschool-logo.svg';
+import { stopIntro } from './music';
 
 function startGame() {
   const main = getMain();
   main.replaceChildren();
   main.append(createElement('div', '', 'game'));
+  stopIntro();
   enterCastle();
 }
 

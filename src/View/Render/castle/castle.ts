@@ -18,6 +18,7 @@ import inspect from '../inspection';
 import createSellBlock from './tradePostSell';
 import createShop from './tradePostBuy';
 import mazeParty from '../maze/mazeParty';
+import { playCastle, playMaze, stopBattle, stopCastle, stopMaze } from '../music';
 
 function renderCastle() {
   resetPage();
@@ -40,6 +41,9 @@ function renderCastle() {
 let implementCastle = () => {};
 
 function enterCastle() {
+  stopBattle();
+  stopMaze();
+  playCastle();
   renderCastle();
   implementCastle();
 }
@@ -236,6 +240,8 @@ implementCastle = () => {
       if (!document.getElementById('view')?.classList.contains('maze')) {
         document.getElementById('view')?.classList.add('maze');
       }
+      stopCastle();
+      playMaze();
       mazeParty();
       initGame();
     } else {
