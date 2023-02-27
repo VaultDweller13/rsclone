@@ -6,14 +6,14 @@ import armor from '../../model/data/armor';
 
 const party = new Party(6, true, 0);
 const testGrognak = new Character(
-  'Grognak',
-  'human',
+  'FIGHTER',
+  'dwarf',
   {
-    strength: 11,
+    strength: 16,
     intelligence: 10,
     piety: 10,
-    vitality: 10,
-    agility: 10,
+    vitality: 16,
+    agility: 14,
     luck: 10,
   },
   classes.fighter,
@@ -21,13 +21,28 @@ const testGrognak = new Character(
 );
 
 const testMage = new Character(
-  'Mage',
+  'MAGE',
   'elf',
   {
     strength: 6,
     intelligence: 17,
     piety: 12,
     vitality: 12,
+    agility: 10,
+    luck: 10,
+  },
+  classes.mage,
+  'good'
+);
+
+const testPriest = new Character(
+  'PRIEST',
+  'human',
+  {
+    strength: 12,
+    intelligence: 12,
+    piety: 16,
+    vitality: 14,
     agility: 10,
     luck: 10,
   },
@@ -50,27 +65,7 @@ testGrognak.addExp(1000);
 party.add(testGrognak);
 party.changeGold(2345);
 party.add(testMage);
+
 const tavern = new Party(20, false);
-
-// added for testing purpose
-
-for (let i = 0; i < 15; i += 1) {
-  tavern.add(
-    new Character(
-      `Gognak${i}`,
-      'human',
-      {
-        strength: 18,
-        intelligence: 18,
-        piety: 18,
-        vitality: 18,
-        agility: 18,
-        luck: 18,
-      },
-      classes.fighter,
-      'good'
-    )
-  );
-}
 
 export { party, tavern };
