@@ -11,7 +11,7 @@ import {
 import castle from '../../Assets/castle.jpg';
 import { createCharacter } from './characterCreator';
 import changeParty from './changeParty';
-import initFirstLevel from '../../../game/run';
+import initGame from '../../../game/run';
 import { party } from '../partyInitializer';
 import Character from '../../../model/characters/character';
 import inspect from '../inspection';
@@ -138,14 +138,20 @@ implementCastle = () => {
       createLayer(
         1,
         createChoice('trade-choice', [
-          { id: 'buy', name: 'buy', func: () => {
-            document.getElementById('trade-choice')?.replaceWith(selectCharacter((character) => {
-              const buyBlock = createShop(character);
-              if (buyBlock) {
-                document.getElementById('select')?.replaceWith(buyBlock);
-              }
-            }))
-          }},
+          {
+            id: 'buy',
+            name: 'buy',
+            func: () => {
+              document.getElementById('trade-choice')?.replaceWith(
+                selectCharacter((character) => {
+                  const buyBlock = createShop(character);
+                  if (buyBlock) {
+                    document.getElementById('select')?.replaceWith(buyBlock);
+                  }
+                })
+              );
+            },
+          },
           {
             id: 'sell',
             name: 'sell',
@@ -180,7 +186,7 @@ implementCastle = () => {
         document.getElementById('view')?.classList.add('maze');
       }
       mazeParty();
-      initFirstLevel();
+      initGame();
     } else {
       warning('You cannot enter maze without a party');
     }
