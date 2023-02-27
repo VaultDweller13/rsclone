@@ -20,13 +20,14 @@
 
   font-size: 32px;
 
-  &_enemy {
+  &_info {
     @include border;
 
     padding: 0 5px;
     margin-bottom: 10px;
 
     background-color: #000000;
+    white-space: pre;
   }
 
   &_img {

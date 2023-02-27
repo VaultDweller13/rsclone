@@ -1,4 +1,4 @@
-import { createElement } from '../../../types/utils';
+import { createElement } from '../../../../types/utils';
 
 export default class MenuWindow {
   el: HTMLElement;
