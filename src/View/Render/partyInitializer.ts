@@ -35,6 +35,8 @@ const testMage = new Character(
   'good'
 );
 
+testGrognak.status = 'AFRAID';
+
 testGrognak.addToInventory(weapons[7]);
 testGrognak.addToInventory(weapons[8]);
 testGrognak.addToInventory(weapons[9]);
