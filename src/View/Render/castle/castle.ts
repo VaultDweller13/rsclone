@@ -17,6 +17,7 @@ import Character from '../../../model/characters/character';
 import inspect from '../inspection';
 import createSellBlock from './tradePostSell';
 import createShop from './tradePostBuy';
+import mazeParty from '../maze/mazeParty';
 
 function renderCastle() {
   resetPage();
@@ -178,6 +179,7 @@ implementCastle = () => {
       if (!document.getElementById('view')?.classList.contains('maze')) {
         document.getElementById('view')?.classList.add('maze');
       }
+      mazeParty();
       initFirstLevel();
     } else {
       warning('You cannot enter maze without a party');
