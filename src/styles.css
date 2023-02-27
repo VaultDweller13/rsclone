@@ -17,3 +17,7 @@ body {
   display: flex;
   justify-content: space-around;
 }
+
+#canvas {
+  image-rendering: pixelated;
+}
