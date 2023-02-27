@@ -1,8 +1,6 @@
 import GameMap from './GameMap';
 import MiniMap from './MiniMap';
 import Raycaster from './Raycaster';
-// import Battle from './Battle';
-// import Logic from '../../model/game/logic';
 import { ControlMode, Level } from './utils/types';
 import Controls from './Controls';
 import Camera from './Camera';
@@ -17,7 +15,6 @@ export default class GameLoop {
   controls: Controls;
   player: Camera;
   battle: Battle;
-  // logic: Logic;
   infoBoard: InfoBoard;
   level: Level;
 
@@ -39,7 +36,6 @@ export default class GameLoop {
     this.controls = new Controls(controlMode);
     this.battle = new Battle(() => this.start());
     this.player = new Camera(this.level.startPosition, this.controls);
-    // this.logic = new Logic();
     this.infoBoard = new InfoBoard(ctx);
 
     document.addEventListener('keydown', (e) => this.onKeys(e), false);
