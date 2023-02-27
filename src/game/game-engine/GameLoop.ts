@@ -1,8 +1,7 @@
 import GameMap from './GameMap';
 import MiniMap from './MiniMap';
 import Raycaster from './Raycaster';
-// import Battle from './Battle';
-// import Logic from '../../model/game/logic';
+import Logic from '../../model/game/logic';
 import { ControlMode, Level } from './utils/types';
 import Controls from './Controls';
 import Camera from './Camera';
@@ -15,7 +14,6 @@ export default class GameLoop {
   map: GameMap;
   miniMap: MiniMap;
   controls: Controls;
-  battle: Battle;
   player: Camera;
   // logic: Logic;
   infoBoard: InfoBoard;
@@ -37,7 +35,6 @@ export default class GameLoop {
     this.map = new GameMap(this.level.map, this.level.textures);
     this.miniMap = new MiniMap(this.map);
     this.controls = new Controls(controlMode);
-    this.battle = new Battle(() => this.start());
     this.player = new Camera(this.level.startPosition, this.controls);
     // this.logic = new Logic();
     this.infoBoard = new InfoBoard(ctx);
