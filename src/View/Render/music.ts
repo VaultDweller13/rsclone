@@ -25,4 +25,4 @@ function stopIntro() {
   introAudio.pause();
 }
 
-export { test1Audio, test2Audio };
+export { test1Audio, test2Audio, playIntro, stopIntro, introAudio };
