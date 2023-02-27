@@ -60,10 +60,7 @@ export default class GameLoop {
         this.player.changeMoveState(false);
         if (this.battle.ifEncounter()) {
           this.pause();
-          this.battle.start();
-          // const ui = new BattleUI(this.logic.getEnemies(), () => this.start());
-          // const el = document.querySelector('.game') as HTMLElement;
-          // el.append(ui.element);
+          this.battle.start(this.level);
         }
       }
     };

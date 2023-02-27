@@ -1,13 +1,13 @@
 import BattleUI from './battleUI/battleUI';
 import { getFromRange } from '../../../types/utils';
-import Monster from '../../characters/monster';
-import monsters from '../../data/monsters';
 import EventHandler from './handler';
 import { MonsterGroup } from '../../../types/types';
 import { renderParty } from '../../../View/Render/common';
 import type Party from '../party';
 import { party } from '../../../View/Render/partyInitializer';
 import { confirm } from '../../../View/Render/castle/characterCreator';
+import type { Level } from '../../../game/game-engine/utils/types';
+import { monsters } from '../../data/tables';
 
 export default class Battle {
   exit: () => void;
@@ -33,8 +33,8 @@ export default class Battle {
     this.#party = party;
   }
 
-  start() {
-    this.enemies = this.#getEnemies();
+  start(level: Level) {
+    this.enemies = this.#getEnemies(level);
     this.#startingEnemies = this.enemies;
     this.UI.update();
     this.UI.show();
@@ -62,15 +62,8 @@ export default class Battle {
     return getFromRange(0, 99) < 10;
   }
 
-  #getEnemies() {
-    const group1 = [];
-    const group2 = [];
-    for (let i = 0; i < 1; i += 1) {
-      group1.push(new Monster(monsters[0]));
-      group2.push(new Monster(monsters[1]));
-    }
-
-    return [group1, group2];
+  #getEnemies(level: Level) {
+    return monsters[level.id].default();
   }
 
   #startRound() {
