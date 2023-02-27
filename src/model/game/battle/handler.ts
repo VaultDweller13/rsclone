@@ -32,9 +32,10 @@ export default class EventHandler {
 
     menu.el.addEventListener('click', (e: MouseEvent) => {
       const { target } = e;
-      if (!(target instanceof HTMLElement)) return;
-
       const { fight, parry, cast, item, run, dispell, back } = menu.options;
+      if (!(target instanceof HTMLElement)) return;
+      if (![fight, parry, cast, item, run, dispell, back].includes(target)) return;
+
       const { character } = this;
       let command;
 
@@ -119,7 +120,7 @@ export default class EventHandler {
   }
 
   reset() {
-    this.#party = this.#party.filter((char) => char.getHp() > 0);
+    this.#party = this.#party.filter((char) => char.getHp() > 0 && char.status === 'OK');
     this.#charIndex = 0;
   }
 
