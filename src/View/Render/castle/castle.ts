@@ -104,7 +104,7 @@ implementCastle = () => {
                       func: () => {
                         party.changeGold(-500);
                         if (goldValue && goldValue >= 500) {
-                          character.rest();
+                          character.rest(true);
                           restChoice.replaceWith(createMessage(character.message));
                           renderParty();
                         }
