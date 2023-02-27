@@ -166,14 +166,66 @@ implementCastle = () => {
               );
             },
           },
-          { id: 'uncurse', name: 'remove curse' },
-          { id: 'identify', name: 'identify' },
         ])
       )
     );
   });
   document.getElementById('temple')?.addEventListener('click', () => {
-    view.append(createLayer(1, createChoice('temple-choice', [{ id: 'heal', name: 'Heal / Revive' }])));
+    view.append(
+      createLayer(
+        1,
+        createChoice('temple-choice', [
+          {
+            id: 'heal',
+            name: 'Heal / Revive',
+            func: () => {
+              document.getElementById('temple-choice')?.replaceWith(
+                selectCharacter((character) => {
+                  const goldValue = party.getGold();
+                  const healChoice = createChoice('heal-choice', [
+                    {
+                      id: 'purge',
+                      name: 'Bring back to normal [500 Gold]',
+                      func: () => {
+                        
+                        if (goldValue && goldValue >= 500 && character.status !== 'OK') {
+                          party.changeGold(-500);
+                        // need function character.setStatus()
+                        // eslint-disable-next-line no-param-reassign
+                          character.status = 'OK';
+                          if (character.getHp() === 0) {
+                            character.setHp(1);
+                          }
+                          healChoice.replaceWith(createMessage(`${character.name} is now ok`));
+                          renderParty();
+                        } else if (character.status === 'OK') {
+                          warning('character is already fine');
+                        } else {
+                          warning('not enough gold');
+                        }
+                      },
+                    },
+                    {
+                      id: 'cancel',
+                      name: 'Leave',
+                      func: () => {
+                        enterCastle();
+                      },
+                    },
+                  ]);
+                  const goldBlock = createElement('div', 'gold');
+                  if (goldValue) {
+                    goldBlock.textContent = `Gold: ${goldValue}`;
+                  }
+                  healChoice.firstChild?.before(goldBlock);
+                  document.getElementById('select')?.replaceWith(healChoice);
+                })
+              );
+            },
+          },
+        ])
+      )
+    );
   });
   document.getElementById('enter-maze')?.addEventListener('click', () => {
     if (party.getParty().length > 0) {
