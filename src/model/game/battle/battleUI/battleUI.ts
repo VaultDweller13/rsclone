@@ -3,9 +3,9 @@ import MenuWindow from './menuWindow';
 import { createElement } from '../../../../types/utils';
 import BattleMenu from './battleMenu';
 import { party } from '../../../../View/Render/partyInitializer';
-import type Party from '../../party';
 import ConfirmMenu from './confirmMenu';
 import { MonsterGroup } from '../../../../types/types';
+import type Character from '../../../characters/character';
 
 export default class BattleUI extends MenuWindow {
   game: HTMLElement;
@@ -14,7 +14,7 @@ export default class BattleUI extends MenuWindow {
   #enemies: MonsterGroup[];
   menu: BattleMenu;
   confirm: ConfirmMenu;
-  party: Party;
+  party: Character[];
 
   constructor() {
     super('div', 'battleUI invisible');
@@ -24,7 +24,7 @@ export default class BattleUI extends MenuWindow {
     this.#enemies = [];
     this.menu = new BattleMenu();
     this.confirm = new ConfirmMenu();
-    this.party = party;
+    this.party = party.getParty();
 
     this.#init();
   }
@@ -53,14 +53,15 @@ export default class BattleUI extends MenuWindow {
   }
 
   setMiddleBlock(img: HTMLImageElement) {
-    const character = this.party.getParty().find((char) => char.status === 'OK');
+    this.party = this.party.filter((char) => char.status === 'OK');
+    const character = this.party[0];
     if (!character) return;
-    const index = this.party.getParty().indexOf(character);
+    // const index = this.party.getParty().indexOf(character);
 
     this.#middleBlock.innerHTML = '';
 
     img.classList.add('battleUI_img');
-    this.menu.setCharacter(character, index);
+    this.menu.setCharacter(character, 0);
     this.#middleBlock.append(img, this.menu.el);
   }
 
