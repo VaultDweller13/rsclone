@@ -24,14 +24,16 @@
     @include border;
 
     padding: 0 5px;
-    margin-bottom: 10px;
+    margin-bottom: 100px;
 
     background-color: #000000;
     white-space: pre;
   }
 
   &_img {
-    width: 300px;
+    width: 324px;
+    height: 324px;
+    image-rendering: pixelated;
 
     margin: 0 auto;
   }
