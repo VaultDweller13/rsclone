@@ -5,6 +5,9 @@ import monsters from '../../data/monsters';
 import EventHandler from './handler';
 import { MonsterGroup } from '../../../types/types';
 import { renderParty } from '../../../View/Render/common';
+import type Party from '../party';
+import { party } from '../../../View/Render/partyInitializer';
+import { confirm } from '../../../View/Render/castle/characterCreator';
 
 export default class Battle {
   exit: () => void;
@@ -12,6 +15,8 @@ export default class Battle {
   commands: (() => void)[];
   eventHandler: EventHandler;
   #enemies: MonsterGroup[];
+  #startingEnemies: MonsterGroup[];
+  #party: Party;
 
   constructor(callback: () => void) {
     this.UI = new BattleUI();
@@ -24,17 +29,33 @@ export default class Battle {
       () => this.#executeCommands()
     );
     this.#enemies = [];
+    this.#startingEnemies = [];
+    this.#party = party;
   }
 
   start() {
     this.enemies = this.#getEnemies();
+    this.#startingEnemies = this.enemies;
     this.UI.update();
     this.UI.show();
   }
 
   finish() {
-    this.UI.hide();
-    this.exit();
+    const exp = this.#startingEnemies
+      .flat(2)
+      .filter((monster) => monster.status === 'DEAD')
+      .reduce((sum, monster) => sum + monster.exp, 0);
+    this.#party.splitExp(exp);
+    new Promise((resolve) => {
+      setTimeout(() => resolve(this.UI.showMessage(`Party got ${exp} experience points`)), 2000);
+    })
+      .then(() =>
+        setTimeout(() => {
+          this.UI.hide();
+          this.exit();
+        }, 2000)
+      )
+      .catch(() => {});
   }
 
   public ifEncounter() {
@@ -63,8 +84,13 @@ export default class Battle {
       return;
     }
 
-    this.eventHandler.enemies = this.enemies;
-    this.UI.setEnemies(this.enemies);
+    if (!this.#party.getParty().filter((char) => char.getHp()).length) {
+      confirm.func();
+      this.#party.remove(-1);
+      renderParty();
+      return;
+    }
+
     this.UI.update();
   }
 

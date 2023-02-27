@@ -6,7 +6,7 @@ export default class Monster {
   name: string;
   level: number;
   AC: number;
-  HP: number;
+  #HP: number;
   damageMin: number;
   damageMax: number;
   attacks: number;
@@ -21,7 +21,7 @@ export default class Monster {
     this.name = monster.name;
     this.level = monster.level;
     this.AC = monster.AC;
-    this.HP = getFromRange(monster.HPMin, monster.HPMax);
+    this.#HP = getFromRange(monster.HPMin, monster.HPMax);
     this.damageMin = monster.damageMin;
     this.damageMax = monster.damageMax;
     this.attacks = monster.attacks;
@@ -71,5 +71,14 @@ export default class Monster {
     const message = this.#message;
     this.#message = '';
     return message;
+  }
+
+  get HP() {
+    return this.#HP;
+  }
+
+  set HP(value: number) {
+    this.#HP = value;
+    if (this.#HP <= 0) this.status = 'DEAD';
   }
 }
