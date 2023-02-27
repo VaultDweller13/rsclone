@@ -187,11 +187,10 @@ implementCastle = () => {
                       id: 'purge',
                       name: 'Bring back to normal [500 Gold]',
                       func: () => {
-                        
                         if (goldValue && goldValue >= 500 && character.status !== 'OK') {
                           party.changeGold(-500);
-                        // need function character.setStatus()
-                        // eslint-disable-next-line no-param-reassign
+                          // need function character.setStatus()
+                          // eslint-disable-next-line no-param-reassign
                           character.status = 'OK';
                           if (character.getHp() === 0) {
                             character.setHp(1);

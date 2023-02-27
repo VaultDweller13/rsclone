@@ -15,6 +15,7 @@ export default class GameLoop {
   map: GameMap;
   miniMap: MiniMap;
   controls: Controls;
+  battle: Battle;
   player: Camera;
   // logic: Logic;
   infoBoard: InfoBoard;
