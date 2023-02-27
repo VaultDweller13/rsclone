@@ -2,7 +2,7 @@ import BattleUI from './battleUI/battleUI';
 import { getFromRange } from '../../../types/utils';
 import EventHandler from './handler';
 import { MonsterGroup } from '../../../types/types';
-import { renderParty } from '../../../View/Render/common';
+import mazeParty from '../../../View/Render/maze/mazeParty';
 import type Party from '../party';
 import { party } from '../../../View/Render/partyInitializer';
 import { confirm } from '../../../View/Render/castle/characterCreator';
@@ -59,7 +59,7 @@ export default class Battle {
   }
 
   public ifEncounter() {
-    return getFromRange(0, 99) < 10;
+    return getFromRange(0, 99) < 4;
   }
 
   #getEnemies(level: Level) {
@@ -67,7 +67,7 @@ export default class Battle {
   }
 
   #startRound() {
-    renderParty();
+    mazeParty();
     this.commands.length = 0;
     this.eventHandler.reset();
     this.enemies = this.enemies.map((group) => group.filter((enemy) => enemy.HP > 0)).filter((group) => group.length);
@@ -80,7 +80,7 @@ export default class Battle {
     if (!this.#party.getParty().filter((char) => char.getHp()).length) {
       confirm.func();
       this.#party.remove(-1);
-      renderParty();
+      mazeParty();
       return;
     }
 

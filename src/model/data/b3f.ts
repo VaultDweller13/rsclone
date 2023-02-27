@@ -4,7 +4,7 @@ import Monster from '../characters/monster';
 import { MonsterData } from '../../types/types';
 
 const vorpalBunny = monsters.find((monster) => monster.name === 'Vorpal Bunny');
-const capybara = monsters.find((monster) => monster.name === 'Capybara ');
+const capybara = monsters.find((monster) => monster.name === 'Capybara');
 const giantToad = monsters.find((monster) => monster.name === 'Giant Toad');
 const coyote = monsters.find((monster) => monster.name === 'Coyote');
 const lvl3Samurai = monsters.find((monster) => monster.name === 'Samurai, Lvl 3');
