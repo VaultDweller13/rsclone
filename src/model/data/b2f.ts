@@ -9,7 +9,7 @@ const gasCloud = monsters.find((monster) => monster.name === 'Gas Cloud');
 const lvl1Mage = monsters.find((monster) => monster.name === 'Mage, Lvl 1');
 const lvl1Priest = monsters.find((monster) => monster.name === 'Priest, Lvl 1');
 const creepingCoin = monsters.find((monster) => monster.name === 'Creeping Coin');
-const lvl1Ninja = monsters.find((monster) => monster.name === 'Ninja, lvl 1');
+const lvl1Ninja = monsters.find((monster) => monster.name === 'Ninja, Lvl 1');
 const vorpalBunny = monsters.find((monster) => monster.name === 'Vorpal Bunny');
 
 const enemies = [
