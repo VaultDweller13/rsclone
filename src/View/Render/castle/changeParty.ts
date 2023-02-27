@@ -25,7 +25,7 @@ function addFromParty(character: Character, index: number) {
 function addFromTavern(character: Character, index: number) {
   if (party.canBeAdded(character)) {
     party.add(character);
-    tavern.remove(index);
+    tavern.remove(index + (currentPage - 1) * 5);
     renderPartyforTavern();
     if (!checkIfPagePossible(currentPage) && currentPage !== 1) {
       currentPage -= 1;
