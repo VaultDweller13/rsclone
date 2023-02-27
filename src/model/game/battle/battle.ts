@@ -74,10 +74,11 @@ export default class Battle {
 
     if (!this.enemies.length) {
       this.finish();
+      mazeParty();
       return;
     }
 
-    if (!this.#party.getParty().filter((char) => char.getHp()).length) {
+    if (!this.#party.getParty().filter((char) => char.status === 'OK').length) {
       confirm.func();
       this.#party.remove(-1);
       mazeParty();
