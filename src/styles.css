@@ -10,7 +10,14 @@ html {
 body {
   height: 100%;
   background-color: #000000;
+  background-image: url('./logo.jpg');
+  background-repeat: no-repeat;
+  background-position: top center;
   margin: 0;
   display: flex;
   justify-content: space-around;
+}
+
+#canvas {
+  image-rendering: pixelated;
 }

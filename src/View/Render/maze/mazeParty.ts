@@ -1,4 +1,4 @@
-import { renderParty } from '../common';
+import { renderParty, createElement } from '../common';
 import inspect from '../inspection';
 import { party } from '../partyInitializer';
 
@@ -8,18 +8,21 @@ function mazeParty() {
   document.querySelectorAll('.prty-chr').forEach((el, index) => {
     el.addEventListener('click', () => {
       const canvasContainer = document.querySelector('.canvas__container');
-      console.log(canvasContainer);
       inspect(partyCharacters[index]);
       const view = document.getElementById('view');
       const leave = document.getElementById('cancel');
       leave?.addEventListener('click', (event) => {
         event.stopImmediatePropagation();
-        console.log('a');
-        view?.childNodes.forEach((element) => {
-          element.remove();
-        });
-        console.log(canvasContainer)
+        const children = view?.childNodes;
+        if (children) {
+          Array.from(children).forEach((element) => {
+            element.remove();
+          });
+        }
         if (canvasContainer) {
+          const locationBlock = createElement('div', 'location-name', 'block');
+          locationBlock.textContent = 'Maze';
+          view?.append(locationBlock);
           view?.append(canvasContainer);
           mazeParty();
         }

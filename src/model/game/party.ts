@@ -19,7 +19,8 @@ export default class Party {
     this.#arr.push(character);
   }
 
-  public remove(index: number) {
+  public remove(index = -1) {
+    if (index === -1) this.#arr = [];
     if (index >= 0 && index < this.#size) return this.#arr.splice(index, 1)[0];
 
     return undefined;
