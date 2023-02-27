@@ -1,19 +1,6 @@
 import { Item } from '../types/types';
 import { createElement } from './Render/common';
 
-// export type Item = {
-//   name: string;
-//   type: ItemTypes;
-//   cost: number;
-//   effect: string;
-//   class: ClassName[];
-//   alignment: Alignment[];
-//   cursed: boolean;
-//   damageMin: number;
-//   damageMax: number;
-//   AC: number;
-// };
-
 export default function createItemTip(item: Item): HTMLElement {
   const toolTip = createElement('div', '', 'block pop-up tooltip');
   toolTip.innerHTML = `
