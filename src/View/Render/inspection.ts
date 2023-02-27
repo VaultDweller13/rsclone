@@ -13,10 +13,8 @@ function renderInventory(page: number, character: Character, inventoryBlock: HTM
     inventory.slice((page - 1) * 4, page * 4).forEach((item) => {
       const itemBlock = createElement('div', item.name, 'item');
       itemBlock.classList.add('button');
-      itemBlock.append(createItemTip(item))
-      console.log(itemBlock.innerHTML);
-      itemBlock.append(document.createTextNode(item.name)) ;
-      console.log(itemBlock.innerHTML);
+      itemBlock.append(createItemTip(item));
+      itemBlock.append(document.createTextNode(item.name));
       inventoryBlock?.append(itemBlock);
     });
   }
@@ -34,7 +32,9 @@ function inspect(character: Character) {
   view.innerHTML = '';
   cancelButton.textContent = 'leave';
   cancelButton.addEventListener('click', () => {
-    confirm.func();
+    if (!view.classList.contains('maze')) {
+      confirm.func();
+    }
   });
   view.appendChild(charTable);
   charInfo(character).forEach((block) => {
@@ -138,14 +138,11 @@ charInfo = (character: Character): HTMLElement[] => {
   changeItemsBlock.append(inventoryWrap);
   renderInventory(currentPage, character, inventory);
   const inventoryItems = inventory.children;
-  console.log(inventory.children);
-  console.log(inventoryItems);
   if (inventoryItems) {
     Array.from(inventoryItems).forEach((itemBlock, index) => {
       itemBlock.setAttribute('name', `${index}, ${character.getInventory()[index + (currentPage - 1) * 4].name}`);
       itemBlock.addEventListener('click', () => {
         const item = character.getInventory()[index + (currentPage - 1) * 4];
-        console.log(item.name);
         if (!item.alignment.includes(character.alignment) || !item.class.includes(character.class.name)) {
           warning("can't equip this item");
         } else {
