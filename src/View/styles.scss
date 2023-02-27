@@ -21,7 +21,8 @@
   }
 
   .button-start {
-    margin-top: 10vh;
+    // margin-top: 10vh;
+    align-self: center;
     padding: 5px 15px;
     border: 3px solid #ffffff;
     border-radius: 5px;
@@ -192,7 +193,7 @@
       bottom: 20px;
       min-width: 270px;
     }
-    #shop{
+    #shop {
       display: flex;
       flex-direction: column;
       width: fit-content;
