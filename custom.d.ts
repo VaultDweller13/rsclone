@@ -22,8 +22,3 @@ declare module '*.gif' {
   const content: any;
   export default content;
 }
-
-declare module '*.m4a' {
-  const content: any;
-  export default content;
-}
