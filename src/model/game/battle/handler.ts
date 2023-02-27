@@ -22,6 +22,7 @@ export default class EventHandler {
     this.#charIndex = 0;
     this.#enemies = [];
 
+    this.reset();
     this.#initMenuListener();
     this.#initConfirmListner();
   }
@@ -120,7 +121,7 @@ export default class EventHandler {
   }
 
   reset() {
-    this.#party = this.#party.filter((char) => char.getHp() > 0 && char.status === 'OK');
+    this.#party = this.#party.filter((char) => char.status === 'OK');
     this.#charIndex = 0;
   }
 
