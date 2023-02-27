@@ -30,8 +30,6 @@ export default class BattleUI extends MenuWindow {
   }
 
   #init() {
-    // this.update();
-
     this.el.append(this.#infoBlock, this.#middleBlock, this.confirm.el);
     this.game.append(this.el);
   }

@@ -42,7 +42,8 @@ export default class EventHandler {
         command = () => {
           if (this.currentEnemy) {
             character.attack(this.currentEnemy);
-            showMessage(character.message);
+            const { message } = character;
+            if (message) showMessage(message);
           }
         };
       }
@@ -92,7 +93,6 @@ export default class EventHandler {
       }
       if (target === fight) {
         this.#enemyPhase();
-        console.log(this.#party.map((c) => `${c.name}: ${c.getHp()}`));
         confirm.hide();
         this.#startRound();
       }
@@ -128,7 +128,8 @@ export default class EventHandler {
     monsters.forEach((monster) =>
       this.commands.push(() => {
         monster.attack(getTarget());
-        showMessage(monster.message);
+        const { message } = monster;
+        if (message) showMessage(message);
       })
     );
   }
