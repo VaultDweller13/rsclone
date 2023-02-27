@@ -3,62 +3,76 @@ import monsters from './monsters';
 import Monster from '../characters/monster';
 import { MonsterData } from '../../types/types';
 
-const slime = monsters.find((monster) => monster.name === 'Bubbly Slime');
-const orc = monsters.find((monster) => monster.name === 'Orc');
-const kobold = monsters.find((monster) => monster.name === 'Kobold');
-const undeadKobold = monsters.find((monster) => monster.name === 'Undead Kobold');
-const rogue = monsters.find((monster) => monster.name === 'Rogue');
-const bushwacker = monsters.find((monster) => monster.name === 'Bushwacker');
-const highwayman = monsters.find((monster) => monster.name === 'Highwayman');
+const zombie = monsters.find((monster) => monster.name === 'Zombie');
+const creepingCrud = monsters.find((monster) => monster.name === 'Creeping Crud');
+const gasCloud = monsters.find((monster) => monster.name === 'Gas Cloud');
+const lvl1Mage = monsters.find((monster) => monster.name === 'Mage, Lvl 1');
+const lvl1Priest = monsters.find((monster) => monster.name === 'Priest, Lvl 1');
+const creepingCoin = monsters.find((monster) => monster.name === 'Creeping Coin');
+const lvl1Ninja = monsters.find((monster) => monster.name === 'Ninja, lvl 1');
+const vorpalBunny = monsters.find((monster) => monster.name === 'Vorpal Bunny');
 
 const enemies = [
   {
-    monster: slime,
-    qty: () => getFromRange(2, 4),
+    monster: zombie,
+    qty: () => getFromRange(2, 6),
   },
   {
-    monster: orc,
-    qty: () => getFromRange(3, 5),
+    monster: creepingCrud,
+    qty: () => getFromRange(2, 6),
   },
   {
-    monster: kobold,
-    qty: () => getFromRange(3, 5),
+    monster: gasCloud,
+    qty: () => getFromRange(2, 6),
   },
   {
-    monster: undeadKobold,
+    monster: lvl1Mage,
+    qty: () => getFromRange(1, 1),
+  },
+  {
+    monster: lvl1Priest,
     qty: () => getFromRange(2, 5),
   },
   {
-    monster: rogue,
-    qty: () => getFromRange(2, 5),
+    monster: creepingCoin,
+    qty: () => getFromRange(9, 9),
   },
   {
-    monster: bushwacker,
-    qty: () => getFromRange(2, 5),
+    monster: lvl1Ninja,
+    qty: () => getFromRange(2, 6),
   },
   {
-    monster: highwayman,
-    qty: () => getFromRange(2, 5),
+    monster: vorpalBunny,
+    qty: () => getFromRange(4, 6),
   },
 ];
 
-export default function getEnemies() {
-  const arr = [];
-  const roll = getFromRange(0, 99);
+function getGroup() {
   let monster;
+  const roll = getFromRange(0, 99);
 
   if (roll < 75) {
-    monster = enemies[getFromRange(0, 3)];
+    monster = enemies[getFromRange(0, 4)];
   } else if (roll < 93) {
     monster = enemies[getFromRange(1, 5)];
   } else {
-    monster = enemies[getFromRange(4, 6)];
+    monster = enemies[getFromRange(3, 7)];
   }
 
   const group: Monster[] = [];
   group.length = monster.qty();
   group.fill(new Monster(monster.monster as MonsterData));
 
-  arr.push(group);
+  return group;
+}
+
+export default function getEnemies() {
+  const arr = [];
+  const groups = getFromRange(0, 99) > 20 ? 1 : 2;
+
+  for (let i = 0; i < groups; i += 1) {
+    arr.push(getGroup());
+  }
+
   return arr;
 }

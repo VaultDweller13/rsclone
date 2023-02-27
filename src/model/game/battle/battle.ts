@@ -63,7 +63,7 @@ export default class Battle {
   }
 
   #getEnemies(level: Level) {
-    return monsters[level.id].default();
+    return monsters[level.id - 1].default();
   }
 
   #startRound() {
