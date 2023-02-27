@@ -1,4 +1,4 @@
-import { renderParty } from '../common';
+import { renderParty, createElement } from '../common';
 import inspect from '../inspection';
 import { party } from '../partyInitializer';
 
@@ -20,6 +20,9 @@ function mazeParty() {
           });
         }
         if (canvasContainer) {
+          const locationBlock = createElement('div', 'location-name', 'block');
+          locationBlock.textContent = 'Maze';
+          view?.append(locationBlock);
           view?.append(canvasContainer);
           mazeParty();
         }
