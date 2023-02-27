@@ -11,7 +11,7 @@ import {
 import castle from '../../Assets/castle.jpg';
 import { createCharacter } from './characterCreator';
 import changeParty from './changeParty';
-import initFirstLevel from '../../../game/run';
+import initGame from '../../../game/run';
 import { party } from '../partyInitializer';
 import Character from '../../../model/characters/character';
 import inspect from '../inspection';
@@ -187,11 +187,10 @@ implementCastle = () => {
                       id: 'purge',
                       name: 'Bring back to normal [500 Gold]',
                       func: () => {
-                        
                         if (goldValue && goldValue >= 500 && character.status !== 'OK') {
                           party.changeGold(-500);
-                        // need function character.setStatus()
-                        // eslint-disable-next-line no-param-reassign
+                          // need function character.setStatus()
+                          // eslint-disable-next-line no-param-reassign
                           character.status = 'OK';
                           if (character.getHp() === 0) {
                             character.setHp(1);
@@ -238,7 +237,7 @@ implementCastle = () => {
         document.getElementById('view')?.classList.add('maze');
       }
       mazeParty();
-      initFirstLevel();
+      initGame();
     } else {
       warning('You cannot enter maze without a party');
     }

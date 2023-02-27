@@ -1,6 +1,9 @@
 import Controls from './Controls';
 import GameMap from './GameMap';
 import { Coordinates, KeyboardKeyAlias, Position } from './utils/types';
+import rotateSound from './assets/rotation.m4a';
+import walkSound from './assets/walking.m4a';
+import doorSound from './assets/door-opening.m4a';
 
 export default class Camera {
   private readonly CAMERA_CLOSENESS_RATE = 6;
@@ -11,7 +14,7 @@ export default class Camera {
   private readonly DISCRETE_ROTATE_ANGLE_90 = Math.PI / 2;
   private readonly DISCRETE_ROTATE_ANGLE_180 = Math.PI;
   private readonly DISCRETE_ROTATE_ANGLE_270 = 1.5 * Math.PI;
-  private readonly DISCRETE_ROTATE_ANGLE_PER_FRAME = Math.PI / 45;
+  private readonly DISCRETE_ROTATE_ANGLE_PER_FRAME = Math.PI / 36;
   private readonly DISCRETE_ROTATE_ANGLE_PER_FRAME_LIMITER = 2.5;
 
   private readonly DISCRETE_MOVE_DISTANCE_PER_FRAME = 0.1;
@@ -19,6 +22,10 @@ export default class Camera {
   private readonly ROTATE_SPEED_RATE = 0.7;
   private readonly MOVE_SPEED_RATE = 2;
   private readonly DISTANCE_TO_BLOCK = 0.51;
+
+  private readonly WALK_SOUND = new Audio();
+  private readonly ROTATE_SOUND = new Audio();
+  private readonly DOOR_SOUND = new Audio();
 
   callback: (() => void) | null = null;
   predicator: (() => boolean) | null = null;
@@ -28,6 +35,8 @@ export default class Camera {
   private isPossibleToMove = true;
   private stateKey: null | KeyboardKeyAlias = null;
   private isMoving = false;
+  private isPlayed = false;
+
   isMoved = false;
   inFront = 0;
 
@@ -42,12 +51,16 @@ export default class Camera {
   ];
 
   constructor(startPosition: Required<Position>, public controls: Controls) {
+    this.WALK_SOUND.src = walkSound as string;
+    this.ROTATE_SOUND.src = rotateSound as string;
+    this.DOOR_SOUND.src = doorSound as string;
+
     if (controls.mode === 'discrete') {
       this.position = this.centralizePosition({
         x: startPosition.x,
         y: startPosition.y,
       });
-      this.direction = 0;
+      this.direction = startPosition.direction;
       this.targetDirection = this.direction;
     } else {
       this.position = startPosition;
@@ -71,6 +84,7 @@ export default class Camera {
 
   private updateOnDiscreteMode = (map: GameMap): void => {
     if (!this.callback && !this.predicator) {
+      this.isPlayed = false;
       this.stateKey =
         (Object.keys(this.controls.states).find(
           (key) => this.controls.states[key as KeyboardKeyAlias]
@@ -113,6 +127,7 @@ export default class Camera {
 
   private rotate = (angle: number, map: GameMap): void => {
     this.isMoving = true;
+    if (this.isMoving && !this.isPlayed) this.playSound(this.ROTATE_SOUND);
     this.direction = (this.direction + angle + this.CIRCLE) % this.CIRCLE;
     this.inFront = this.getBlock(this.DISTANCE_TO_BLOCK, map).possibleBlock;
   };
@@ -122,6 +137,7 @@ export default class Camera {
 
     if (possibleBlock === 0) {
       this.isMoving = true;
+      if (this.isMoving && !this.isPlayed) this.playSound(this.WALK_SOUND);
       const dx = Math.cos(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) * distance;
       const dy = Math.sin(this.direction + (isStrafe ? this.STRAFE_MOVE_ANGLE : 0)) * distance;
 
@@ -132,6 +148,7 @@ export default class Camera {
     } else if (possibleBlock === 4) {
       this.isPossibleToMove = false;
       this.openDoor(map);
+      this.playSound(this.DOOR_SOUND);
     } else {
       this.isPossibleToMove = false;
     }
@@ -223,4 +240,10 @@ export default class Camera {
     (map: GameMap, isNegative: boolean, isStrafe = false) =>
     () =>
       this.move((isNegative ? -1 : 1) * this.DISCRETE_MOVE_DISTANCE_PER_FRAME, map, isStrafe);
+
+  private playSound = (sound: HTMLAudioElement) => {
+    sound.load();
+    sound.play().catch(() => sound.play());
+    this.isPlayed = true;
+  };
 }
