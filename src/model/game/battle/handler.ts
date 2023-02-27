@@ -55,7 +55,10 @@ export default class EventHandler {
       if (command) this.commands.push(command);
 
       if (target === run) {
-        if (this.character.run()) this.#exit();
+        if (this.character.run()) {
+          this.UI.hide();
+          this.#exit();
+        }
         return;
       }
 

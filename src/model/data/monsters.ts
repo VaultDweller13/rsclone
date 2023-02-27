@@ -993,7 +993,7 @@ const monsters: MonsterData[] = [
     level: 8,
   },
   {
-    name: 'Dragon, Gas',
+    name: 'Gas Dragon',
     unidentified: 'Dragons',
     AC: 3,
     HPMin: 5,
