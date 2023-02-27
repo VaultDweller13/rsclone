@@ -7,8 +7,9 @@ import { test1Audio } from './View/Render/music';
 // import './tests/charTest';
 
 test1Audio.play().then(
-  () => {},
+  () => {console.log(test1Audio)},
   () => {}
 );
+console.log(test1Audio);
 assign();
 renderBasic();

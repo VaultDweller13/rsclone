@@ -24,7 +24,11 @@ module.exports = {
         type: 'asset/resource',
       },
       {
-        test: /\.(m4a| mp3)$/i,
+        test: /\.(m4a)$/i,
+        type: 'asset/resource'
+      },
+      {
+        test: /\.(mp3)$/i,
         type: 'asset/resource'
       },
     ],
