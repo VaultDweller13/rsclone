@@ -3,9 +3,34 @@ import classes from '../../model/data/classes';
 import Party from '../../model/game/party';
 import weapons from '../../model/data/weapons';
 import armor from '../../model/data/armor';
+import { Item } from '../../types/types';
 
 const party = new Party(6, true, 0);
 const tavern = new Party(20, false);
+
+function getSavedChar(character: Character): {
+  char: Character;
+  inventory: Item[];
+  equipment: {
+    weapon: Item | null | undefined,
+    shield: Item | null | undefined,
+    armor: Item | null | undefined,
+    helmet: Item | null | undefined,
+    gauntlet: Item | null | undefined,
+    accessory: Item | null | undefined,
+    expendable: Item | null | undefined,
+  };
+} {
+  return { char: character, inventory: character.getInventory(), equipment: {
+    weapon: character.equipment.get('weapon'),
+    shield: character.equipment.get('shield'),
+    armor: character.equipment.get('armor'),
+    helmet: character.equipment.get('helmet'),
+    gauntlet: character.equipment.get('gauntlet'),
+    accessory: character.equipment.get('accessory'),
+    expendable: character.equipment.get('expendable'),
+  }};
+}
 
 function setTavern() {
   const fighter1 = new Character(
@@ -136,7 +161,16 @@ function downloadParty() {
   const charsString = localStorage.getItem('partyChars');
   let characters;
   if (charsString) {
-    characters = JSON.parse(charsString) as Array<Character>;
+    characters = JSON.parse(charsString) as { char: Character; inventory: Item[]; equipment: {
+      weapon: Item | null | undefined,
+      shield: Item | null | undefined,
+      armor: Item | null | undefined,
+      helmet: Item | null | undefined,
+      gauntlet: Item | null | undefined,
+      accessory: Item | null | undefined,
+      expendable: Item | null | undefined,
+    } }[];
+    console.log(characters[0]);
   }
   if (characters !== undefined) {
     if (goldString) {
@@ -147,22 +181,31 @@ function downloadParty() {
     }
     characters.forEach((character) => {
       const char = new Character(
-        character.name,
-        character.race,
+        character.char.name,
+        character.char.race,
         {
-          strength: character.strength,
-          intelligence: character.intelligence,
-          piety: character.piety,
-          vitality: character.vitality,
-          agility: character.agility,
-          luck: character.luck,
+          strength: character.char.strength,
+          intelligence: character.char.intelligence,
+          piety: character.char.piety,
+          vitality: character.char.vitality,
+          agility: character.char.agility,
+          luck: character.char.luck,
         },
-        character.class,
-        character.alignment,
-        character.level
+        character.char.class,
+        character.char.alignment,
+        character.char.level
       );
-
-      char.addExp(character.exp ? character.exp : 0);
+      console.log(character.equipment);
+      char.addExp(character.char.exp ? character.char.exp : 0);
+      const { equipment }  = character;
+      Object.keys(equipment).forEach((key) => {
+        if (equipment[key as keyof object]) {
+          char.equip(equipment[key as keyof object] as Item);
+        }
+      });
+      character.inventory.forEach((item) => {
+        char.addToInventory(item);
+      });
       party.add(char);
     });
   } else {
@@ -173,7 +216,15 @@ function downloadTavern() {
   const charsString = localStorage.getItem('tavernChars');
   let characters;
   if (charsString) {
-    characters = JSON.parse(charsString) as Character[];
+    characters = JSON.parse(charsString) as { char: Character; inventory: Item[]; equipment: {
+      weapon: Item | null | undefined,
+      shield: Item | null | undefined,
+      armor: Item | null | undefined,
+      helmet: Item | null | undefined,
+      gauntlet: Item | null | undefined,
+      accessory: Item | null | undefined,
+      expendable: Item | null | undefined,
+    } }[];
   }
   const tempTavern = tavern.getParty().length;
   for (let i = 0; i < tempTavern; i += 1) {
@@ -182,21 +233,31 @@ function downloadTavern() {
   if (characters !== undefined) {
     characters.forEach((character) => {
       const char = new Character(
-        character.name,
-        character.race,
+        character.char.name,
+        character.char.race,
         {
-          strength: character.strength,
-          intelligence: character.intelligence,
-          piety: character.piety,
-          vitality: character.vitality,
-          agility: character.agility,
-          luck: character.luck,
+          strength: character.char.strength,
+          intelligence: character.char.intelligence,
+          piety: character.char.piety,
+          vitality: character.char.vitality,
+          agility: character.char.agility,
+          luck: character.char.luck,
         },
-        character.class,
-        character.alignment,
-        character.level
+        character.char.class,
+        character.char.alignment,
+        character.char.level
       );
-      char.addExp(character.exp ? character.exp : 0);
+      char.addExp(character.char.exp ? character.char.exp : 0);
+      char.addExp(character.char.exp ? character.char.exp : 0);
+      const { equipment }  = character;
+      Object.keys(equipment).forEach((key) => {
+        if (equipment[key as keyof object]) {
+          char.equip(equipment[key as keyof object] as Item);
+        }
+      });
+      character.inventory.forEach((item) => {
+        char.addToInventory(item);
+      });
       tavern.add(char);
     });
   } else {
@@ -205,12 +266,14 @@ function downloadTavern() {
 }
 
 function saveGame() {
-  localStorage.setItem('tavernChars', JSON.stringify(tavern.getParty()));
-  localStorage.setItem('partyChars', JSON.stringify(party.getParty()));
+  localStorage.setItem('tavernChars', JSON.stringify(tavern.getParty().map((character) => getSavedChar(character))));
+  localStorage.setItem('partyChars', JSON.stringify(party.getParty().map((character) => getSavedChar(character))));
   localStorage.setItem('partyGold', JSON.stringify(party.getGold() as number));
+  console.log(localStorage.getItem('tavernChars'));
 }
 
 function downloadGame() {
+  console.log(localStorage.getItem('tavernChars'), 'a');
   downloadParty();
   downloadTavern();
 }
