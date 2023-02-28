@@ -23,8 +23,18 @@ import { playCastle, playMaze, stopBattle, stopCastle, stopMaze } from '../music
 function createInstructionsBlock() {
   const instructions = document.createElement('div');
   instructions.classList.add('instructions');
-  instructions.textContent = `Привет, искатель приключений! Чтобы начать играть, создай отряд приключенцев, выбрав в меню слева Gilgamesh's tavern. 
-  Нажми Manage party, чтобы добавить прегенерированных или созданных тобой персонажей в отряд. Нажми Create character, чтобы создать персонажа.`;
+  instructions.innerHTML = `Привет, искатель приключений! 
+  Wizardry - пошаговая партийная ролевая игра, в которой твоему отряду необходимо исследовать лабиринт, населенный разнообразными монстрами.
+  Чтобы начать играть, создай отряд приключенцев, выбрав в меню слева <span class = 'em'>Gilgamesh's tavern</span>. 
+  Нажми <span class = 'em'>Manage party</span>, чтобы добавить прегенерированных или созданных тобой персонажей в отряд. 
+  Нажми <span class = 'em'>Create character</span>, чтобы создать персонажа самостоятельно.
+  Чтобы отправиться навстречу приключениям, выбери <span class = 'em'>Enter maze</span> - твой отряд спустится в пугающую неизвестность лабиринта.
+  Во время исследования подземелья, на твой отряд будут нападать враги - битвы с ними проходят в пошаговом режиме. После победы, твой отряд получит опыт и золото. 
+  При наборе определенного количества опыта, рядом с именем персонажа появится значок повышения уровня - стрелочка вверх.
+  Нужно вернуться в город и зайти в <span class = 'em'>Adventurer's Inn</span>: твой персонаж отдохнет и получит уровень, став сильнее.
+  Полученное в битвах золото можно потратить на экипировку, зайдя в <span class = 'em'>Boltac's Trading Post</span>
+  Жрецы в <span class = 'em'>Temple of Cant</span> могут воскресить павшего в бою персонажа.
+  <p class = 'center'>Удачи!</p>`;
 
   return instructions;
 }
@@ -36,7 +46,7 @@ function renderCastle() {
   const firstChoice = createElement('div', 'cstl-choice', 'block pop-up left');
   firstChoice.innerHTML = `
   <button class="button" id="tavern">Gilgamesh's Tavern</button>
-  <button class="button" id="inn">Adventure's Inn</button>
+  <button class="button" id="inn">Adventurer's Inn</button>
   <button class="button" id="trade-post">Boltac's Trading Post</button>
   <button class="button" id="temple">Temple of Cant</button>
   <button class="button" id="enter-maze">Enter maze</button>
