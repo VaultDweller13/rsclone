@@ -27,7 +27,12 @@ export default class Party {
   }
 
   public canBeAdded(character: Character) {
-    if (this.#check && this.#arr.some((char) => ![char.alignment, 'neutral'].includes(character.alignment))) {
+    if (
+      this.#check &&
+      this.#arr
+        .filter((char) => char.alignment !== 'neutral')
+        .some((char) => ![char.alignment, 'neutral'].includes(character.alignment))
+    ) {
       return false;
     }
 
