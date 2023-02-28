@@ -46,20 +46,20 @@ function selectClass(clas: string) {
 
 const statDescription = {
   strength: 'strengh tip',
-  piety: 'piety tip', 
+  piety: 'piety tip',
   luck: '',
   intelligence: '',
-  vitality: '', 
+  vitality: '',
   agility: '',
-}
+};
 
 const raceDescription = {
   human: '',
   dwarf: '',
   elf: '',
   gnome: '',
-  hobbit: ''
-}
+  hobbit: '',
+};
 
 function setClasses(alignment: Alignment, stats: Record<Stat, number>) {
   const classesEl = document.getElementById('classes') as HTMLElement;
@@ -167,6 +167,24 @@ function setStats(bons: number, stats: Record<Stat, number>) {
       confirm.func();
     }
   });
+  document.getElementById('leave')?.addEventListener('click', () => {
+    newCharacter = {
+      name: '',
+      race: '',
+      alignment: '' as Alignment,
+      class: '',
+      bonus: 0,
+      stats: {
+        strength: 0,
+        intelligence: 0,
+        piety: 0,
+        vitality: 0,
+        agility: 0,
+        luck: 0,
+      } as Record<Stat, number>,
+    };
+    confirm.func();
+  });
 }
 
 function initStats() {
@@ -182,6 +200,24 @@ function initStats() {
   const bonus = getBonus();
   (document.getElementById('stats-class') as HTMLElement).innerHTML = setStatClassHtml(bonus);
   setStats(bonus, stats);
+  document.getElementById('leave')?.addEventListener('click', () => {
+    newCharacter = {
+      name: '',
+      race: '',
+      alignment: '' as Alignment,
+      class: '',
+      bonus: 0,
+      stats: {
+        strength: 0,
+        intelligence: 0,
+        piety: 0,
+        vitality: 0,
+        agility: 0,
+        luck: 0,
+      } as Record<Stat, number>,
+    };
+    confirm.func();
+  });
 }
 
 function setAlignment() {
@@ -201,6 +237,24 @@ function setAlignment() {
     )
   );
   (document.getElementById('race') as HTMLElement).textContent = newCharacter.race.substring(0, 3).toUpperCase();
+  document.getElementById('leave')?.addEventListener('click', () => {
+    newCharacter = {
+      name: '',
+      race: '',
+      alignment: '' as Alignment,
+      class: '',
+      bonus: 0,
+      stats: {
+        strength: 0,
+        intelligence: 0,
+        piety: 0,
+        vitality: 0,
+        agility: 0,
+        luck: 0,
+      } as Record<Stat, number>,
+    };
+    confirm.func();
+  });
 }
 
 function setRace() {
@@ -225,7 +279,26 @@ function setRace() {
     const raceTip = createElement('div', '', 'block pop-up tooltip');
     // PUT YOUR TEXT HERE
     raceTip.innerHTML = raceDescription[race];
-    document.getElementById(race)?.append(raceTip)} )
+    document.getElementById(race)?.append(raceTip);
+  });
+  document.getElementById('leave')?.addEventListener('click', () => {
+    newCharacter = {
+      name: '',
+      race: '',
+      alignment: '' as Alignment,
+      class: '',
+      bonus: 0,
+      stats: {
+        strength: 0,
+        intelligence: 0,
+        piety: 0,
+        vitality: 0,
+        agility: 0,
+        luck: 0,
+      } as Record<Stat, number>,
+    };
+    confirm.func();
+  });
 }
 
 function createCharacter() {
