@@ -45,20 +45,22 @@ function selectClass(clas: string) {
 }
 
 const statDescription = {
-  strength: 'strengh tip',
-  piety: 'piety tip',
-  luck: '',
-  intelligence: '',
-  vitality: '',
-  agility: '',
+  strength: 'Strength affects your skill in combat',
+  piety: 'Piety influence your ability to cast priest spells.',
+  luck: 'Luck comes to your aid in many mysterious ways.',
+  intelligence: 'Intelligence influence your ability to cast mage spells.',
+  vitality: 'Vitality affects your ability to withstand damage',
+  agility: 'Agility helps you avoid attacks and open treasure chests',
 };
 
 const raceDescription = {
-  human: '',
-  dwarf: '',
-  elf: '',
-  gnome: '',
-  hobbit: '',
+  human: 'Humans excel at nothing, but have no particular weaknesses, except for a decided lack of piety',
+  dwarf: 'Dwarves are strong and hardy. They love fine weapons and armor and delight in a good fight.',
+  elf: 'Elves are intelligent and pious, but not very robust. They excel at intellectual pursuits, and are excellent spell-casters.',
+  gnome:
+    'Gnomes are pious and agile, probably from praying underground during earthquakes. Due to their ascetic traditions, they make excellent priests.',
+  hobbit:
+    'Hobbits are agile and very, very lucky. They are a happy-go-lucky people, and, with the right training, become superb thieves.',
 };
 
 function setClasses(alignment: Alignment, stats: Record<Stat, number>) {
