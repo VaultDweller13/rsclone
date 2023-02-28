@@ -3,7 +3,7 @@ import classes from '../../model/data/classes';
 import Party from '../../model/game/party';
 import weapons from '../../model/data/weapons';
 import armor from '../../model/data/armor';
-import { Item } from '../../types/types';
+import { Item, Status } from '../../types/types';
 
 const party = new Party(6, true, 0);
 const tavern = new Party(20, false);
@@ -21,6 +21,8 @@ function getSavedChar(character: Character): {
     expendable: Item | null | undefined;
   };
   exp: number;
+  status: Status;
+  hp: number;
 } {
   return {
     char: character,
@@ -35,6 +37,8 @@ function getSavedChar(character: Character): {
       expendable: character.equipment.get('expendable'),
     },
     exp: character.exp,
+    status: character.status,
+    hp: character.getHp(),
   };
 }
 
@@ -168,8 +172,8 @@ function downloadParty() {
   let characters;
   if (charsString) {
     characters = JSON.parse(charsString) as {
-      char: Character,
-      inventory: Item[],
+      char: Character;
+      inventory: Item[];
       equipment: {
         weapon: Item | null | undefined;
         shield: Item | null | undefined;
@@ -178,8 +182,10 @@ function downloadParty() {
         gauntlet: Item | null | undefined;
         accessory: Item | null | undefined;
         expendable: Item | null | undefined;
-      },
-      exp: number
+      };
+      exp: number;
+      status: Status;
+      hp: number;
     }[];
     console.log(characters[0]);
   }
@@ -209,6 +215,8 @@ function downloadParty() {
       console.log(character.equipment);
       console.log(character.exp);
       char.addExp(character.exp ? character.exp : 0);
+      char.status = character.status;
+      char.setHp(character.hp);
       const { equipment } = character;
       Object.keys(equipment).forEach((key) => {
         if (equipment[key as keyof object]) {
@@ -241,6 +249,8 @@ function downloadTavern() {
         expendable: Item | null | undefined;
       };
       exp: number;
+      status: Status;
+      hp: number;
     }[];
   }
   const tempTavern = tavern.getParty().length;
@@ -266,6 +276,8 @@ function downloadTavern() {
       );
       char.addExp(character.exp ? character.exp : 0);
       char.addExp(character.exp ? character.exp : 0);
+      char.status = character.status;
+      char.setHp(character.hp);
       const { equipment } = character;
       Object.keys(equipment).forEach((key) => {
         if (equipment[key as keyof object]) {
