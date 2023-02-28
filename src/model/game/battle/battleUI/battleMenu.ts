@@ -41,18 +41,18 @@ export default class BattleMenu extends MenuWindow {
     this.el.innerHTML = '';
     const options = [];
 
-    const canCast = ['mage', 'priest', 'bishop', 'lord', 'samurai', 'ninja'].includes(character.class.name);
-    const canDispell = ['priest', 'lord'].includes(character.class.name);
+    // const canCast = ['mage', 'priest', 'bishop', 'lord', 'samurai', 'ninja'].includes(character.class.name);
+    // const canDispell = ['priest', 'lord'].includes(character.class.name);
 
     this.options.name.textContent = character.name;
     options.push(this.options.name);
 
-    if (index < 3) options.push(this.options.fight);
+    // if (index < 3) options.push(this.options.fight);
 
-    options.push(this.options.parry, this.options.item);
+    options.push(this.options.fight, this.options.parry /* this.options.item */);
 
-    if (canCast) options.push(this.options.cast);
-    if (canDispell) options.push(this.options.dispell);
+    // if (canCast) options.push(this.options.cast);
+    // if (canDispell) options.push(this.options.dispell);
 
     options.push(this.options.run);
 
