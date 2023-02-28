@@ -20,6 +20,14 @@ import createShop from './tradePostBuy';
 import mazeParty from '../maze/mazeParty';
 import { playCastle, playMaze, stopBattle, stopCastle, stopMaze } from '../music';
 
+function createInstructionsBlock() {
+  const instructions = document.createElement('div');
+  instructions.classList.add('instructions');
+  // instructions.textContent =
+
+  return instructions;
+}
+
 function renderCastle() {
   resetPage();
   const locationName = document.getElementById('location-name') as HTMLElement;
@@ -32,10 +40,11 @@ function renderCastle() {
   <button class="button" id="temple">Temple of Cant</button>
   <button class="button" id="enter-maze">Enter maze</button>
   `;
+
   const view = document.getElementById('view') as HTMLElement;
   view.style.backgroundImage = `url(${castle as string})`;
   view.style.backgroundSize = '100% 100%';
-  view.append(firstChoice);
+  view.append(firstChoice, createInstructionsBlock());
 }
 
 let implementCastle = () => {};

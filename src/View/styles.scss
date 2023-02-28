@@ -77,10 +77,11 @@
       right: 0;
       z-index: 20;
     }
-    #cstl-choice > .button, #current-choice > .button{
+    #cstl-choice > .button,
+    #current-choice > .button {
       position: relative;
     }
-    
+
     .layer1,
     .layer2,
     .layer3 {
@@ -200,10 +201,11 @@
     .tooltip {
       display: none;
     }
-    .stat-line{
+    .stat-line {
       position: relative;
     }
-    .button:hover .tooltip, .stat-line:hover .tooltip{
+    .button:hover .tooltip,
+    .stat-line:hover .tooltip {
       z-index: 5;
       display: block;
       position: absolute;
@@ -340,4 +342,14 @@
       color: #ffffff;
     }
   }
+}
+
+.instructions {
+  width: 20%;
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 4px;
+  border: 3px solid #ffffff;
+  padding: 10px;
+  margin-left: auto;
 }
