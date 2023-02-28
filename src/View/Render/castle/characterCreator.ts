@@ -1,11 +1,5 @@
 import { getParty, warning, createChoice, createElement } from '../common';
-import {
-  getStats,
-  getBonus,
-  getClasses,
-  getAlignment,
-  getRaces,
-} from '../../../model/characters/characterCreator';
+import { getStats, getBonus, getClasses, getAlignment, getRaces } from '../../../model/characters/characterCreator';
 import classes from '../../../model/data/classes';
 import {
   nameExists,
@@ -50,6 +44,23 @@ function selectClass(clas: string) {
   }
 }
 
+const statDescription = {
+  strength: 'strengh tip',
+  piety: 'piety tip', 
+  luck: '',
+  intelligence: '',
+  vitality: '', 
+  agility: '',
+}
+
+const raceDescription = {
+  human: '',
+  dwarf: '',
+  elf: '',
+  gnome: '',
+  hobbit: ''
+}
+
 function setClasses(alignment: Alignment, stats: Record<Stat, number>) {
   const classesEl = document.getElementById('classes') as HTMLElement;
   document.querySelectorAll('.class').forEach((el) => el.remove());
@@ -80,9 +91,7 @@ function reroll(stats: Record<Stat, number>): number {
     const key = el as Stat;
     newCharacter.stats[key] = stats[key];
     newCharacter.class = '';
-    (
-      document.getElementById(key)?.querySelector('.stat-value') as HTMLElement
-    ).textContent = stats[key].toString();
+    (document.getElementById(key)?.querySelector('.stat-value') as HTMLElement).textContent = stats[key].toString();
     removeClassInactive('increase');
     document.querySelectorAll('.decrease').forEach((block) => {
       if (!block.classList.contains('inactive')) {
@@ -99,26 +108,23 @@ function setStats(bons: number, stats: Record<Stat, number>) {
   Object.keys(stats).forEach((el) => {
     const stat = el as Stat;
     const line = createElement('div', stat, 'stat-line');
+    const lineTip = createElement('div', '', 'block pop-up tooltip');
+    // PUT YOUR TEXT HERE
+    lineTip.innerHTML = statDescription[stat];
+    line.append(lineTip);
     (document.getElementById('stats-table') as HTMLElement).append(line);
     line.innerHTML += setLineHtml(stat, stats[stat]);
     setClasses(newCharacter.alignment, newCharacter.stats);
     line.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
-      if (
-        target.classList.contains('decrease') &&
-        newCharacter.stats[stat] > stats[stat]
-      ) {
+      if (target.classList.contains('decrease') && newCharacter.stats[stat] > stats[stat]) {
         newCharacter.stats[stat] -= 1;
         newCharacter.bonus += 1;
         newCharacter.class = '';
         setClasses(newCharacter.alignment, newCharacter.stats);
-        (
-          document
-            .getElementById(stat)
-            ?.querySelector('.stat-value') as HTMLElement
-        ).textContent = newCharacter.stats[stat].toString();
-        (document.getElementById('bonus') as HTMLElement).textContent =
-          newCharacter.bonus.toString();
+        (document.getElementById(stat)?.querySelector('.stat-value') as HTMLElement).textContent =
+          newCharacter.stats[stat].toString();
+        (document.getElementById('bonus') as HTMLElement).textContent = newCharacter.bonus.toString();
         removeClassInactive('increase');
         if (newCharacter.stats[stat] === stats[stat]) {
           target.classList.add('inactive');
@@ -134,24 +140,17 @@ function setStats(bons: number, stats: Record<Stat, number>) {
             });
           }
           setClasses(newCharacter.alignment, newCharacter.stats);
-          (
-            document
-              .getElementById(stat)
-              ?.querySelector('.stat-value') as HTMLElement
-          ).textContent = newCharacter.stats[stat].toString();
-          (document.getElementById('bonus') as HTMLElement).textContent =
-            newCharacter.bonus.toString();
-          target.parentElement
-            ?.querySelector('.decrease')
-            ?.classList.remove('inactive');
+          (document.getElementById(stat)?.querySelector('.stat-value') as HTMLElement).textContent =
+            newCharacter.stats[stat].toString();
+          (document.getElementById('bonus') as HTMLElement).textContent = newCharacter.bonus.toString();
+          target.parentElement?.querySelector('.decrease')?.classList.remove('inactive');
         }
       }
     });
   });
   document.getElementById('reroll')?.addEventListener('click', () => {
     newCharacter.bonus = reroll(stats);
-    (document.getElementById('bonus') as HTMLElement).textContent =
-      newCharacter.bonus.toString();
+    (document.getElementById('bonus') as HTMLElement).textContent = newCharacter.bonus.toString();
   });
   document.getElementById('confirm')?.addEventListener('click', () => {
     if (newCharacter.bonus === 0 && newCharacter.class !== '') {
@@ -160,9 +159,7 @@ function setStats(bons: number, stats: Record<Stat, number>) {
           newCharacter.name,
           newCharacter.race as Race,
           newCharacter.stats,
-          Object.values(classes).find(
-            (cl) => cl.name === newCharacter.class
-          ) as Class,
+          Object.values(classes).find((cl) => cl.name === newCharacter.class) as Class,
           newCharacter.alignment
         )
       );
@@ -173,19 +170,17 @@ function setStats(bons: number, stats: Record<Stat, number>) {
 }
 
 function initStats() {
-  (document.getElementById('cur-align') as HTMLElement).textContent =
-    newCharacter.alignment.substring(0, 1).toUpperCase();
-  document
-    .getElementById('current-choice')
-    ?.replaceWith(createElement('div', 'stats-class'));
+  (document.getElementById('cur-align') as HTMLElement).textContent = newCharacter.alignment
+    .substring(0, 1)
+    .toUpperCase();
+  document.getElementById('current-choice')?.replaceWith(createElement('div', 'stats-class'));
   const stats = getStats(newCharacter.race as Race) as Record<Stat, number>;
   Object.keys(stats).forEach((el) => {
     const key = el as Stat;
     newCharacter.stats[key] = stats[key];
   });
   const bonus = getBonus();
-  (document.getElementById('stats-class') as HTMLElement).innerHTML =
-    setStatClassHtml(bonus);
+  (document.getElementById('stats-class') as HTMLElement).innerHTML = setStatClassHtml(bonus);
   setStats(bonus, stats);
 }
 
@@ -205,8 +200,7 @@ function setAlignment() {
       )
     )
   );
-  (document.getElementById('race') as HTMLElement).textContent =
-    newCharacter.race.substring(0, 3).toUpperCase();
+  (document.getElementById('race') as HTMLElement).textContent = newCharacter.race.substring(0, 3).toUpperCase();
 }
 
 function setRace() {
@@ -227,6 +221,11 @@ function setRace() {
       )
     )
   );
+  getRaces().forEach((race) => {
+    const raceTip = createElement('div', '', 'block pop-up tooltip');
+    // PUT YOUR TEXT HERE
+    raceTip.innerHTML = raceDescription[race];
+    document.getElementById(race)?.append(raceTip)} )
 }
 
 function createCharacter() {

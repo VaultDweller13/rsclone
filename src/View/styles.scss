@@ -77,7 +77,7 @@
       right: 0;
       z-index: 20;
     }
-    #cstl-choice > .button{
+    #cstl-choice > .button, #current-choice > .button{
       position: relative;
     }
     
@@ -200,12 +200,15 @@
     .tooltip {
       display: none;
     }
-    .button:hover .tooltip{
+    .stat-line{
+      position: relative;
+    }
+    .button:hover .tooltip, .stat-line:hover .tooltip{
       z-index: 5;
       display: block;
       position: absolute;
       top: 30px;
-      min-width: 270px;
+      min-width: 200px;
     }
     #shop {
       display: flex;
