@@ -8,6 +8,7 @@ import { party } from '../../../View/Render/partyInitializer';
 import { confirm } from '../../../View/Render/castle/characterCreator';
 import type { Level } from '../../../game/game-engine/utils/types';
 import { monsters } from '../../data/tables';
+import { stopMaze, playBattle, stopBattle, playMaze } from '../../../View/Render/music';
 
 export default class Battle {
   exit: () => void;
@@ -20,7 +21,12 @@ export default class Battle {
 
   constructor(callback: () => void) {
     this.UI = new BattleUI();
-    this.exit = callback;
+    this.exit = () => {
+      stopBattle();
+      playMaze()
+      callback();
+    }
+    
     this.commands = [];
     this.eventHandler = new EventHandler(
       this.UI,
@@ -34,6 +40,8 @@ export default class Battle {
   }
 
   start(level: Level) {
+    stopMaze();
+    playBattle();
     this.enemies = this.#getEnemies(level);
     this.#startingEnemies = this.enemies;
     this.UI.update();

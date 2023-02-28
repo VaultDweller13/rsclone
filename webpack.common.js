@@ -27,6 +27,10 @@ module.exports = {
         test: /\.(m4a)$/i,
         type: 'asset/resource'
       },
+      {
+        test: /\.(mp3)$/i,
+        type: 'asset/resource'
+      },
     ],
   },
   resolve: {
