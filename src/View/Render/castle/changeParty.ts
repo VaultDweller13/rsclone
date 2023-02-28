@@ -11,7 +11,7 @@ let renderTaverners = (page: number) => {
 let renderPartyforTavern = () => {};
 
 function checkIfPagePossible(page: number): boolean {
-  return Math.ceil(tavern.getParty().length / 5) >= page && page > 0;
+  return Math.ceil(tavern.getParty().length / 10) >= page && page > 0;
 }
 
 function addFromParty(character: Character, index: number) {
@@ -25,7 +25,7 @@ function addFromParty(character: Character, index: number) {
 function addFromTavern(character: Character, index: number) {
   if (party.canBeAdded(character)) {
     party.add(character);
-    tavern.remove(index + (currentPage - 1) * 5);
+    tavern.remove(index + (currentPage - 1) * 10);
     renderPartyforTavern();
     if (!checkIfPagePossible(currentPage) && currentPage !== 1) {
       currentPage -= 1;
@@ -104,7 +104,7 @@ function changeParty() {
 }
 
 renderTaverners = (page: number) => {
-  const partyArr = tavern.getParty().slice((page - 1) * 5, page * 5);
+  const partyArr = tavern.getParty().slice((page - 1) * 10, page * 10);
   const tavernBody = document.querySelector('.tavern .prty-body');
   if (tavernBody) {
     tavernBody.innerHTML = '';
