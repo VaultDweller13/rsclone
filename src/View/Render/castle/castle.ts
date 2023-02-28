@@ -51,6 +51,12 @@ function enterCastle() {
 implementCastle = () => {
   const view = document.getElementById('view') as HTMLElement;
   view.classList.remove('maze');
+  const tavernTip = createElement('div', '', 'block pop-up tooltip');
+  // PUT YOUR TEXT HERE
+  tavernTip.innerHTML = `
+  Create adventurers and form party
+  `;
+  document.getElementById('tavern')?.append(tavernTip);
   document.getElementById('tavern')?.addEventListener('click', () => {
     view.append(
       createLayer(
@@ -58,12 +64,12 @@ implementCastle = () => {
         createChoice('tav-choice', [
           {
             id: 'add-to-prty',
-            name: 'change party',
+            name: 'Change party',
             func: () => changeParty(),
           },
           {
             id: 'inspect',
-            name: 'inspect character',
+            name: 'Inspect character',
             func: () => {
               document.getElementById('tav-choice')?.replaceWith(
                 selectCharacter((char: Character) => {
@@ -74,13 +80,19 @@ implementCastle = () => {
           },
           {
             id: 'create-character',
-            name: 'create character',
+            name: 'Create character',
             func: () => createCharacter(),
           },
         ])
       )
     );
   });
+  const innTip = createElement('div', '', 'block pop-up tooltip');
+  // PUT YOUR TEXT HERE
+  innTip.innerHTML = `
+  Level up adventurers
+  `;
+  document.getElementById('inn')?.append(innTip);
   document.getElementById('inn')?.addEventListener('click', () => {
     view.append(
       createLayer(
@@ -88,7 +100,7 @@ implementCastle = () => {
         createChoice('inn-choice', [
           {
             id: 'rest',
-            name: 'rest',
+            name: 'Rest',
             func: () => {
               document.getElementById('inn-choice')?.replaceWith(
                 selectCharacter((character) => {
@@ -137,6 +149,12 @@ implementCastle = () => {
       )
     );
   });
+  const tradeTip = createElement('div', '', 'block pop-up tooltip');
+  // PUT YOUR TEXT HERE
+  tradeTip.innerHTML = `
+  Buy or sell equipment
+  `;
+  document.getElementById('trade-post')?.append(tradeTip);
   document.getElementById('trade-post')?.addEventListener('click', () => {
     view.append(
       createLayer(
@@ -144,7 +162,7 @@ implementCastle = () => {
         createChoice('trade-choice', [
           {
             id: 'buy',
-            name: 'buy',
+            name: 'Buy',
             func: () => {
               document.getElementById('trade-choice')?.replaceWith(
                 selectCharacter((character) => {
@@ -158,7 +176,7 @@ implementCastle = () => {
           },
           {
             id: 'sell',
-            name: 'sell',
+            name: 'Sell',
             func: () => {
               document.getElementById('trade-choice')?.replaceWith(
                 selectCharacter((character) => {
@@ -174,6 +192,12 @@ implementCastle = () => {
       )
     );
   });
+  const templeTip = createElement('div', '', 'block pop-up tooltip');
+  // PUT YOUR TEXT HERE
+  templeTip.innerHTML = `
+  Heal and revive adventurers
+  `;
+  document.getElementById('temple')?.append(templeTip);
   document.getElementById('temple')?.addEventListener('click', () => {
     view.append(
       createLayer(
@@ -230,6 +254,12 @@ implementCastle = () => {
       )
     );
   });
+  const mazeTip = createElement('div', '', 'block pop-up tooltip');
+  // PUT YOUR TEXT HERE
+  mazeTip.innerHTML = `
+  Enter maze
+  `;
+  document.getElementById('enter-maze')?.append(mazeTip);
   document.getElementById('enter-maze')?.addEventListener('click', () => {
     if (party.getParty().length > 0) {
       const locationName = document.getElementById('location-name');
