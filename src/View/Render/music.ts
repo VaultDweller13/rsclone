@@ -3,7 +3,7 @@ import castleMusic from '../../game/music/castle.mp3';
 import maze1 from '../../game/music/maze1.mp3';
 import maze2 from '../../game/music/maze 2.mp3';
 import battleIntro from '../../game/music/battleIntro.mp3';
-import battleMusic from '../../game/music/battle.mp3'
+import battleMusic from '../../game/music/battle.mp3';
 
 const introAudio = new Audio(intro as string);
 introAudio.volume = 0.7;
@@ -22,6 +22,7 @@ maze2Audio.onended = async () => {
   await maze1Audio.play();
 };
 battleIntroAudio.onended = async () => {
+  battleAudio.currentTime = 0;
   await battleAudio.play();
 };
 battleAudio.onended = async () => {
@@ -30,6 +31,7 @@ battleAudio.onended = async () => {
 
 function playIntro() {
   if (introAudio.paused || introAudio.duration === 0) {
+    introAudio.currentTime = 0;
     introAudio.play().then(
       () => {},
       () => {}
@@ -60,7 +62,7 @@ function stopCastle() {
   castleAudio.pause();
 }
 
-function playMaze(){
+function playMaze() {
   if (maze1Audio.paused || maze1Audio.duration === 0 || maze2Audio.paused || maze2Audio.duration === 0) {
     maze1Audio.play().then(
       () => {},
@@ -76,6 +78,7 @@ function stopMaze() {
 
 function playBattle() {
   if (battleIntroAudio.paused || battleIntroAudio.duration === 0 || battleAudio.paused || battleAudio.duration === 0) {
+    battleIntroAudio.currentTime = 0;
     battleIntroAudio.play().then(
       () => {},
       () => {}
@@ -87,4 +90,16 @@ function stopBattle() {
   battleAudio.pause();
 }
 
-export { maze1Audio, maze2Audio, playIntro, stopIntro, introAudio, playCastle, playMaze, stopCastle, stopMaze, playBattle, stopBattle };
+export {
+  maze1Audio,
+  maze2Audio,
+  playIntro,
+  stopIntro,
+  introAudio,
+  playCastle,
+  playMaze,
+  stopCastle,
+  stopMaze,
+  playBattle,
+  stopBattle,
+};
