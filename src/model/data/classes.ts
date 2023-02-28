@@ -24,7 +24,7 @@ export default {
     },
     alignment: ['good', 'evil'],
     hitDice: 8,
-  },
+  } as Class,
   thief: {
     name: 'thief',
     stats: {
@@ -32,7 +32,7 @@ export default {
     },
     alignment: ['neutral', 'evil'],
     hitDice: 6,
-  },
+  } as Class,
   bishop: {
     name: 'bishop',
     stats: {
@@ -41,7 +41,7 @@ export default {
     },
     alignment: ['good', 'evil'],
     hitDice: 6,
-  },
+  } as Class,
   samurai: {
     name: 'samurai',
     stats: {
@@ -53,7 +53,7 @@ export default {
     },
     alignment: ['good', 'neutral'],
     hitDice: 8,
-  },
+  } as Class,
   lord: {
     name: 'lord',
     stats: {
@@ -66,7 +66,7 @@ export default {
     },
     alignment: ['good'],
     hitDice: 10,
-  },
+  } as Class,
   ninja: {
     name: 'ninja',
     stats: {
@@ -79,5 +79,5 @@ export default {
     },
     alignment: ['evil'],
     hitDice: 6,
-  },
+  } as Class,
 };
