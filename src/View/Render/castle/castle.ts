@@ -51,6 +51,13 @@ function enterCastle() {
 implementCastle = () => {
   const view = document.getElementById('view') as HTMLElement;
   view.classList.remove('maze');
+  const tavernTip = createElement('div', '', 'block pop-up tooltip');
+  // PUT YOUR TEXT HERE
+  tavernTip.innerHTML = `
+  SSSSSSSSSription<br>
+  some description
+  `
+  document.getElementById('tavern')?.append(tavernTip);
   document.getElementById('tavern')?.addEventListener('click', () => {
     view.append(
       createLayer(
@@ -81,6 +88,13 @@ implementCastle = () => {
       )
     );
   });
+  const innTip = createElement('div', '', 'block pop-up tooltip');
+  // PUT YOUR TEXT HERE
+  innTip.innerHTML = `
+  some description<br>
+  some description
+  `
+  document.getElementById('inn')?.append(innTip);
   document.getElementById('inn')?.addEventListener('click', () => {
     view.append(
       createLayer(
@@ -137,6 +151,13 @@ implementCastle = () => {
       )
     );
   });
+  const tradeTip = createElement('div', '', 'block pop-up tooltip');
+  // PUT YOUR TEXT HERE
+  tradeTip.innerHTML = `
+  some description<br>
+  some description
+  `
+  document.getElementById('trade-post')?.append(tradeTip);
   document.getElementById('trade-post')?.addEventListener('click', () => {
     view.append(
       createLayer(
@@ -174,6 +195,13 @@ implementCastle = () => {
       )
     );
   });
+  const templeTip = createElement('div', '', 'block pop-up tooltip');
+  // PUT YOUR TEXT HERE
+  templeTip.innerHTML = `
+  some description<br>
+  some description
+  `
+  document.getElementById('temple')?.append(templeTip);
   document.getElementById('temple')?.addEventListener('click', () => {
     view.append(
       createLayer(
@@ -230,6 +258,13 @@ implementCastle = () => {
       )
     );
   });
+  const mazeTip = createElement('div', '', 'block pop-up tooltip');
+  // PUT YOUR TEXT HERE
+  mazeTip.innerHTML = `
+  some description<br>
+  some description
+  `
+  document.getElementById('enter-maze')?.append(mazeTip);
   document.getElementById('enter-maze')?.addEventListener('click', () => {
     if (party.getParty().length > 0) {
       const locationName = document.getElementById('location-name');

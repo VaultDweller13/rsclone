@@ -77,6 +77,10 @@
       right: 0;
       z-index: 20;
     }
+    #cstl-choice > .button{
+      position: relative;
+    }
+    
     .layer1,
     .layer2,
     .layer3 {
@@ -191,6 +195,16 @@
       display: block;
       position: absolute;
       bottom: 20px;
+      min-width: 270px;
+    }
+    .tooltip {
+      display: none;
+    }
+    .button:hover .tooltip{
+      z-index: 5;
+      display: block;
+      position: absolute;
+      top: 30px;
       min-width: 270px;
     }
     #shop {
