@@ -6,6 +6,7 @@ import armor from '../../model/data/armor';
 
 const party = new Party(6, true, 0);
 const tavern = new Party(20, false);
+
 function setTavern() {
   const fighter1 = new Character(
     'FIGHTER1',
@@ -110,8 +111,6 @@ function setTavern() {
   tavern.add(thief);
 }
 
-party.changeGold(1500);
-setTavern();
 function partyReload() {
   const temp = party.getParty().length;
   if (temp) {
@@ -127,7 +126,96 @@ function partyReload() {
   for (let i = 0; i < tempTavern; i += 1) {
     tavern.remove(0);
   }
+  localStorage.setItem('partyChars', '');
+  localStorage.setItem('tavernChars', '');
   setTavern();
 }
 
-export { party, tavern, partyReload };
+function downloadParty() {
+  const goldString = localStorage.getItem('partyGold');
+  const charsString = localStorage.getItem('partyChars');
+  let characters;
+  if (charsString) {
+    characters = JSON.parse(charsString) as Array<Character>;
+  }
+  if (characters !== undefined) {
+    partyReload();
+    if (goldString) {
+      const partyGold = JSON.parse(goldString) as number;
+      if (partyGold !== undefined) {
+        party.changeGold(-(party.getGold() as number) + partyGold);
+      }
+    }
+    characters.forEach((character) => {
+      const char = new Character(
+        character.name,
+        character.race,
+        {
+          strength: character.strength,
+          intelligence: character.intelligence,
+          piety: character.piety,
+          vitality: character.vitality,
+          agility: character.agility,
+          luck: character.luck,
+        },
+        character.class,
+        character.alignment,
+        character.level
+      );
+
+      char.addExp(character.exp ? character.exp : 0);
+      party.add(char);
+    });
+  } else {
+    partyReload();
+  }
+}
+function downloadTavern() {
+  const charsString = localStorage.getItem('tavernChars');
+  let characters;
+  if (charsString) {
+    characters = JSON.parse(charsString) as Character[];
+  }
+  const tempTavern = tavern.getParty().length;
+  for (let i = 0; i < tempTavern; i += 1) {
+    tavern.remove(0);
+  }
+  if (characters) {
+    characters.forEach((character) => {
+      const char = new Character(
+        character.name,
+        character.race,
+        {
+          strength: character.strength,
+          intelligence: character.intelligence,
+          piety: character.piety,
+          vitality: character.vitality,
+          agility: character.agility,
+          luck: character.luck,
+        },
+        character.class,
+        character.alignment,
+        character.level
+      );
+      char.addExp(character.exp ? character.exp : 0);
+      tavern.add(char);
+    });
+  } else {
+    setTavern();
+  }
+}
+
+function saveGame() {
+  localStorage.setItem('tavernChars', JSON.stringify(tavern.getParty()));
+  localStorage.setItem('partyChars', JSON.stringify(party.getParty()));
+  localStorage.setItem('partyGold', JSON.stringify(party.getGold() as number));
+}
+
+function downloadGame() {
+  downloadParty();
+  downloadTavern();
+}
+
+downloadGame();
+
+export { party, tavern, partyReload, saveGame };

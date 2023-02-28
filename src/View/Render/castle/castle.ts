@@ -12,7 +12,7 @@ import castle from '../../Assets/castle.jpg';
 import { createCharacter } from './characterCreator';
 import changeParty from './changeParty';
 import initGame from '../../../game/run';
-import { party, partyReload } from '../partyInitializer';
+import { party, partyReload, saveGame } from '../partyInitializer';
 import Character from '../../../model/characters/character';
 import inspect from '../inspection';
 import createSellBlock from './tradePostSell';
@@ -239,7 +239,10 @@ implementCastle = () => {
           {
             id: 'save',
             name: 'Save game',
-            func: () => {},
+            func: () => {
+              saveGame();
+              enterCastle();
+            },
           },
           {
             id: 'restart',
