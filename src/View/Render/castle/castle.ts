@@ -23,7 +23,8 @@ import { playCastle, playMaze, stopBattle, stopCastle, stopMaze } from '../music
 function createInstructionsBlock() {
   const instructions = document.createElement('div');
   instructions.classList.add('instructions');
-  // instructions.textContent =
+  instructions.textContent = `Привет, искатель приключений! Чтобы начать играть, создай отряд приключенцев, выбрав в меню слева Gilgamesh's tavern. 
+  Нажми Manage party, чтобы добавить прегенерированных или созданных тобой персонажей в отряд. Нажми Create character, чтобы создать персонажа.`;
 
   return instructions;
 }
@@ -73,7 +74,7 @@ implementCastle = () => {
         createChoice('tav-choice', [
           {
             id: 'add-to-prty',
-            name: 'Change party',
+            name: 'Manage party',
             func: () => changeParty(),
           },
           {
