@@ -187,7 +187,6 @@ function downloadParty() {
       status: Status;
       hp: number;
     }[];
-    console.log(characters[0]);
   }
   if (characters !== undefined) {
     if (goldString) {
@@ -212,8 +211,6 @@ function downloadParty() {
         character.char.alignment,
         character.char.level
       );
-      console.log(character.equipment);
-      console.log(character.exp);
       char.addExp(character.exp ? character.exp : 0);
       char.status = character.status;
       char.setHp(character.hp);
@@ -298,11 +295,9 @@ function saveGame() {
   localStorage.setItem('tavernChars', JSON.stringify(tavern.getParty().map((character) => getSavedChar(character))));
   localStorage.setItem('partyChars', JSON.stringify(party.getParty().map((character) => getSavedChar(character))));
   localStorage.setItem('partyGold', JSON.stringify(party.getGold() as number));
-  console.log(localStorage.getItem('tavernChars'));
 }
 
 function downloadGame() {
-  console.log(localStorage.getItem('tavernChars'), 'a');
   downloadParty();
   downloadTavern();
 }
