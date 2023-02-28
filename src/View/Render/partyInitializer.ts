@@ -139,7 +139,6 @@ function downloadParty() {
     characters = JSON.parse(charsString) as Array<Character>;
   }
   if (characters !== undefined) {
-    partyReload();
     if (goldString) {
       const partyGold = JSON.parse(goldString) as number;
       if (partyGold !== undefined) {
@@ -180,7 +179,7 @@ function downloadTavern() {
   for (let i = 0; i < tempTavern; i += 1) {
     tavern.remove(0);
   }
-  if (characters) {
+  if (characters !== undefined) {
     characters.forEach((character) => {
       const char = new Character(
         character.name,
