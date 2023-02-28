@@ -35,6 +35,7 @@ export default class Monster {
   }
 
   attack(target: Character) {
+    console.log(this);
     if (['DEAD', 'ASHES', 'LOST'].includes(target.status)) return;
     if (['ASLEEP', 'STONED', 'PLYZE', 'AFRAID'].includes(this.status)) return;
     if (this.HP <= 0) return;
@@ -80,5 +81,10 @@ export default class Monster {
   set HP(value: number) {
     this.#HP = value;
     if (this.#HP <= 0) this.status = 'DEAD';
+  }
+
+  shake() {
+    setTimeout(() => this.img.classList.remove('shake'), 500);
+    this.img.classList.add('shake');
   }
 }
