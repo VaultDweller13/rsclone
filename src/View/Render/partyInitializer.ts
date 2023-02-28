@@ -5,8 +5,8 @@ import weapons from '../../model/data/weapons';
 import armor from '../../model/data/armor';
 
 const party = new Party(6, true, 0);
-const testGrognak = new Character(
-  'FIGHTER',
+const fighter1 = new Character(
+  'FIGHTER1',
   'dwarf',
   {
     strength: 16,
@@ -20,7 +20,22 @@ const testGrognak = new Character(
   'good'
 );
 
-const testMage = new Character(
+const fighter2 = new Character(
+  'FIGHTER2',
+  'human',
+  {
+    strength: 14,
+    intelligence: 12,
+    piety: 10,
+    vitality: 13,
+    agility: 16,
+    luck: 10,
+  },
+  classes.fighter,
+  'good'
+);
+
+const mage = new Character(
   'MAGE',
   'elf',
   {
@@ -35,7 +50,7 @@ const testMage = new Character(
   'good'
 );
 
-const testPriest = new Character(
+const priest = new Character(
   'PRIEST',
   'human',
   {
@@ -46,26 +61,54 @@ const testPriest = new Character(
     agility: 10,
     luck: 10,
   },
-  classes.mage,
+  classes.priest,
   'good'
 );
 
-testGrognak.status = 'AFRAID';
+const thief = new Character(
+  'THIEF',
+  'hobbit',
+  {
+    strength: 12,
+    intelligence: 12,
+    piety: 12,
+    vitality: 14,
+    agility: 16,
+    luck: 17,
+  },
+  classes.thief,
+  'neutral'
+);
 
-testGrognak.addToInventory(weapons[7]);
-testGrognak.addToInventory(weapons[8]);
-testGrognak.addToInventory(weapons[9]);
-testGrognak.addToInventory(weapons[10]);
-testGrognak.addToInventory(weapons[11]);
-testGrognak.addToInventory(weapons[12]);
-testGrognak.addToInventory(weapons[13]);
-testGrognak.addToInventory(armor[14]);
-testGrognak.equip(weapons[2]);
-testGrognak.addExp(1000);
-party.add(testGrognak);
-party.changeGold(2345);
-party.add(testMage);
+const bishop = new Character(
+  'BISHOP',
+  'human',
+  {
+    strength: 12,
+    intelligence: 16,
+    piety: 16,
+    vitality: 14,
+    agility: 13,
+    luck: 10,
+  },
+  classes.bishop,
+  'good'
+);
+
+fighter1.equip(weapons[0]);
+fighter1.equip(armor[1]);
+
+fighter2.equip(weapons[0]);
+fighter2.equip(armor[1]);
+
+party.changeGold(1500);
 
 const tavern = new Party(20, false);
+tavern.add(fighter1);
+tavern.add(fighter2);
+tavern.add(mage);
+tavern.add(priest);
+tavern.add(bishop);
+tavern.add(thief);
 
 export { party, tavern };
