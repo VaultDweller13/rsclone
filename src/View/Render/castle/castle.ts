@@ -287,6 +287,7 @@ implementCastle = () => {
         locationName.textContent = 'Maze';
       }
       document.getElementById('cstl-choice')?.remove();
+      document.querySelector('.instructions')?.remove();
       if (!document.getElementById('view')?.classList.contains('maze')) {
         document.getElementById('view')?.classList.add('maze');
       }
