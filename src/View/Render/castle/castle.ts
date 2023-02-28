@@ -12,7 +12,7 @@ import castle from '../../Assets/castle.jpg';
 import { createCharacter } from './characterCreator';
 import changeParty from './changeParty';
 import initGame from '../../../game/run';
-import { party } from '../partyInitializer';
+import { party, partyReload } from '../partyInitializer';
 import Character from '../../../model/characters/character';
 import inspect from '../inspection';
 import createSellBlock from './tradePostSell';
@@ -30,6 +30,7 @@ function renderCastle() {
   <button class="button" id="inn">Adventure's Inn</button>
   <button class="button" id="trade-post">Boltac's Trading Post</button>
   <button class="button" id="temple">Temple of Cant</button>
+  <button class="button" id="saves">Save game/ Start new</button>
   <button class="button" id="enter-maze">Enter maze</button>
   `;
   const view = document.getElementById('view') as HTMLElement;
@@ -224,6 +225,28 @@ implementCastle = () => {
                   document.getElementById('select')?.replaceWith(healChoice);
                 })
               );
+            },
+          },
+        ])
+      )
+    );
+  });
+  document.getElementById('saves')?.addEventListener('click', () => {
+    view.append(
+      createLayer(
+        1,
+        createChoice('save-choice', [
+          {
+            id: 'save',
+            name: 'Save game',
+            func: () => {},
+          },
+          {
+            id: 'restart',
+            name: 'Start new game',
+            func: () => {
+              partyReload();
+              enterCastle();
             },
           },
         ])
