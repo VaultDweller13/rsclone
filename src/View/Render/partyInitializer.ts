@@ -12,24 +12,30 @@ function getSavedChar(character: Character): {
   char: Character;
   inventory: Item[];
   equipment: {
-    weapon: Item | null | undefined,
-    shield: Item | null | undefined,
-    armor: Item | null | undefined,
-    helmet: Item | null | undefined,
-    gauntlet: Item | null | undefined,
-    accessory: Item | null | undefined,
-    expendable: Item | null | undefined,
+    weapon: Item | null | undefined;
+    shield: Item | null | undefined;
+    armor: Item | null | undefined;
+    helmet: Item | null | undefined;
+    gauntlet: Item | null | undefined;
+    accessory: Item | null | undefined;
+    expendable: Item | null | undefined;
   };
+  exp: number;
 } {
-  return { char: character, inventory: character.getInventory(), equipment: {
-    weapon: character.equipment.get('weapon'),
-    shield: character.equipment.get('shield'),
-    armor: character.equipment.get('armor'),
-    helmet: character.equipment.get('helmet'),
-    gauntlet: character.equipment.get('gauntlet'),
-    accessory: character.equipment.get('accessory'),
-    expendable: character.equipment.get('expendable'),
-  }};
+  return {
+    char: character,
+    inventory: character.getInventory(),
+    equipment: {
+      weapon: character.equipment.get('weapon'),
+      shield: character.equipment.get('shield'),
+      armor: character.equipment.get('armor'),
+      helmet: character.equipment.get('helmet'),
+      gauntlet: character.equipment.get('gauntlet'),
+      accessory: character.equipment.get('accessory'),
+      expendable: character.equipment.get('expendable'),
+    },
+    exp: character.exp,
+  };
 }
 
 function setTavern() {
@@ -161,15 +167,20 @@ function downloadParty() {
   const charsString = localStorage.getItem('partyChars');
   let characters;
   if (charsString) {
-    characters = JSON.parse(charsString) as { char: Character; inventory: Item[]; equipment: {
-      weapon: Item | null | undefined,
-      shield: Item | null | undefined,
-      armor: Item | null | undefined,
-      helmet: Item | null | undefined,
-      gauntlet: Item | null | undefined,
-      accessory: Item | null | undefined,
-      expendable: Item | null | undefined,
-    } }[];
+    characters = JSON.parse(charsString) as {
+      char: Character,
+      inventory: Item[],
+      equipment: {
+        weapon: Item | null | undefined;
+        shield: Item | null | undefined;
+        armor: Item | null | undefined;
+        helmet: Item | null | undefined;
+        gauntlet: Item | null | undefined;
+        accessory: Item | null | undefined;
+        expendable: Item | null | undefined;
+      },
+      exp: number
+    }[];
     console.log(characters[0]);
   }
   if (characters !== undefined) {
@@ -196,8 +207,9 @@ function downloadParty() {
         character.char.level
       );
       console.log(character.equipment);
-      char.addExp(character.char.exp ? character.char.exp : 0);
-      const { equipment }  = character;
+      console.log(character.exp);
+      char.addExp(character.exp ? character.exp : 0);
+      const { equipment } = character;
       Object.keys(equipment).forEach((key) => {
         if (equipment[key as keyof object]) {
           char.equip(equipment[key as keyof object] as Item);
@@ -216,15 +228,20 @@ function downloadTavern() {
   const charsString = localStorage.getItem('tavernChars');
   let characters;
   if (charsString) {
-    characters = JSON.parse(charsString) as { char: Character; inventory: Item[]; equipment: {
-      weapon: Item | null | undefined,
-      shield: Item | null | undefined,
-      armor: Item | null | undefined,
-      helmet: Item | null | undefined,
-      gauntlet: Item | null | undefined,
-      accessory: Item | null | undefined,
-      expendable: Item | null | undefined,
-    } }[];
+    characters = JSON.parse(charsString) as {
+      char: Character;
+      inventory: Item[];
+      equipment: {
+        weapon: Item | null | undefined;
+        shield: Item | null | undefined;
+        armor: Item | null | undefined;
+        helmet: Item | null | undefined;
+        gauntlet: Item | null | undefined;
+        accessory: Item | null | undefined;
+        expendable: Item | null | undefined;
+      };
+      exp: number;
+    }[];
   }
   const tempTavern = tavern.getParty().length;
   for (let i = 0; i < tempTavern; i += 1) {
@@ -247,9 +264,9 @@ function downloadTavern() {
         character.char.alignment,
         character.char.level
       );
-      char.addExp(character.char.exp ? character.char.exp : 0);
-      char.addExp(character.char.exp ? character.char.exp : 0);
-      const { equipment }  = character;
+      char.addExp(character.exp ? character.exp : 0);
+      char.addExp(character.exp ? character.exp : 0);
+      const { equipment } = character;
       Object.keys(equipment).forEach((key) => {
         if (equipment[key as keyof object]) {
           char.equip(equipment[key as keyof object] as Item);
