@@ -57,7 +57,9 @@ export default function getEnemies() {
 
   const group: Monster[] = [];
   group.length = monster.qty();
-  group.fill(new Monster(monster.monster as MonsterData));
+  for (let i = 0; i < group.length; i += 1) {
+    group[i] = new Monster(monster.monster as MonsterData);
+  }
 
   arr.push(group);
   return arr;

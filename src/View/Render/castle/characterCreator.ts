@@ -1,11 +1,5 @@
 import { getParty, warning, createChoice, createElement } from '../common';
-import {
-  getStats,
-  getBonus,
-  getClasses,
-  getAlignment,
-  getRaces,
-} from '../../../model/characters/characterCreator';
+import { getStats, getBonus, getClasses, getAlignment, getRaces } from '../../../model/characters/characterCreator';
 import classes from '../../../model/data/classes';
 import {
   nameExists,
@@ -50,6 +44,25 @@ function selectClass(clas: string) {
   }
 }
 
+const statDescription = {
+  strength: 'Strength affects your skill in combat',
+  piety: 'Piety influence your ability to cast priest spells.',
+  luck: 'Luck comes to your aid in many mysterious ways.',
+  intelligence: 'Intelligence influence your ability to cast mage spells.',
+  vitality: 'Vitality affects your ability to withstand damage',
+  agility: 'Agility helps you avoid attacks and open treasure chests',
+};
+
+const raceDescription = {
+  human: 'Humans excel at nothing, but have no particular weaknesses, except for a decided lack of piety',
+  dwarf: 'Dwarves are strong and hardy. They love fine weapons and armor and delight in a good fight.',
+  elf: 'Elves are intelligent and pious, but not very robust. They excel at intellectual pursuits, and are excellent spell-casters.',
+  gnome:
+    'Gnomes are pious and agile, probably from praying underground during earthquakes. Due to their ascetic traditions, they make excellent priests.',
+  hobbit:
+    'Hobbits are agile and very, very lucky. They are a happy-go-lucky people, and, with the right training, become superb thieves.',
+};
+
 function setClasses(alignment: Alignment, stats: Record<Stat, number>) {
   const classesEl = document.getElementById('classes') as HTMLElement;
   document.querySelectorAll('.class').forEach((el) => el.remove());
@@ -80,9 +93,7 @@ function reroll(stats: Record<Stat, number>): number {
     const key = el as Stat;
     newCharacter.stats[key] = stats[key];
     newCharacter.class = '';
-    (
-      document.getElementById(key)?.querySelector('.stat-value') as HTMLElement
-    ).textContent = stats[key].toString();
+    (document.getElementById(key)?.querySelector('.stat-value') as HTMLElement).textContent = stats[key].toString();
     removeClassInactive('increase');
     document.querySelectorAll('.decrease').forEach((block) => {
       if (!block.classList.contains('inactive')) {
@@ -99,26 +110,23 @@ function setStats(bons: number, stats: Record<Stat, number>) {
   Object.keys(stats).forEach((el) => {
     const stat = el as Stat;
     const line = createElement('div', stat, 'stat-line');
+    const lineTip = createElement('div', '', 'block pop-up tooltip');
+    // PUT YOUR TEXT HERE
+    lineTip.innerHTML = statDescription[stat];
+    line.append(lineTip);
     (document.getElementById('stats-table') as HTMLElement).append(line);
     line.innerHTML += setLineHtml(stat, stats[stat]);
     setClasses(newCharacter.alignment, newCharacter.stats);
     line.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
-      if (
-        target.classList.contains('decrease') &&
-        newCharacter.stats[stat] > stats[stat]
-      ) {
+      if (target.classList.contains('decrease') && newCharacter.stats[stat] > stats[stat]) {
         newCharacter.stats[stat] -= 1;
         newCharacter.bonus += 1;
         newCharacter.class = '';
         setClasses(newCharacter.alignment, newCharacter.stats);
-        (
-          document
-            .getElementById(stat)
-            ?.querySelector('.stat-value') as HTMLElement
-        ).textContent = newCharacter.stats[stat].toString();
-        (document.getElementById('bonus') as HTMLElement).textContent =
-          newCharacter.bonus.toString();
+        (document.getElementById(stat)?.querySelector('.stat-value') as HTMLElement).textContent =
+          newCharacter.stats[stat].toString();
+        (document.getElementById('bonus') as HTMLElement).textContent = newCharacter.bonus.toString();
         removeClassInactive('increase');
         if (newCharacter.stats[stat] === stats[stat]) {
           target.classList.add('inactive');
@@ -134,24 +142,17 @@ function setStats(bons: number, stats: Record<Stat, number>) {
             });
           }
           setClasses(newCharacter.alignment, newCharacter.stats);
-          (
-            document
-              .getElementById(stat)
-              ?.querySelector('.stat-value') as HTMLElement
-          ).textContent = newCharacter.stats[stat].toString();
-          (document.getElementById('bonus') as HTMLElement).textContent =
-            newCharacter.bonus.toString();
-          target.parentElement
-            ?.querySelector('.decrease')
-            ?.classList.remove('inactive');
+          (document.getElementById(stat)?.querySelector('.stat-value') as HTMLElement).textContent =
+            newCharacter.stats[stat].toString();
+          (document.getElementById('bonus') as HTMLElement).textContent = newCharacter.bonus.toString();
+          target.parentElement?.querySelector('.decrease')?.classList.remove('inactive');
         }
       }
     });
   });
   document.getElementById('reroll')?.addEventListener('click', () => {
     newCharacter.bonus = reroll(stats);
-    (document.getElementById('bonus') as HTMLElement).textContent =
-      newCharacter.bonus.toString();
+    (document.getElementById('bonus') as HTMLElement).textContent = newCharacter.bonus.toString();
   });
   document.getElementById('confirm')?.addEventListener('click', () => {
     if (newCharacter.bonus === 0 && newCharacter.class !== '') {
@@ -160,9 +161,7 @@ function setStats(bons: number, stats: Record<Stat, number>) {
           newCharacter.name,
           newCharacter.race as Race,
           newCharacter.stats,
-          Object.values(classes).find(
-            (cl) => cl.name === newCharacter.class
-          ) as Class,
+          Object.values(classes).find((cl) => cl.name === newCharacter.class) as Class,
           newCharacter.alignment
         )
       );
@@ -170,23 +169,57 @@ function setStats(bons: number, stats: Record<Stat, number>) {
       confirm.func();
     }
   });
+  document.getElementById('leave')?.addEventListener('click', () => {
+    newCharacter = {
+      name: '',
+      race: '',
+      alignment: '' as Alignment,
+      class: '',
+      bonus: 0,
+      stats: {
+        strength: 0,
+        intelligence: 0,
+        piety: 0,
+        vitality: 0,
+        agility: 0,
+        luck: 0,
+      } as Record<Stat, number>,
+    };
+    confirm.func();
+  });
 }
 
 function initStats() {
-  (document.getElementById('cur-align') as HTMLElement).textContent =
-    newCharacter.alignment.substring(0, 1).toUpperCase();
-  document
-    .getElementById('current-choice')
-    ?.replaceWith(createElement('div', 'stats-class'));
+  (document.getElementById('cur-align') as HTMLElement).textContent = newCharacter.alignment
+    .substring(0, 1)
+    .toUpperCase();
+  document.getElementById('current-choice')?.replaceWith(createElement('div', 'stats-class'));
   const stats = getStats(newCharacter.race as Race) as Record<Stat, number>;
   Object.keys(stats).forEach((el) => {
     const key = el as Stat;
     newCharacter.stats[key] = stats[key];
   });
   const bonus = getBonus();
-  (document.getElementById('stats-class') as HTMLElement).innerHTML =
-    setStatClassHtml(bonus);
+  (document.getElementById('stats-class') as HTMLElement).innerHTML = setStatClassHtml(bonus);
   setStats(bonus, stats);
+  document.getElementById('leave')?.addEventListener('click', () => {
+    newCharacter = {
+      name: '',
+      race: '',
+      alignment: '' as Alignment,
+      class: '',
+      bonus: 0,
+      stats: {
+        strength: 0,
+        intelligence: 0,
+        piety: 0,
+        vitality: 0,
+        agility: 0,
+        luck: 0,
+      } as Record<Stat, number>,
+    };
+    confirm.func();
+  });
 }
 
 function setAlignment() {
@@ -205,8 +238,25 @@ function setAlignment() {
       )
     )
   );
-  (document.getElementById('race') as HTMLElement).textContent =
-    newCharacter.race.substring(0, 3).toUpperCase();
+  (document.getElementById('race') as HTMLElement).textContent = newCharacter.race.substring(0, 3).toUpperCase();
+  document.getElementById('leave')?.addEventListener('click', () => {
+    newCharacter = {
+      name: '',
+      race: '',
+      alignment: '' as Alignment,
+      class: '',
+      bonus: 0,
+      stats: {
+        strength: 0,
+        intelligence: 0,
+        piety: 0,
+        vitality: 0,
+        agility: 0,
+        luck: 0,
+      } as Record<Stat, number>,
+    };
+    confirm.func();
+  });
 }
 
 function setRace() {
@@ -227,6 +277,30 @@ function setRace() {
       )
     )
   );
+  getRaces().forEach((race) => {
+    const raceTip = createElement('div', '', 'block pop-up tooltip');
+    // PUT YOUR TEXT HERE
+    raceTip.innerHTML = raceDescription[race];
+    document.getElementById(race)?.append(raceTip);
+  });
+  document.getElementById('leave')?.addEventListener('click', () => {
+    newCharacter = {
+      name: '',
+      race: '',
+      alignment: '' as Alignment,
+      class: '',
+      bonus: 0,
+      stats: {
+        strength: 0,
+        intelligence: 0,
+        piety: 0,
+        vitality: 0,
+        agility: 0,
+        luck: 0,
+      } as Record<Stat, number>,
+    };
+    confirm.func();
+  });
 }
 
 function createCharacter() {

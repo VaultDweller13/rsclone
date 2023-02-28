@@ -169,6 +169,7 @@ export default class Character {
     }
 
     target.HP -= totalDamage;
+    target.shake();
 
     const s = timesHit > 1 ? 's' : '';
     this.#message += `${this.name} attacks ${enemy.name} and hits ${timesHit} time${s} for ${totalDamage}.`;
