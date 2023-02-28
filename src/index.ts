@@ -8,6 +8,5 @@ import { playIntro } from './View/Render/music';
 
 
 playIntro();
-console.log(playIntro);
 assign();
 renderBasic();
