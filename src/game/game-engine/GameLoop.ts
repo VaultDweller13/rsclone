@@ -1,8 +1,6 @@
 import GameMap from './GameMap';
 import MiniMap from './MiniMap';
 import Raycaster from './Raycaster';
-// import Battle from './Battle';
-// import Logic from '../../model/game/logic';
 import { ControlMode, Level } from './utils/types';
 import Controls from './Controls';
 import Camera from './Camera';
@@ -17,9 +15,15 @@ export default class GameLoop {
   controls: Controls;
   battle: Battle;
   player: Camera;
-  // logic: Logic;
   infoBoard: InfoBoard;
   level: Level;
+  levelsStore: {
+    level: Level;
+    raycaster: Raycaster;
+    map: GameMap;
+    miniMaP: MiniMap;
+    player: Camera;
+  }[] = [];
 
   private lastTime = 0;
   private loopId: number | null = null;
@@ -39,7 +43,6 @@ export default class GameLoop {
     this.controls = new Controls(controlMode);
     this.battle = new Battle(() => this.start());
     this.player = new Camera(this.level.startPosition, this.controls);
-    // this.logic = new Logic();
     this.infoBoard = new InfoBoard(ctx);
 
     document.addEventListener('keydown', (e) => this.onKeys(e), false);
@@ -106,11 +109,42 @@ export default class GameLoop {
     this.stop();
     const newLevel = this.levels.find((level) => level.id === newLevelId);
     if (newLevel) {
-      this.level = newLevel;
-      this.raycaster = new Raycaster(this.ctx, this.level.lightRange);
-      this.map = new GameMap(this.level.map, this.level.textures);
-      this.miniMap = new MiniMap(this.map);
-      this.player = new Camera(this.level.startPosition, this.controls);
+      const oldLevelIndex = this.levelsStore.findIndex((ls) => ls.level === newLevel);
+      const thisLevelIndex = this.levelsStore.findIndex((ls) => ls.level === this.level);
+
+      if (thisLevelIndex < 0) {
+        this.levelsStore.push({
+          level: this.level,
+          raycaster: this.raycaster,
+          map: this.map,
+          miniMaP: this.miniMap,
+          player: this.player,
+        });
+      } else {
+        this.levelsStore.splice(thisLevelIndex, 1, {
+          level: this.level,
+          raycaster: this.raycaster,
+          map: this.map,
+          miniMaP: this.miniMap,
+          player: this.player,
+        });
+      }
+
+      if (oldLevelIndex !== -1) {
+        const oldLevelGame = this.levelsStore[oldLevelIndex];
+        this.level = oldLevelGame.level;
+        this.raycaster = oldLevelGame.raycaster;
+        this.map = oldLevelGame.map;
+        this.miniMap = oldLevelGame.miniMaP;
+        this.player = oldLevelGame.player;
+      } else {
+        this.level = newLevel;
+        this.raycaster = new Raycaster(this.ctx, this.level.lightRange);
+        this.map = new GameMap(this.level.map, this.level.textures);
+        this.miniMap = new MiniMap(this.map);
+        this.player = new Camera(this.level.startPosition, this.controls);
+      }
+
       this.infoBoard.updateGreetState();
       this.start();
     } else {
