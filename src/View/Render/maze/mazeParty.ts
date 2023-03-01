@@ -8,7 +8,7 @@ function mazeParty() {
   document.querySelectorAll('.prty-chr').forEach((el, index) => {
     el.addEventListener('click', () => {
       const canvasContainer = document.querySelector('.canvas__container');
-      inspect(partyCharacters[index]);
+      inspect(partyCharacters[index], canvasContainer as HTMLElement, mazeParty);
       const view = document.getElementById('view');
       const leave = document.getElementById('cancel');
       leave?.addEventListener('click', (event) => {
