@@ -3,6 +3,11 @@ import { createElement, getParty, warning } from './common';
 import { confirm } from './castle/characterCreator';
 import createItemTip from '../itemTip';
 
+const smallStorage = {
+  canvasCont: createElement('div',''),
+  mazeFunc: () => {},
+};
+
 let currentPage = 1;
 
 let charInfo = (character: Character): HTMLElement[] => [createElement('div', character.name)];
@@ -20,9 +25,13 @@ function renderInventory(page: number, character: Character, inventoryBlock: HTM
   }
 }
 
-function inspect(character: Character) {
+function inspect(character: Character, canvasContainer?: HTMLElement, mazeParty?: () => void) {
   if (getParty()) {
     getParty().remove();
+  }
+  if (canvasContainer && mazeParty) {
+    smallStorage.canvasCont = canvasContainer;
+    smallStorage.mazeFunc = mazeParty;
   }
   const view = document.getElementById('view') as HTMLElement;
   view.classList.add('flex');
@@ -34,6 +43,28 @@ function inspect(character: Character) {
   cancelButton.addEventListener('click', () => {
     if (!view.classList.contains('maze')) {
       confirm.func();
+    } else {
+      const children = view?.childNodes;
+      if (children) {
+        Array.from(children).forEach((element) => {
+          element.remove();
+        });
+      }
+      if (canvasContainer) {
+        const locationBlock = createElement('div', 'location-name', 'block');
+        locationBlock.textContent = 'Maze';
+        view?.append(locationBlock);
+        view?.append(canvasContainer);
+        if (mazeParty) {
+          mazeParty();
+        }
+      } else {
+        const locationBlock = createElement('div', 'location-name', 'block');
+        locationBlock.textContent = 'Maze';
+        view?.append(locationBlock);
+        view?.append(smallStorage.canvasCont);
+        smallStorage.mazeFunc();
+      }
     }
   });
   view.appendChild(charTable);
