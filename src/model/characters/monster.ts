@@ -35,7 +35,6 @@ export default class Monster {
   }
 
   attack(target: Character) {
-    console.log(this);
     if (['DEAD', 'ASHES', 'LOST'].includes(target.status)) return;
     if (['ASLEEP', 'STONED', 'PLYZE', 'AFRAID'].includes(this.status)) return;
     if (this.HP <= 0) return;

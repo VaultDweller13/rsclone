@@ -165,7 +165,6 @@ function setStats(bons: number, stats: Record<Stat, number>) {
           newCharacter.alignment
         )
       );
-      console.log(tavern.getParty());
       confirm.func();
     }
   });
@@ -341,7 +340,6 @@ function createCharacter() {
       newCharacter.name = (formBlock.elements[0] as HTMLInputElement).value;
       formBlock.remove();
       setRace();
-      console.log(formBlock);
     }
   });
 }
