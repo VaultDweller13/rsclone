@@ -1,0 +1,135 @@
+import attackDog from '../assets/attackDog.png';
+import bishop from '../assets/bishop.png';
+import bleeb from '../assets/bleeb.png';
+import boringBeetle from '../assets/boringBeetle.png';
+import capybara from '../assets/capybara.png';
+import chimera from '../assets/chimera.png';
+import coyote from '../assets/coyote.png';
+import creepingCoin from '../assets/creepingCoin.png';
+import creepingCrud from '../assets/creepingCrud.png';
+import daimyo from '../assets/daimyo.png';
+import dragonfly from '../assets/dragonfly.png';
+import dragonPuppy from '../assets/dragonPuppy.png';
+import earthGiant from '../assets/earthGiant.png';
+import fighter from '../assets/fighter.png';
+import fireDragon from '../assets/fireDragon.png';
+import fireGiant from '../assets/fireGiant.png';
+import flack from '../assets/flack.png';
+import frostGiant from '../assets/frostGiant.png';
+import gargoyle from '../assets/gargoyle.png';
+import gasCloud from '../assets/gasCloud.png';
+import gasDragon from '../assets/gasDragon.png';
+import gazeHound from '../assets/gazeHound.png';
+import giantToad from '../assets/giantToad.png';
+import gorgon from '../assets/gorgon.png';
+import graveMist from '../assets/graveMist.png';
+import greaterDemon from '../assets/greaterDemon.png';
+import killerWolf from '../assets/killerWolf.png';
+import kobold from '../assets/kobold.png';
+import lesserDemon from '../assets/lesserDemon.png';
+import lifestealer from '../assets/lifestealer.png';
+import mage from '../assets/mage.png';
+import maelific from '../assets/maelific.png';
+import meduzalizard from '../assets/meduzalizard.png';
+import murphysGhost from '../assets/murphysGhost.png';
+import nightstalker from '../assets/nightstalker.png';
+import ninja from '../assets/ninja.png';
+import ogre from '../assets/ogre.png';
+import ogreLord from '../assets/ogreLord.png';
+import orc from '../assets/orc.png';
+import poisonGiant from '../assets/poisonGiant.png';
+import priest from '../assets/priest.png';
+import priestess from '../assets/priestess.png';
+import raverLord from '../assets/raverLord.png';
+import rogue from '../assets/rogue.png';
+import rottingCorpse from '../assets/rottingCorpse.png';
+import samurai from '../assets/samurai.png';
+import shade from '../assets/shade.png';
+import slime from '../assets/slime.png';
+import spirit from '../assets/spirit.png';
+import spider from '../assets/spider.png';
+import swordsman from '../assets/swordsman.png';
+import thief from '../assets/thief.png';
+import troll from '../assets/troll.png';
+import undeadKobold from '../assets/undeadKobold.png';
+import vampire from '../assets/vampire.png';
+import vampireLord from '../assets/vampireLord.png';
+import vorpalBunny from '../assets/vorpalBunny.png';
+import werdna from '../assets/werdna.png';
+import werebear from '../assets/werebear.png';
+import wererat from '../assets/wererat.png';
+import weretiger from '../assets/weretiger.png';
+import werewolf from '../assets/werewolf.png';
+import willowisp from '../assets/willowisp.png';
+import wyvern from '../assets/wyvern.png';
+import zombie from '../assets/zombie.png';
+import zombieDragon from '../assets/zombieDragon.png';
+
+export default {
+  attackDog: attackDog as string,
+  bishop: bishop as string,
+  bleeb: bleeb as string,
+  boringBeetle: boringBeetle as string,
+  capybara: capybara as string,
+  chimera: chimera as string,
+  coyote: coyote as string,
+  creepingCoin: creepingCoin as string,
+  creepingCrud: creepingCrud as string,
+  daimyo: daimyo as string,
+  dragonfly: dragonfly as string,
+  dragonPuppy: dragonPuppy as string,
+  earthGiant: earthGiant as string,
+  fighter: fighter as string,
+  fireDragon: fireDragon as string,
+  fireGiant: fireGiant as string,
+  flack: flack as string,
+  frostGiant: frostGiant as string,
+  gargoyle: gargoyle as string,
+  gasCloud: gasCloud as string,
+  gasDragon: gasDragon as string,
+  gazeHound: gazeHound as string,
+  giantToad: giantToad as string,
+  gorgon: gorgon as string,
+  graveMist: graveMist as string,
+  greaterDemon: greaterDemon as string,
+  killerWolf: killerWolf as string,
+  kobold: kobold as string,
+  lesserDemon: lesserDemon as string,
+  lifestealer: lifestealer as string,
+  mage: mage as string,
+  maelific: maelific as string,
+  meduzalizard: meduzalizard as string,
+  murphysGhost: murphysGhost as string,
+  nightstalker: nightstalker as string,
+  ninja: ninja as string,
+  ogre: ogre as string,
+  ogreLord: ogreLord as string,
+  orc: orc as string,
+  poisonGiant: poisonGiant as string,
+  priest: priest as string,
+  priestess: priestess as string,
+  raverLord: raverLord as string,
+  rogue: rogue as string,
+  rottingCorpse: rottingCorpse as string,
+  samurai: samurai as string,
+  shade: shade as string,
+  slime: slime as string,
+  spirit: spirit as string,
+  spider: spider as string,
+  swordsman: swordsman as string,
+  thief: thief as string,
+  troll: troll as string,
+  undeadKobold: undeadKobold as string,
+  vampire: vampire as string,
+  vampireLord: vampireLord as string,
+  vorpalBunny: vorpalBunny as string,
+  werdna: werdna as string,
+  werebear: werebear as string,
+  wererat: wererat as string,
+  weretiger: weretiger as string,
+  werewolf: werewolf as string,
+  willowisp: willowisp as string,
+  wyvern: wyvern as string,
+  zombie: zombie as string,
+  zombieDragon: zombieDragon as string,
+};

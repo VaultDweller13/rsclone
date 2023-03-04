@@ -1,0 +1,372 @@
+.main {
+  display: flex;
+  justify-content: center;
+  .block {
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 4px;
+    border: 3px solid #ffffff;
+    padding: 10px;
+    margin: 5px;
+  }
+  .hidden {
+    display: none;
+  }
+  .button {
+    align-self: flex-start;
+    text-align: start;
+    background-color: #000000;
+    font-weight: 800;
+    border: none;
+  }
+
+  .button-start {
+    // margin-top: 10vh;
+    align-self: center;
+    padding: 5px 15px;
+    border: 3px solid #ffffff;
+    border-radius: 5px;
+  }
+
+  .block.button {
+    border: 3px solid #ffffff;
+    width: fit-content;
+    margin: 5px auto 0;
+  }
+  .button:hover {
+    cursor: pointer;
+    background-color: #0044ff89;
+  }
+  .button.inactive {
+    background-color: #7f7f7f;
+  }
+  .button.inactive:hover {
+    background-color: #7f7f7f;
+    cursor: default;
+  }
+  .button.selected {
+    background-color: #1b5202;
+  }
+}
+
+.game {
+  border-radius: 5px;
+  padding: 10px 5px;
+  min-width: 400px;
+  max-width: 1400px;
+  aspect-ratio: 1.5;
+  background-color: #000000;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 400px;
+  width: 100%;
+  max-height: 95vh;
+  #view {
+    position: relative;
+    flex-grow: 2;
+    #location-name {
+      max-width: 130px;
+      text-align: center;
+      padding: 3px;
+      position: absolute;
+      margin: auto;
+      top: -17px;
+      left: 0;
+      right: 0;
+      z-index: 20;
+    }
+    #cstl-choice > .button,
+    #current-choice > .button {
+      position: relative;
+    }
+
+    .layer1,
+    .layer2,
+    .layer3 {
+      left: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      background-color: #00000056;
+    }
+    .layer1 {
+      z-index: 2;
+    }
+    .layer2 {
+      z-index: 4;
+    }
+    .layer3 {
+      z-index: 6;
+    }
+    .pop-up {
+      text-align: center;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      width: 30%;
+      height: fit-content;
+    }
+    .left {
+      left: 15px;
+    }
+    .center {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+    .form {
+      width: 45%;
+      height: 45%;
+      justify-content: space-evenly;
+      gap: 0.5em;
+      padding: 15px;
+      align-items: center;
+      min-width: 200px;
+      min-height: 100px;
+    }
+    .input {
+      background-color: #000000;
+      border: #ffffff 3px solid;
+      border-radius: 5px;
+    }
+    .input:hover {
+      background-color: #0044ff89;
+      cursor: pointer;
+    }
+    #char-table {
+      width: 100%;
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+      .stats-block {
+        max-width: 50%;
+      }
+      .items-wrap {
+        text-align: center;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        .items-block {
+          flex-grow: 1;
+        }
+        .items-block#equipment {
+          justify-content: space-around;
+          display: flex;
+          flex-direction: column;
+          .tooltip {
+            left: 5px;
+          }
+        }
+        .items-block#inventory {
+          display: flex;
+          flex-direction: column;
+          .button-wrap {
+            margin-top: auto;
+            #prev,
+            #next {
+              padding: 0 2px 2px;
+              text-align: center;
+            }
+          }
+          .tooltip {
+            right: 5px;
+          }
+        }
+        .item {
+          position: relative;
+          align-self: center;
+        }
+      }
+    }
+    .item {
+      position: relative;
+      align-self: center;
+    }
+    .item .tooltip {
+      display: none;
+    }
+    .item:hover .tooltip {
+      display: block;
+      position: absolute;
+      bottom: 20px;
+      min-width: 270px;
+    }
+    .tooltip {
+      display: none;
+    }
+    .stat-line {
+      position: relative;
+    }
+    .button:hover .tooltip,
+    .stat-line:hover .tooltip {
+      z-index: 5;
+      display: block;
+      position: absolute;
+      top: 30px;
+      min-width: 200px;
+    }
+    #shop {
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      align-items: center;
+    }
+  }
+  .flex#view {
+    display: flex;
+    flex-direction: column;
+  }
+  .flex-default {
+    display: flex;
+    justify-content: space-between;
+  }
+  .flex-around {
+    display: flex;
+    justify-content: space-around;
+  }
+  .maze#view {
+    padding: 0;
+    max-height: 75%;
+  }
+  .maze#view ~ .prty {
+    flex-grow: 1;
+  }
+  #message-text {
+    white-space: pre;
+    text-align: left;
+  }
+  .prty,
+  .tavern {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    .prty-chr {
+      display: flex;
+      justify-content: space-between;
+    }
+    .prty-chr:hover {
+      cursor: pointer;
+      background-color: #0044ff89;
+    }
+    .prty-header :nth-child(1),
+    .prty-chr :nth-child(1) {
+      flex-basis: 30%;
+    }
+    .prty-header :nth-child(2),
+    .prty-chr :nth-child(2) {
+      flex-basis: 30%;
+    }
+    .prty-header :nth-child(3),
+    .prty-chr :nth-child(3) {
+      flex-basis: 30%;
+      text-align: center;
+    }
+    .prty-header :nth-child(4),
+    .prty-header :nth-child(5),
+    .prty-chr :nth-child(4),
+    .prty-chr :nth-child(5) {
+      flex-basis: 10%;
+      text-align: center;
+    }
+    .param-wrap {
+      padding: 0 2px;
+      background-color: #000000;
+    }
+  }
+  .prty {
+    max-height: 36%;
+    flex-basis: content;
+    .prty-body {
+      position: relative;
+      top: -15px;
+    }
+  }
+  .prty-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    top: -21px;
+  }
+  #leave {
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: fit-content;
+    text-align: center;
+    border: #ffffff 3px solid;
+  }
+  .tavern {
+    height: 90%;
+  }
+}
+
+.footer-left {
+  margin-top: auto;
+
+  #rs-image {
+    min-width: 100px;
+    width: 10vw;
+    max-width: 120px;
+  }
+}
+
+.footer-right {
+  margin-top: auto;
+  padding-left: 5px;
+  padding-bottom: 10px;
+
+  #github-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #year {
+    color: #7f7f7f;
+  }
+
+  .link {
+    text-decoration: none;
+    color: #7f7f7f;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+}
+
+.instructions {
+  width: 40%;
+  background-color: #000000;
+  color: #c4c4c4;
+  border-radius: 4px;
+  border: 3px solid #ffffff;
+  padding: 10px;
+  margin-left: auto;
+  margin-top: 5px;
+
+  white-space: pre-line;
+  line-height: 1.25;
+
+  .em {
+    font-style: italic;
+    font-weight: bolder;
+    color: #c4c4c4;
+  }
+
+  .center {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #c4c4c4;
+  }
+}

@@ -1,0 +1,18 @@
+#canvas {
+  aspect-ratio: 990 / 540;
+  width: 100%;
+  background: linear-gradient(to bottom, rgb(99, 99, 99) 0%, black 40%, black 60%, #333 100%);
+}
+
+.canvas__container {
+  height: 100%;
+  width: 100%;
+  background: black;
+}
+
+.main .game .maze#view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: none;
+}

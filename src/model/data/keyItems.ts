@@ -1,0 +1,59 @@
+import type { KeyItems } from '../../types/types';
+
+const keyItems: KeyItems[] = [
+  {
+    name: 'Bear statue',
+    type: 'key',
+    description: 'Statue of a bear',
+    message: `YOU SEE A STATUE OF A BEAR ON A PEDESTAL. ON THE WALL IS A SIGN READING "I'VE GOT A MILLION OF'EM".`,
+  },
+  {
+    name: 'Frog statue',
+    type: 'key',
+    description: 'Statue of a frog',
+    message: `ON A SILVERY DISK STANDS A STATUE OF A FROG WEARING A RED AND BLUE CAPE.
+    THE STATUE ANIMATES AND SHAKES ITS LEGS WHILE IT YELLS "YEAH .. YEAH .."`,
+  },
+  {
+    name: 'Bronze key',
+    type: 'key',
+    description: 'Bronze key',
+    message: `IN THIS ROOM IS A STATUE OF A MONSTER WITH THE BODY OF A CHICKEN AND THE HEAD OF A CAT.
+    THE STATUE IS MADE OF BRONZE, AND LIES ON AN ONYX PEDESTAL.
+    THERE ARE UNUSUAL RUNES ON A PLAQUE THEREON.`,
+  },
+  {
+    name: 'Silver key',
+    type: 'key',
+    description: 'Silver key',
+    message: `IN THIS ROOM IS A SILVER STATUE OF A BOAR. WITH HORNS AND LONG FANGS.
+    ON THE WALL BY THE STATUE IS A MESSAGE (PARTIALLY OBSCURED)
+    THAT APPEARS TO HAVE BEEN LEFT BY PASSING ELVES.
+    IT IS HARDLY LEGIBLE, BUT SOME COMMENTS WARNING ABOUT GHOSTS AND DEMONS CAN STILL BE MADE OUT.`,
+  },
+  {
+    name: 'Gold key',
+    type: 'key',
+    description: 'Gold key',
+    message: `IN THIS ROOM IS A STATUE OF A MONSTER WITH THE BODY OF A CHICKEN AND THE HEAD OF A CAT.
+    THE STATUE IS MADE OF BRONZE, AND LIES ON AN ONYX PEDESTAL.
+    THERE ARE UNUSUAL RUNES ON A PLAQUE THEREON.`,
+  },
+  {
+    name: 'Blue ribbon',
+    type: 'key',
+    description: 'Blue ribbon',
+    message: `AS THE PARTY ENETRS THE ROOM, THE DOOR SLAMS SHUT, GLOWS ORANGE AND VANISHES!
+    A DOOR APPEARS TO THE RIGHT, A VOICE, COMING FROM THE CEILING ADDRESSES YOU:
+    "CONGRATULATIONS, BRAVE ADVENTURERS!
+    TODAY YOU HAVE PROVED YOURSELF TO ME AND ARE NOW READY TO START YOU QUEST!
+    YEARS AGO, MY AMULET WAS STOLEN BY THE EVIL WIZARD WERDNA.
+    WERDNA HIDES INT THE MAZE SOMEWHERE BELLOW US.
+    FIND HIM SLAY HIM AND RETURN TO ME THE AMULET!
+    TO AID YOU IN YOUR QUEST, I WILL GIVE YOU A BLUE RIBBON,
+    WHICH MAY BE USED TO ENTER THE ELEVATOR ON THIS FLOOR.
+    GO NOW - AND MAY THE GODS GUIDE YOU! "`,
+  },
+];
+
+export default keyItems;
