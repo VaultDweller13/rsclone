@@ -25,11 +25,11 @@ module.exports = {
       },
       {
         test: /\.(m4a)$/i,
-        type: 'asset/resource'
+        type: 'asset/resource',
       },
       {
         test: /\.(mp3)$/i,
-        type: 'asset/resource'
+        type: 'asset/resource',
       },
     ],
   },
@@ -39,6 +39,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      favicon: './src/favicon-dark.png',
+      favicon: './src/favicon-light.png',
     }),
     new ESLintPlugin({ extensions: 'ts' }),
   ],
