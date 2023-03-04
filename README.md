@@ -2,7 +2,8 @@
 
 A game based on super famicom version of 1981's game Wizardry: Proving Grounds of the Mad Overlord  
 
-[Deploy](https://vaultdweller13-rsclone.netlify.app/)
+[Deploy](https://vaultdweller13-rsclone.netlify.app/)  
+[RACI Matrix](https://docs.google.com/spreadsheets/d/1sttYfIMeyObKQ8w_cztKz9w8GFtGg2g7Kdnuw_2GuEo/edit#gid=0)
 
 ## Technologies:  
  - Typescript
